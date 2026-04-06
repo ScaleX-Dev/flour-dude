@@ -35,6 +35,10 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: ci
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,22 +48,32 @@ jobs:
         with:
           node-version: 20
 
+      - name: Check Vercel secrets
+        id: vercel_secrets
+        shell: bash
+        run: |
+          if [[ -n "${VERCEL_TOKEN}" && -n "${VERCEL_ORG_ID}" && -n "${VERCEL_PROJECT_ID}" ]]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Skip deploy if Vercel secrets are missing
-        if: ${{ secrets.VERCEL_TOKEN == '' || secrets.VERCEL_ORG_ID == '' || secrets.VERCEL_PROJECT_ID == '' }}
+        if: ${{ steps.vercel_secrets.outputs.enabled != 'true' }}
         run: echo "Vercel secrets not set. CI completed, CD skipped."
 
       - name: Install Vercel CLI
-        if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
+        if: ${{ steps.vercel_secrets.outputs.enabled == 'true' }}
         run: npm i -g vercel@latest
 
       - name: Pull Vercel environment
-        if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        if: ${{ steps.vercel_secrets.outputs.enabled == 'true' }}
+        run: vercel pull --yes --environment=production --token="${VERCEL_TOKEN}"
 
       - name: Build Vercel artifacts
-        if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        if: ${{ steps.vercel_secrets.outputs.enabled == 'true' }}
+        run: vercel build --prod --token="${VERCEL_TOKEN}"
 
       - name: Deploy to Vercel
-        if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        if: ${{ steps.vercel_secrets.outputs.enabled == 'true' }}
+        run: vercel deploy --prebuilt --prod --token="${VERCEL_TOKEN}"
