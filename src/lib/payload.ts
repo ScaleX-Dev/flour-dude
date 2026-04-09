@@ -2,9 +2,11 @@ import { getPayload } from 'payload';
 import config from '../../payload.config';
 import {
   cakePortfolio as seedCakes,
+  faqs as seedFaqs,
   heroImages,
   menuCategories as seedCategories,
-  menuItems as seedItems
+  menuItems as seedItems,
+  siteConfig
 } from '@/lib/site';
 
 let payloadInstance: ReturnType<typeof getPayload> | null = null;
@@ -41,6 +43,27 @@ export type CakeItemData = {
   occasion: string;
 };
 
+export type FAQData = {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+};
+
+export type SiteSettingsData = {
+  siteName: string;
+  tagline: string;
+  location: string;
+  whatsappNumber: string;
+  uberEatsUrl: string;
+  pickMeUrl: string;
+  founderName: string;
+  founderStory: string[];
+  founderPhotoUrl?: string;
+  milestones: Array<{ year: string; label: string }>;
+  galleryImageUrls: string[];
+};
+
 function slugify(value: string): string {
   return value
     .toLowerCase()
@@ -55,6 +78,31 @@ function resolveMediaUrl(media?: number | { url?: string | null } | null): strin
   }
 
   return media.url ?? undefined;
+}
+
+function richTextToPlain(value: unknown): string {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (!value || typeof value !== 'object') {
+    return '';
+  }
+
+  const root = value as { root?: { children?: Array<{ children?: Array<{ text?: string }> }> } };
+  const nodes = root.root?.children;
+  if (!Array.isArray(nodes)) {
+    return '';
+  }
+
+  const lines = nodes
+    .map((node) => {
+      const children = Array.isArray(node.children) ? node.children : [];
+      return children.map((child) => child.text ?? '').join('').trim();
+    })
+    .filter(Boolean);
+
+  return lines.join('\n');
 }
 
 export async function getPayloadClient() {
@@ -255,5 +303,127 @@ export async function getAllCakes(): Promise<CakeItemData[]> {
 
         return 0;
       });
+  }
+}
+
+export async function getFAQs(category?: string): Promise<FAQData[]> {
+  try {
+    const payload = await getPayloadClient();
+    const response = await payload.find({
+      collection: 'faqs',
+      limit: 100,
+      sort: '-createdAt'
+    });
+
+    const docs = (response.docs as Array<Record<string, unknown>>) ?? [];
+    const mapped = docs.map((doc, index) => {
+      const rawCategory = doc.category ?? doc.faqCategory;
+      const normalizedCategory =
+        typeof rawCategory === 'string' ? slugify(rawCategory) : undefined;
+
+      return {
+        id: String(doc.id ?? `faq-${index}`),
+        question: String(doc.question ?? 'Frequently asked question'),
+        answer:
+          typeof doc.answer === 'string'
+            ? doc.answer
+            : richTextToPlain(doc.answerRichText ?? doc.answer),
+        category: normalizedCategory
+      };
+    });
+
+    if (!category) {
+      return mapped;
+    }
+
+    const normalizedCategory = slugify(category);
+    const categoryMatches = mapped.filter((item) => item.category === normalizedCategory);
+    return categoryMatches.length ? categoryMatches : mapped;
+  } catch {
+    return seedFaqs.map((item, index) => ({
+      id: `seed-faq-${index}`,
+      question: item.question,
+      answer: item.answer,
+      category: 'order'
+    }));
+  }
+}
+
+export async function getSiteSettingsData(): Promise<SiteSettingsData> {
+  const fallback: SiteSettingsData = {
+    siteName: siteConfig.name,
+    tagline: 'Baked fresh in Galle',
+    location: siteConfig.locations.join(' & '),
+    whatsappNumber: siteConfig.whatsappNumber,
+    uberEatsUrl: 'https://www.ubereats.com',
+    pickMeUrl: 'https://pickme.lk/food',
+    founderName: 'Founder, Flour Dude',
+    founderStory: [
+      'Flour Dude began as a small passion project in Galle, focused on cakes that feel personal and unforgettable.',
+      'What started with birthday cakes quickly grew into weddings, hotel catering, and daily cafe favorites.',
+      'Every order is still treated with care, from design consultations to the final hand-finished details.'
+    ],
+    founderPhotoUrl: heroImages.celebration,
+    milestones: [
+      { year: '2020', label: 'First custom cake delivered' },
+      { year: '2022', label: 'Expanded to daily cafe menu' },
+      { year: '2024', label: 'Launched full B2B catering services' }
+    ],
+    galleryImageUrls: [
+      heroImages.cake,
+      heroImages.waffle,
+      heroImages.celebration,
+      heroImages.cake,
+      heroImages.waffle,
+      heroImages.celebration
+    ]
+  };
+
+  try {
+    const payload = await getPayloadClient();
+    const result = (await payload.findGlobal({ slug: 'site-settings' })) as Record<string, unknown>;
+
+    const founderStoryRaw = result.founderStory;
+    const founderStory = Array.isArray(founderStoryRaw)
+      ? founderStoryRaw.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+      : typeof founderStoryRaw === 'string'
+        ? founderStoryRaw.split('\n').map((item) => item.trim()).filter(Boolean)
+        : fallback.founderStory;
+
+    const milestonesRaw = Array.isArray(result.milestones) ? result.milestones : [];
+    const milestones = milestonesRaw
+      .map((item) => item as Record<string, unknown>)
+      .filter((item) => typeof item.year === 'string' && typeof item.label === 'string')
+      .map((item) => ({ year: String(item.year), label: String(item.label) }));
+
+    const galleryRaw = Array.isArray(result.galleryImages) ? result.galleryImages : [];
+    const galleryImageUrls = galleryRaw
+      .map((entry) => resolveMediaUrl(entry as number | { url?: string | null } | null))
+      .filter((entry): entry is string => typeof entry === 'string');
+
+    return {
+      siteName: typeof result.siteName === 'string' ? result.siteName : fallback.siteName,
+      tagline: typeof result.tagline === 'string' ? result.tagline : fallback.tagline,
+      location: typeof result.location === 'string' ? result.location : fallback.location,
+      whatsappNumber:
+        typeof result.whatsappNumber === 'string' ? result.whatsappNumber : fallback.whatsappNumber,
+      uberEatsUrl:
+        typeof result.uberEatsUrl === 'string' && result.uberEatsUrl.trim().length
+          ? result.uberEatsUrl
+          : fallback.uberEatsUrl,
+      pickMeUrl:
+        typeof result.pickMeUrl === 'string' && result.pickMeUrl.trim().length
+          ? result.pickMeUrl
+          : fallback.pickMeUrl,
+      founderName: typeof result.founderName === 'string' ? result.founderName : fallback.founderName,
+      founderStory: founderStory.length ? founderStory : fallback.founderStory,
+      founderPhotoUrl:
+        resolveMediaUrl((result.founderPhoto as number | { url?: string | null } | null) ?? null) ??
+        fallback.founderPhotoUrl,
+      milestones: milestones.length ? milestones : fallback.milestones,
+      galleryImageUrls: galleryImageUrls.length ? galleryImageUrls.slice(0, 6) : fallback.galleryImageUrls
+    };
+  } catch {
+    return fallback;
   }
 }
