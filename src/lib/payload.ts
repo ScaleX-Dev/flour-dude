@@ -1,6 +1,11 @@
 import { getPayload } from 'payload';
 import config from '../../payload.config';
-import { heroImages, menuCategories as seedCategories, menuItems as seedItems } from '@/lib/site';
+import {
+  cakePortfolio as seedCakes,
+  heroImages,
+  menuCategories as seedCategories,
+  menuItems as seedItems
+} from '@/lib/site';
 
 let payloadInstance: ReturnType<typeof getPayload> | null = null;
 
@@ -23,6 +28,17 @@ export type MenuItemData = {
   available: boolean;
   badge?: string;
   dietaryTags: string[];
+};
+
+export type CakeItemData = {
+  id: string;
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  priceFrom?: number;
+  featured: boolean;
+  createdAt?: string;
+  occasion: string;
 };
 
 function slugify(value: string): string {
@@ -163,5 +179,81 @@ export async function getMenuItems(): Promise<MenuItemData[]> {
         dietaryTags: index % 4 === 0 ? ['Contains Nuts'] : index % 3 === 0 ? ['Spicy'] : []
       };
     });
+  }
+}
+
+export async function getAllCakes(): Promise<CakeItemData[]> {
+  try {
+    const payload = await getPayloadClient();
+    const response = await payload.find({
+      collection: 'cake-portfolio-items',
+      limit: 250,
+      depth: 1,
+      sort: '-createdAt'
+    });
+
+    const docs = (response.docs as Array<Record<string, unknown>>) ?? [];
+    const mapped = docs.map((doc, index) => {
+      const rawOccasion = doc.occasion ?? doc.occasion_type ?? doc.occasionType;
+      const occasion = typeof rawOccasion === 'string' && rawOccasion.trim().length ? rawOccasion : 'birthdays';
+
+      return {
+        id: String(doc.id ?? `cake-${index}`),
+        name: String(doc.title ?? 'Custom Cake'),
+        description: typeof doc.description === 'string' ? doc.description : undefined,
+        imageUrl: resolveMediaUrl((doc.image as number | { url?: string | null } | null) ?? null),
+        priceFrom: typeof doc.priceFrom === 'number' ? doc.priceFrom : undefined,
+        featured:
+          typeof doc.featured === 'boolean'
+            ? doc.featured
+            : typeof doc.isFeatured === 'boolean'
+              ? doc.isFeatured
+              : false,
+        createdAt: typeof doc.createdAt === 'string' ? doc.createdAt : undefined,
+        occasion: slugify(occasion)
+      };
+    });
+
+    return mapped.sort((a, b) => {
+      if (a.featured !== b.featured) {
+        return a.featured ? -1 : 1;
+      }
+
+      const aTime = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+      const bTime = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+      return bTime - aTime;
+    });
+  } catch {
+    return seedCakes
+      .map((item, index) => {
+        const occasion =
+          index % 5 === 0
+            ? 'weddings'
+            : index % 4 === 0
+              ? 'corporate'
+              : index % 3 === 0
+                ? 'novelty-theme'
+                : index % 2 === 0
+                  ? 'kids'
+                  : 'birthdays';
+
+        return {
+          id: `seed-cake-${index}`,
+          name: item.title,
+          description: item.description ?? undefined,
+          imageUrl: item.imageUrl ?? (index % 2 === 0 ? heroImages.cake : heroImages.waffle),
+          priceFrom: item.priceFrom ?? undefined,
+          featured: index < 2,
+          createdAt: undefined,
+          occasion
+        };
+      })
+      .sort((a, b) => {
+        if (a.featured !== b.featured) {
+          return a.featured ? -1 : 1;
+        }
+
+        return 0;
+      });
   }
 }
