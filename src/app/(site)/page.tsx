@@ -1,32 +1,35 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { BodyText, DisplayHeading, Eyebrow, MutedText, SectionHeading } from '@/components/ui/Typography';
 import { WhatsAppButton } from '@/components/common/WhatsAppButton';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { PromoCountdown } from '@/components/home/PromoCountdown';
 import { ScrollIndicator } from '@/components/home/ScrollIndicator';
 import { TestimonialsCarousel } from '@/components/home/TestimonialsCarousel';
+import { formatLKR, formatPriceDisplay } from '@/lib/formatting';
+import { generateMetadata } from '@/lib/metadata';
 import { getPayloadClient } from '@/lib/payload';
 import {
   buildWhatsAppLink,
   cakePortfolio,
   faqs,
-  formatLkr,
   heroImages,
   menuItems,
   siteConfig,
   testimonials,
   whatsappMessages
 } from '@/lib/site';
+import { WA } from '@/lib/whatsapp';
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
-  title: 'Flour Dude | Custom Cakes, Cafe Menu, and Catering in Galle',
+export const metadata = generateMetadata({
+  title: "Galle's Most Celebrated Cakes & Cafe",
   description:
-    'WhatsApp-first custom cakes, fresh cafe favorites, and catering services in Galle, Sri Lanka.'
-};
+    'Custom cakes, waffles, wraps & coffee in Galle. ⭐ 5.0 on Uber Eats. Order via WhatsApp. Open daily 8:30 AM – 9 PM.',
+  path: '/'
+});
 
 type MediaLike = {
   url?: string | null;
@@ -45,6 +48,7 @@ type CakeCard = {
   title: string;
   description: string;
   priceFrom?: number;
+  askForPricing?: boolean;
   imageUrl: string;
   cardTone: string;
 };
@@ -133,6 +137,7 @@ async function getHomePageData(): Promise<HomePageData> {
     title: item.title,
     description: item.description ?? 'Custom crafted for celebrations.',
     priceFrom: item.priceFrom ?? undefined,
+    askForPricing: false,
     imageUrl: item.imageUrl,
     cardTone: toneClasses[index % toneClasses.length]
   }));
@@ -196,6 +201,7 @@ async function getHomePageData(): Promise<HomePageData> {
         title: String(item.title ?? 'Signature Cake'),
         description: String(item.description ?? 'Custom crafted for celebrations.'),
         priceFrom: typeof item.priceFrom === 'number' ? item.priceFrom : undefined,
+        askForPricing: item.show_price === false,
         imageUrl: resolveMediaUrl((item.image as number | MediaLike | null | undefined) ?? null) ?? heroImages.cake,
         cardTone: toneClasses[index % toneClasses.length]
       }))
@@ -285,9 +291,21 @@ async function getHomePageData(): Promise<HomePageData> {
 
 export default async function SiteHomePage() {
   const data = await getHomePageData();
+  const aggregateRatingSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AggregateRating',
+    itemReviewed: {
+      '@type': 'Bakery',
+      name: 'Flour Dude',
+      url: 'https://flourdude.lk'
+    },
+    ratingValue: '5.0',
+    reviewCount: '140'
+  };
 
   return (
     <>
+      <SchemaMarkup id="schema-home-aggregate-rating" schema={aggregateRatingSchema} />
       <section className="relative min-h-[92vh] overflow-hidden bg-brown-deep text-warmWhite">
         <Image
           src={heroImages.cake}
@@ -355,7 +373,7 @@ export default async function SiteHomePage() {
                 <h3 className="mt-3 font-display text-2xl text-brown-deep">{item.name}</h3>
                 <MutedText className="mt-2">{item.description}</MutedText>
                 <p className="mt-4 text-sm font-semibold text-brown-mid">
-                  {typeof item.price === 'number' ? formatLkr(item.price) : 'Custom quote'}
+                  {formatLKR(item.price ?? 0)}
                 </p>
               </article>
             ))}
@@ -392,12 +410,10 @@ export default async function SiteHomePage() {
                   <h3 className="font-semibold text-brown-deep">{cake.title}</h3>
                   <MutedText>{cake.description}</MutedText>
                   <p className="text-sm font-semibold text-brown-mid">
-                    {typeof cake.priceFrom === 'number' ? `From ${formatLkr(cake.priceFrom)}` : 'Starting prices on request'}
+                    {formatPriceDisplay(cake.priceFrom ?? null, true, cake.askForPricing ?? false)}
                   </p>
                   <a
-                    href={buildWhatsAppLink(
-                      whatsappMessages.cakeOrder.replace('[CAKE NAME]', cake.title)
-                    )}
+                    href={WA.cakeOrder(cake.title)}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex pt-1 text-sm font-semibold text-caramel hover:text-caramel-light"
@@ -472,6 +488,7 @@ export default async function SiteHomePage() {
             <MutedText>
               We build reliable catering plans for recurring office needs, launches, weddings, and hospitality partners in Galle and nearby areas.
             </MutedText>
+            <p className="text-sm font-semibold text-brown-mid">Packages from {formatLKR(15000)}</p>
             <WhatsAppButton label="Discuss B2B Catering" messageType="b2b" />
           </div>
 

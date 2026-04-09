@@ -1,7 +1,8 @@
-import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { DisplayHeading, MutedText, SectionHeading } from '@/components/ui/Typography';
+import { generateMetadata } from '@/lib/metadata';
 import { getFAQs } from '@/lib/payload';
 import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
 
@@ -13,10 +14,12 @@ function toPlainText(value: string | Record<string, unknown>) {
   return '';
 }
 
-export const metadata: Metadata = {
-  title: 'How to Order | Flour Dude',
-  description: 'Simple 3-step ordering flow for custom cakes and celebrations.'
-};
+export const metadata = generateMetadata({
+  title: 'How to Order a Custom Cake | Flour Dude Galle',
+  description:
+    'Three simple steps to order your custom cake from Flour Dude in Galle. Message on WhatsApp, approve the design, receive fresh delivery.',
+  path: '/order'
+});
 
 const steps = [
   {
@@ -41,9 +44,27 @@ const steps = [
 
 export default async function OrderPage() {
   const faqs = await getFAQs('order');
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'How to Order', path: '/order' }
+  ]);
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: toPlainText(faq.answer)
+      }
+    }))
+  };
 
   return (
     <>
+      <SchemaMarkup id="schema-breadcrumb-order" schema={breadcrumbSchema} />
+      {faqs.length ? <SchemaMarkup id="schema-faq-order" schema={faqSchema} /> : null}
       <section className="bg-cream py-16">
         <div className="content-shell space-y-3 text-center">
           <DisplayHeading>Ordering is Simple</DisplayHeading>

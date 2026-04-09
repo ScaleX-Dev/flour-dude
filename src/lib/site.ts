@@ -1,4 +1,6 @@
 import type { CakePortfolioItem, FAQ, MenuCategory, MenuItem, Testimonial } from '@/payload-types';
+import { formatLKR } from '@/lib/formatting';
+import { WA, buildWhatsAppURL } from '@/lib/whatsapp';
 
 export const siteConfig = {
   name: 'Flour Dude',
@@ -17,16 +19,25 @@ export const whatsappMessages = {
   default: "Hi Flour Dude! I'd like to place an order. Can you help?",
   cakeOrder: "Hi Flour Dude! I'd like to order a [CAKE NAME]. Can you help?",
   customCake: "Hi Flour Dude! I'd like to order a custom cake. Can you tell me about designs and pricing?",
-  b2b: "Hi Flour Dude! I'm interested in catering for an event. Can we discuss?"
+  b2b: "Hi Flour Dude! I'm interested in catering for an event. Can we discuss?",
+  menu: 'Hi Flour Dude! I have a question about your menu.'
 } as const;
 
 export function buildWhatsAppLink(message: string): string {
-  return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
+  return buildWhatsAppURL(message, siteConfig.whatsappNumber);
 }
 
 export function formatLkr(value: number): string {
-  return `LKR ${new Intl.NumberFormat('en-LK').format(value)}`;
+  return formatLKR(value);
 }
+
+export const whatsappLinks = {
+  default: WA.default,
+  customCake: WA.customCake,
+  b2b: WA.b2b,
+  menu: WA.menu,
+  cakeOrder: WA.cakeOrder
+};
 
 export const heroImages = {
   cake:

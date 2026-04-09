@@ -1,15 +1,20 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import { MessageCircleMore } from 'lucide-react';
 import { EventInquiryForm } from '@/components/events/EventInquiryForm';
+import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { Button } from '@/components/ui/button';
 import { DisplayHeading, Eyebrow, SectionHeading, MutedText } from '@/components/ui/Typography';
-import { buildWhatsAppLink, heroImages, whatsappMessages } from '@/lib/site';
+import { formatLKR } from '@/lib/formatting';
+import { generateMetadata } from '@/lib/metadata';
+import { heroImages } from '@/lib/site';
+import { WA } from '@/lib/whatsapp';
 
-export const metadata: Metadata = {
-  title: 'Events & Catering | Flour Dude',
-  description: 'Custom cakes and catering for weddings, corporate events, and hotels in Galle.'
-};
+export const metadata = generateMetadata({
+  title: 'Event Catering & Corporate Cakes in Galle',
+  description:
+    'B2B catering, wedding cakes, corporate events in Galle & Southern Province. Get a custom quote from Flour Dude.',
+  path: '/events'
+});
 
 const services = [
   {
@@ -43,8 +48,14 @@ const highlights = [
 const steps = ['Get in touch', 'We plan together', 'We deliver'];
 
 export default function EventsPage() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Events', path: '/events' }
+  ]);
+
   return (
     <>
+      <SchemaMarkup id="schema-breadcrumb-events" schema={breadcrumbSchema} />
       <section className="relative min-h-[460px] overflow-hidden bg-brown-deep">
         <Image src={heroImages.celebration} alt="Flour Dude event catering setup" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-black/60" />
@@ -55,13 +66,14 @@ export default function EventsPage() {
           <MutedText className="max-w-3xl text-cream/85">
             Hotels, corporate offices, wedding planners — we create experiences, not just cakes
           </MutedText>
+          <p className="text-sm font-semibold text-caramel-light">Packages from {formatLKR(15000)}</p>
           <div className="flex flex-wrap gap-3">
             <a href="#event-inquiry-form">
               <Button variant="primary" size="lg">
                 Get a Custom Quote
               </Button>
             </a>
-            <a href={buildWhatsAppLink(whatsappMessages.b2b)} target="_blank" rel="noreferrer">
+            <a href={WA.b2b()} target="_blank" rel="noreferrer">
               <Button variant="whatsapp" size="lg">
                 <MessageCircleMore className="h-4 w-4" />
                 Chat on WhatsApp

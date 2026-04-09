@@ -6,8 +6,10 @@ import { useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-import { buildWhatsAppLink, formatLkr, whatsappMessages } from '@/lib/site';
+import { formatPriceDisplay } from '@/lib/formatting';
+import { WA } from '@/lib/whatsapp';
 import { Button } from '@/components/ui/button';
+import { CakeOrderButton } from '@/components/ui/CakeOrderButton';
 import type { CakePortfolioItem } from '@/payload-types';
 
 type CakeItem = {
@@ -16,6 +18,7 @@ type CakeItem = {
   description?: string;
   imageUrl?: string;
   priceFrom?: number;
+  askForPricing?: boolean;
   featured?: boolean;
   createdAt?: string;
   occasion: string;
@@ -59,8 +62,7 @@ function normalizeOccasion(value: string): string {
 }
 
 function getCakeWhatsappHref(cakeName: string): string {
-  const message = whatsappMessages.cakeOrder.replace('[CAKE NAME]', cakeName);
-  return buildWhatsAppLink(message);
+  return WA.cakeOrder(cakeName);
 }
 
 export function CakeFilter({ cakes }: CakeFilterProps) {
@@ -89,6 +91,9 @@ export function CakeFilter({ cakes }: CakeFilterProps) {
           ? cake.occasion_tags[0]
           : 'birthdays';
 
+        const showPriceToggle =
+          typeof cake.show_price === 'boolean' ? cake.show_price : true;
+
         return {
           id: cake.id,
           name: cake.name ?? cake.title ?? `Cake ${index + 1}`,
@@ -100,6 +105,7 @@ export function CakeFilter({ cakes }: CakeFilterProps) {
               : typeof cake.priceFrom === 'number'
                 ? cake.priceFrom
                 : undefined,
+          askForPricing: !showPriceToggle,
           featured: cake.featured ?? false,
           createdAt: cake.createdAt,
           occasion: normalizeOccasion(occasion)
@@ -228,16 +234,9 @@ export function CakeFilter({ cakes }: CakeFilterProps) {
 
                 <div className="flex items-center justify-between gap-2">
                   <p className="font-display text-[13px] text-caramel">
-                    {typeof cake.priceFrom === 'number' ? `From ${formatLkr(cake.priceFrom)}` : 'Ask for pricing'}
+                    {formatPriceDisplay(cake.priceFrom ?? null, true, cake.askForPricing ?? false)}
                   </p>
-                  <a
-                    href={getCakeWhatsappHref(cake.name)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-pill bg-wa px-2.5 py-1 text-[11px] font-semibold text-white transition hover:bg-green-500"
-                  >
-                    Order This Style →
-                  </a>
+                  <CakeOrderButton cakeName={cake.name} />
                 </div>
               </div>
             </article>
@@ -285,7 +284,7 @@ export function CakeFilter({ cakes }: CakeFilterProps) {
       <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-brown-deep px-4 py-3 md:hidden">
         <div className="mx-auto flex max-w-[680px] items-center justify-between gap-3">
           <p className="text-xs text-cream/85">Don&apos;t see what you want? We make fully custom designs.</p>
-          <Link href={buildWhatsAppLink(whatsappMessages.customCake)} target="_blank" rel="noreferrer">
+          <Link href={WA.customCake()} target="_blank" rel="noreferrer">
             <Button variant="whatsapp" size="sm" className="whitespace-nowrap">
               Chat with us →
             </Button>

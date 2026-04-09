@@ -1,15 +1,18 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { Button } from '@/components/ui/button';
 import { DisplayHeading, Eyebrow, SectionHeading, MutedText } from '@/components/ui/Typography';
+import { generateMetadata } from '@/lib/metadata';
 import { getSiteSettingsData } from '@/lib/payload';
 import { buildWhatsAppLink, heroImages, whatsappMessages } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'About Flour Dude',
-  description: 'Founder-led handcrafted cake studio and cafe in Galle, Sri Lanka.'
-};
+export const metadata = generateMetadata({
+  title: 'About Flour Dude — Our Story · Galle Bakery',
+  description:
+    "Meet the team behind Flour Dude — Galle's most celebrated bakery and custom cake studio. Baked with love every day.",
+  path: '/about'
+});
 
 const values = [
   {
@@ -37,9 +40,14 @@ const values = [
 export default async function AboutPage() {
   const settings = await getSiteSettingsData();
   const founderImage = settings.founderPhotoUrl ?? heroImages.celebration;
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' }
+  ]);
 
   return (
     <>
+      <SchemaMarkup id="schema-breadcrumb-about" schema={breadcrumbSchema} />
       <section className="relative min-h-[420px] overflow-hidden bg-brown-deep">
         <Image src={founderImage} alt="Founder of Flour Dude" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-black/55" />

@@ -1,23 +1,31 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import { CakeFilter } from '@/components/cakes/CakeFilter';
+import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { DisplayHeading, MutedText } from '@/components/ui/Typography';
 import { Button } from '@/components/ui/button';
+import { generateMetadata } from '@/lib/metadata';
 import { getAllCakes } from '@/lib/payload';
 import { buildWhatsAppLink, heroImages, whatsappMessages } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Custom Cakes | Flour Dude',
-  description: 'Discover custom cake styles for birthdays, weddings, and special occasions in Galle.'
-};
+export const metadata = generateMetadata({
+  title: 'Custom Cakes Galle — Birthdays, Weddings & Events',
+  description:
+    'Order a custom cake in Galle from Flour Dude. Birthdays, weddings, corporate events. ⭐ 5-star rated. WhatsApp to order.',
+  path: '/cakes'
+});
 
 export const revalidate = 60;
 
 export default async function CakesPage() {
   const cakes = await getAllCakes();
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Custom Cakes', path: '/cakes' }
+  ]);
 
   return (
     <>
+      <SchemaMarkup id="schema-breadcrumb-cakes" schema={breadcrumbSchema} />
       <section className="relative h-[400px] overflow-hidden">
         <Image
           src={heroImages.cake}

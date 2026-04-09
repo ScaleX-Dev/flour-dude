@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { trackDeliveryClick } from '@/lib/analytics';
-import { formatLkr } from '@/lib/site';
+import { formatLKR } from '@/lib/formatting';
 
 type MenuCategory = {
   id: string | number;
@@ -124,7 +124,7 @@ export function DeliveryOrderButtons({
         href={uberEatsUrl}
         target="_blank"
         rel="noreferrer"
-        onClick={() => trackDeliveryClick('uber-eats', placement)}
+        onClick={() => trackDeliveryClick('uber_eats')}
         className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-[#FF6600] px-4 py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
           compact ? 'min-h-[44px]' : 'min-h-[48px]'
         }`}
@@ -137,7 +137,7 @@ export function DeliveryOrderButtons({
         href={pickMeUrl}
         target="_blank"
         rel="noreferrer"
-        onClick={() => trackDeliveryClick('pickme-food', placement)}
+        onClick={() => trackDeliveryClick('pickme')}
         className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-[#E31837] px-4 py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
           compact ? 'min-h-[44px]' : 'min-h-[48px]'
         }`}
@@ -297,6 +297,12 @@ export function MenuCatalogClient({
 
             return (
               <article key={item.id} className="relative overflow-hidden rounded-cake border border-borderColor bg-warmWhite shadow-soft">
+                {!item.available ? (
+                  <span className="absolute left-3 top-3 z-[2] rounded-pill bg-red-600 px-2.5 py-1 text-xs font-semibold text-white">
+                    Sold Out
+                  </span>
+                ) : null}
+
                 {item.badge ? (
                   <span className="absolute right-3 top-3 z-[2] rounded-pill bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
                     {item.badge}
@@ -320,13 +326,11 @@ export function MenuCatalogClient({
                 <div className="space-y-3 p-4">
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="text-[15px] font-bold text-brown-deep">{item.name}</h3>
-                    <span
-                      className={`inline-flex shrink-0 rounded-pill px-2.5 py-1 text-xs font-medium ${
-                        item.available ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'
-                      }`}
-                    >
-                      {item.available ? 'Available' : 'Sold Out'}
-                    </span>
+                    {item.available ? (
+                      <span className="inline-flex shrink-0 rounded-pill bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
+                        Available
+                      </span>
+                    ) : null}
                   </div>
 
                   {item.dietaryTags.length ? (
@@ -348,7 +352,7 @@ export function MenuCatalogClient({
                       item.available ? '' : 'line-through text-red-600/80'
                     }`}
                   >
-                    {formatLkr(item.price)}
+                    {formatLKR(item.price)}
                   </p>
                 </div>
               </article>

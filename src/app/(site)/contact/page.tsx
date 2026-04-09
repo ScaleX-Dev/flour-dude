@@ -1,21 +1,29 @@
-import type { Metadata } from 'next';
 import { AtSign, Clock3, MapPin } from 'lucide-react';
 import { GeneralInquiryForm } from '@/components/contact/GeneralInquiryForm';
+import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { Button } from '@/components/ui/button';
 import { SectionHeading, MutedText } from '@/components/ui/Typography';
+import { generateMetadata } from '@/lib/metadata';
 import { getSiteSettingsData } from '@/lib/payload';
 import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Contact | Flour Dude',
-  description: 'Visit Flour Dude in Galle or message us for custom cake and catering inquiries.'
-};
+export const metadata = generateMetadata({
+  title: 'Contact Flour Dude — Galle Bakery & Cafe',
+  description:
+    'Visit Flour Dude at Bandara Mawatha, Galle. Open daily 8:30 AM – 9 PM. Order on Uber Eats, PickMe, or WhatsApp.',
+  path: '/contact'
+});
 
 export default async function ContactPage() {
   const settings = await getSiteSettingsData();
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact' }
+  ]);
 
   return (
     <>
+      <SchemaMarkup id="schema-breadcrumb-contact" schema={breadcrumbSchema} />
       <section className="section-space bg-warmWhite">
         <div className="content-shell grid gap-6 lg:grid-cols-[1.5fr_1fr]">
           <article className="space-y-5 rounded-card border border-borderColor bg-cream p-6">

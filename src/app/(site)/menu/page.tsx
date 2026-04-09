@@ -1,16 +1,20 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { DisplayHeading, Eyebrow, MutedText, SectionHeading } from '@/components/ui/Typography';
 import { Button } from '@/components/ui/button';
 import { DeliveryOrderButtons, MenuCatalogClient } from '@/components/menu/MenuCatalogClient';
+import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
+import { formatLKR } from '@/lib/formatting';
+import { generateMetadata } from '@/lib/metadata';
 import { getMenuCategories, getMenuItems, getPayloadClient } from '@/lib/payload';
 import { heroImages } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Our Menu | Flour Dude',
-  description: 'Browse cakes, waffles, wraps, coffee, and drinks from Flour Dude in Galle.'
-};
+export const metadata = generateMetadata({
+  title: 'Menu — Cakes, Waffles, Coffee & More',
+  description:
+    'Browse the full Flour Dude menu in Galle. Order on Uber Eats or PickMe. Fresh daily from LKR 550.',
+  path: '/menu'
+});
 
 export const revalidate = 60;
 
@@ -114,9 +118,14 @@ async function getPageData() {
 
 export default async function MenuPage() {
   const { categories, items, specialBanner, settings } = await getPageData();
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Menu', path: '/menu' }
+  ]);
 
   return (
     <>
+      <SchemaMarkup id="schema-breadcrumb-menu" schema={breadcrumbSchema} />
       <section className="relative h-[280px] overflow-hidden bg-brown-deep">
         <Image
           src={heroImages.waffle}
@@ -145,7 +154,7 @@ export default async function MenuPage() {
 
       {specialBanner ? (
         <section className="bg-caramel py-2.5 text-center text-sm font-medium text-white">
-          <div className="content-shell">Today&apos;s Special: {specialBanner.headline} — LKR {new Intl.NumberFormat('en-LK').format(specialBanner.price)}</div>
+          <div className="content-shell">Today&apos;s Special: {specialBanner.headline} — {formatLKR(specialBanner.price)}</div>
         </section>
       ) : null}
 

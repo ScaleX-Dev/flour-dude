@@ -1,32 +1,23 @@
-type DeliveryProvider = 'uber-eats' | 'pickme-food';
+declare function gtag(...args: unknown[]): void;
 
-type DeliveryPlacement = 'hero' | 'sticky-mobile';
-
-declare global {
-  interface Window {
-    dataLayer?: Array<Record<string, unknown>>;
+export function trackWhatsAppClick(source: string, cakeName?: string): void {
+  if (typeof window !== 'undefined' && typeof gtag !== 'undefined') {
+    gtag('event', 'whatsapp_click', {
+      event_category: 'conversion',
+      event_label: source,
+      cake_name: cakeName ?? 'none'
+    });
   }
 }
 
-export function trackDeliveryClick(provider: DeliveryProvider, placement: DeliveryPlacement) {
-  if (typeof window === 'undefined') {
-    return;
+export function trackFormSubmit(formName: string): void {
+  if (typeof window !== 'undefined' && typeof gtag !== 'undefined') {
+    gtag('event', 'form_submit', { form_name: formName });
   }
+}
 
-  const payload = {
-    event: 'delivery_cta_click',
-    provider,
-    placement,
-    timestamp: new Date().toISOString()
-  };
-
-  if (Array.isArray(window.dataLayer)) {
-    window.dataLayer.push(payload);
-  }
-
-  if (process.env.NODE_ENV !== 'production') {
-    // Helpful during local QA without requiring analytics tooling.
-    // eslint-disable-next-line no-console
-    console.info('[analytics]', payload);
+export function trackDeliveryClick(platform: 'uber_eats' | 'pickme'): void {
+  if (typeof window !== 'undefined' && typeof gtag !== 'undefined') {
+    gtag('event', 'delivery_link_click', { platform });
   }
 }
