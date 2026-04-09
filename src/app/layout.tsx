@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { DM_Sans, Playfair_Display } from 'next/font/google';
-import { Footer } from '@/components/layout/Footer';
-import { Header } from '@/components/layout/Header';
-import { WhatsAppFab } from '@/components/layout/WhatsAppFab';
+import { SiteFooter } from '@/components/layout/SiteFooter';
+import { SiteHeader } from '@/components/layout/SiteHeader';
+import { WhatsAppFAB } from '@/components/layout/WhatsAppFab';
+import { LOCAL_BUSINESS_SCHEMA, SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/lib/site';
 import './globals.css';
 
@@ -23,10 +24,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.baseUrl),
-  title: {
-    default: 'Flour Dude — Custom Cakes, Cafe & Catering · Galle, Sri Lanka',
-    template: `%s | ${siteConfig.name}`
-  },
+  title: 'Flour Dude — Custom Cakes, Cafe & Catering · Galle, Sri Lanka',
   description: siteConfig.description,
   keywords: ['custom cakes Galle', 'bakery Galle', 'waffles Galle', 'cake delivery Galle', 'Flour Dude'],
   openGraph: {
@@ -42,10 +40,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
       <body>
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <WhatsAppFab />
+        <SchemaMarkup id="schema-local-business" schema={LOCAL_BUSINESS_SCHEMA} />
+        <SiteHeader />
+        <main className="min-h-screen pt-[var(--header-height)]">{children}</main>
+        <SiteFooter />
+        <WhatsAppFAB />
       </body>
     </html>
   );

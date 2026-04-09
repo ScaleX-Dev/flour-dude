@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { formatLkr } from '@/lib/site';
+import { formatLKR } from '@/lib/formatting';
 
 type Category = {
   slug: string;
@@ -75,11 +75,7 @@ export function MenuTabs({ categories, items }: MenuTabsProps) {
                   </span>
                 ) : null}
               </div>
-              {typeof item.price === 'number' ? (
-                <p className="mt-3 text-sm font-semibold text-brand-deepBrown sm:mt-0">{formatLkr(item.price)}</p>
-              ) : (
-                <p className="mt-3 text-sm font-semibold text-brand-rose sm:mt-0">Custom quote</p>
-              )}
+              <p className="mt-3 text-sm font-semibold text-brand-deepBrown sm:mt-0">{formatLKR(item.price ?? 0)}</p>
             </article>
           ))}
         </div>
