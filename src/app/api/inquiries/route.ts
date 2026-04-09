@@ -19,26 +19,21 @@ export async function POST(request: Request) {
     const body = await request.json();
     const values = schema.parse(body);
 
-    const message = [
-      `Event Type: ${values.eventType}`,
-      `Event Date: ${values.eventDate}`,
-      `Estimated Guest Count: ${values.guestCount}`,
-      values.organization ? `Organisation / Venue: ${values.organization}` : null,
-      values.budgetRange ? `Budget Range: ${values.budgetRange}` : null,
-      values.message ? `Details: ${values.message}` : null
-    ]
-      .filter(Boolean)
-      .join('\n');
-
     const payload = await getPayloadClient();
     await payload.create({
       collection: 'inquiries',
+      overrideAccess: true,
       data: {
         name: values.fullName,
         email: values.email,
         phone: values.phone,
-        message,
-        source: 'contact-page'
+        organisation: values.organization,
+        event_type: values.eventType,
+        event_date: values.eventDate,
+        guest_count: values.guestCount,
+        budget_range: values.budgetRange,
+        message: values.message,
+        status: 'new'
       }
     });
 

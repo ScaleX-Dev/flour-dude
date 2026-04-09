@@ -16,12 +16,17 @@ export async function POST(request: Request) {
     const payload = await getPayloadClient();
     await payload.create({
       collection: 'inquiries',
+      overrideAccess: true,
       data: {
         name: values.name,
         email: values.email,
         phone: '',
+        event_type: 'General Inquiry',
+        event_date: new Date().toISOString(),
+        guest_count: 0,
+        budget_range: '',
         message: values.message,
-        source: 'contact-page'
+        status: 'new'
       }
     });
 

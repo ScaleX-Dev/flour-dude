@@ -8,14 +8,15 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { buildWhatsAppLink, formatLkr, whatsappMessages } from '@/lib/site';
 import { Button } from '@/components/ui/button';
+import type { CakePortfolioItem } from '@/payload-types';
 
 type CakeItem = {
-  id: string;
+  id: string | number;
   name: string;
   description?: string;
   imageUrl?: string;
   priceFrom?: number;
-  featured: boolean;
+  featured?: boolean;
   createdAt?: string;
   occasion: string;
 };
@@ -27,7 +28,7 @@ type FilterPill = {
 };
 
 type CakeFilterProps = {
-  cakes: CakeItem[];
+  cakes: CakePortfolioItem[];
 };
 
 const pills: FilterPill[] = [
@@ -75,10 +76,35 @@ export function CakeFilter({ cakes }: CakeFilterProps) {
 
   const normalizedCakes = useMemo(
     () =>
-      cakes.map((cake) => ({
-        ...cake,
-        occasion: normalizeOccasion(cake.occasion)
-      })),
+      cakes.map((cake, index) => {
+        const firstPhoto = Array.isArray(cake.photos) ? cake.photos[0] : null;
+        const imageUrl =
+          typeof firstPhoto?.image === 'object' && firstPhoto.image
+            ? firstPhoto.image.url ?? undefined
+            : typeof cake.image === 'object' && cake.image
+              ? cake.image.url ?? undefined
+              : undefined;
+
+        const occasion = Array.isArray(cake.occasion_tags) && cake.occasion_tags[0]
+          ? cake.occasion_tags[0]
+          : 'birthdays';
+
+        return {
+          id: cake.id,
+          name: cake.name ?? cake.title ?? `Cake ${index + 1}`,
+          description: cake.description ?? undefined,
+          imageUrl,
+          priceFrom:
+            typeof cake.starting_price === 'number'
+              ? cake.starting_price
+              : typeof cake.priceFrom === 'number'
+                ? cake.priceFrom
+                : undefined,
+          featured: cake.featured ?? false,
+          createdAt: cake.createdAt,
+          occasion: normalizeOccasion(occasion)
+        } as CakeItem;
+      }),
     [cakes]
   );
 

@@ -6,24 +6,30 @@ import { trackDeliveryClick } from '@/lib/analytics';
 import { formatLkr } from '@/lib/site';
 
 type MenuCategory = {
-  id: string;
+  id: string | number;
   name: string;
-  slug: string;
-  description?: string;
-  sortOrder: number;
+  slug?: string | null;
+  description?: string | null;
+  sortOrder?: number;
+  sort_order?: number | null;
 };
 
 type MenuItem = {
-  id: string;
+  id: string | number;
   name: string;
-  description?: string;
-  price: number;
-  categorySlug: string;
-  sortOrder: number;
+  description?: string | null;
+  price?: number;
+  price_lkr?: number;
+  categorySlug?: string;
+  sortOrder?: number;
+  sort_order?: number | null;
   imageUrl?: string;
-  available: boolean;
-  badge?: string;
-  dietaryTags: string[];
+  photo?: { url?: string | null } | number | null;
+  available?: boolean | null;
+  badge?: string | null;
+  allergens?: string[] | null;
+  dietaryTags?: string[];
+  category?: { slug?: string | null; name?: string | null } | number | null;
 };
 
 type MenuCatalogClientProps = {
@@ -78,6 +84,10 @@ function truncateDescription(value: string | undefined): string {
 
   return `${value.slice(0, 80).trimEnd()}...`;
 }
+
+  function normalizeNullableText(value: string | null | undefined): string | undefined {
+    return typeof value === 'string' ? value : undefined;
+  }
 
 function UberEatsLogo() {
   return (
@@ -146,9 +156,62 @@ export function MenuCatalogClient({
   pickMeUrl,
   heroCtaId = 'menu-hero-ctas'
 }: MenuCatalogClientProps) {
-  const sortedCategories = useMemo(
-    () => [...categories].sort((a, b) => a.sortOrder - b.sortOrder),
+  const normalizedCategories = useMemo(
+    () =>
+      categories.map((category) => ({
+        ...category,
+        slug: category.slug ?? normalizeSlug(category.name),
+        sortOrder:
+          typeof category.sortOrder === 'number'
+            ? category.sortOrder
+            : typeof category.sort_order === 'number'
+              ? category.sort_order
+              : 0
+      })),
     [categories]
+  );
+
+  const sortedCategories = useMemo(
+    () => [...normalizedCategories].sort((a, b) => a.sortOrder - b.sortOrder),
+    [normalizedCategories]
+  );
+
+  const normalizedItems = useMemo(
+    () =>
+      items.map((item) => {
+        const categoryFromRelation =
+          typeof item.category === 'object' && item.category
+            ? item.category.slug ?? normalizeSlug(item.category.name ?? 'all')
+            : undefined;
+
+        const categorySlug =
+          item.categorySlug ?? categoryFromRelation ?? 'all';
+
+        const photoUrl =
+          item.imageUrl ??
+          (typeof item.photo === 'object' && item.photo ? item.photo.url ?? undefined : undefined);
+
+        return {
+          ...item,
+          categorySlug,
+          sortOrder:
+            typeof item.sortOrder === 'number'
+              ? item.sortOrder
+              : typeof item.sort_order === 'number'
+                ? item.sort_order
+                : 0,
+          price:
+            typeof item.price === 'number'
+              ? item.price
+              : typeof item.price_lkr === 'number'
+                ? item.price_lkr
+                : 0,
+          available: item.available ?? true,
+          dietaryTags: item.dietaryTags ?? item.allergens ?? [],
+          imageUrl: photoUrl
+        };
+      }),
+    [items]
   );
 
   const tabs = useMemo<TabItem[]>(() => {
@@ -191,14 +254,14 @@ export function MenuCatalogClient({
   }, [heroCtaId]);
 
   const filteredItems = useMemo(() => {
-    const list = [...items].sort((a, b) => a.sortOrder - b.sortOrder);
+    const list = [...normalizedItems].sort((a, b) => a.sortOrder - b.sortOrder);
 
     if (activeTab === 'all') {
       return list;
     }
 
     return list.filter((item) => normalizeSlug(item.categorySlug) === activeTab);
-  }, [activeTab, items]);
+  }, [activeTab, normalizedItems]);
 
   return (
     <>
@@ -277,7 +340,7 @@ export function MenuCatalogClient({
                   ) : null}
 
                   <p className="overflow-hidden text-[13px] text-textMuted [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
-                    {truncateDescription(item.description)}
+                    {truncateDescription(normalizeNullableText(item.description))}
                   </p>
 
                   <p

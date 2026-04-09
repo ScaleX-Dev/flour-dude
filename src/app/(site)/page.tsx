@@ -149,7 +149,7 @@ async function getHomePageData(): Promise<HomePageData> {
   const fallbackFaqs: FaqItem[] = faqs.slice(0, 4).map((item, index) => ({
     id: `seed-faq-${index}`,
     question: item.question,
-    answer: item.answer
+    answer: typeof item.answer === 'string' ? item.answer : ''
   }));
 
   try {

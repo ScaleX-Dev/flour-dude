@@ -5,6 +5,14 @@ import { DisplayHeading, MutedText, SectionHeading } from '@/components/ui/Typog
 import { getFAQs } from '@/lib/payload';
 import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
 
+function toPlainText(value: string | Record<string, unknown>) {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  return '';
+}
+
 export const metadata: Metadata = {
   title: 'How to Order | Flour Dude',
   description: 'Simple 3-step ordering flow for custom cakes and celebrations.'
@@ -82,9 +90,9 @@ export default async function OrderPage() {
           <SectionHeading>Frequently Asked Questions</SectionHeading>
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq) => (
-              <AccordionItem key={faq.id} value={faq.id}>
+              <AccordionItem key={faq.id} value={String(faq.id)}>
                 <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
+                <AccordionContent>{toPlainText(faq.answer)}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
