@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Suspense } from 'react';
 import { CakeFilter } from '@/components/cakes/CakeFilter';
 import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { DisplayHeading, MutedText } from '@/components/ui/Typography';
@@ -52,7 +53,9 @@ export default async function CakesPage() {
         </div>
       </section>
 
-      <CakeFilter cakes={cakes} />
+      <Suspense fallback={null}>
+        <CakeFilter cakes={cakes} />
+      </Suspense>
     </>
   );
 }

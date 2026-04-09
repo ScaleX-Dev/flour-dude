@@ -1,3 +1,5 @@
+'use client';
+
 import { trackWhatsAppClick } from '@/lib/analytics';
 import { buildWhatsAppURL } from '@/lib/whatsapp';
 
