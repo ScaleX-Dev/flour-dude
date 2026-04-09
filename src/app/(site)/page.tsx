@@ -9,7 +9,15 @@ import { ScrollIndicator } from '@/components/home/ScrollIndicator';
 import { TestimonialsCarousel } from '@/components/home/TestimonialsCarousel';
 import { formatLKR, formatPriceDisplay } from '@/lib/formatting';
 import { generateMetadata } from '@/lib/metadata';
-import { getPayloadClient } from '@/lib/payload';
+import {
+  getActivePromotion,
+  getAllCakes,
+  getFAQs,
+  getHeroBanner,
+  getMenuItems,
+  getSiteSettingsData,
+  getTestimonials
+} from '@/lib/payload';
 import {
   buildWhatsAppLink,
   cakePortfolio,
@@ -87,14 +95,6 @@ type HomePageData = {
   locationLabel: string;
 };
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)+/g, '');
-}
-
 function resolveMediaUrl(media?: number | MediaLike | null): string | null {
   if (!media || typeof media === 'number') {
     return null;
@@ -158,90 +158,72 @@ async function getHomePageData(): Promise<HomePageData> {
   }));
 
   try {
-    const payload = await getPayloadClient();
-
-    const [heroRes, settingsRes, menuRes, cakesRes, testimonialsRes, promosRes, faqsRes] = await Promise.allSettled([
-      payload.findGlobal({ slug: 'hero-banner' }),
-      payload.findGlobal({ slug: 'site-settings' }),
-      payload.find({ collection: 'menu-items', limit: 20, sort: '-createdAt' }),
-      payload.find({ collection: 'cake-portfolio-items', limit: 8, sort: '-createdAt', depth: 1 }),
-      payload.find({ collection: 'testimonials', limit: 10, sort: '-createdAt' }),
-      payload.find({ collection: 'promotions', limit: 5, sort: '-createdAt' }),
-      payload.find({ collection: 'faqs', limit: 6, sort: '-createdAt' })
+    const [hero, settings, menuDocs, cakeDocs, testimonialDocs, activePromo, faqDocs] = await Promise.all([
+      getHeroBanner(),
+      getSiteSettingsData(),
+      getMenuItems(),
+      getAllCakes(),
+      getTestimonials(10),
+      getActivePromotion('homepage'),
+      getFAQs()
     ]);
 
-    const hero = heroRes.status === 'fulfilled' ? (heroRes.value as Record<string, unknown>) : null;
-    const settings = settingsRes.status === 'fulfilled' ? (settingsRes.value as Record<string, unknown>) : null;
-
-    const menuDocs =
-      menuRes.status === 'fulfilled'
-        ? ((menuRes.value.docs as Array<Record<string, unknown>>) ?? [])
-        : [];
-
     const featuredMenu = menuDocs
-      .filter((item) => Boolean(item.isFeatured))
+      .filter((item) => Boolean(item.isFeatured ?? false))
       .slice(0, 3)
       .map((item, index) => ({
         id: String(item.id ?? `cms-menu-${index}`),
         name: String(item.name ?? 'Featured item'),
         description: String(item.description ?? 'Freshly made at Flour Dude.'),
-        price: typeof item.price === 'number' ? item.price : undefined,
+        price:
+          typeof item.price === 'number'
+            ? item.price
+            : typeof item.price_lkr === 'number'
+              ? item.price_lkr
+              : undefined,
         badge: index === 0 ? 'Best Seller' : undefined
       }));
-
-    const cakeDocs =
-      cakesRes.status === 'fulfilled'
-        ? ((cakesRes.value.docs as Array<Record<string, unknown>>) ?? [])
-        : [];
 
     const cakes = cakeDocs
       .slice(0, 4)
       .map((item, index) => ({
         id: String(item.id ?? `cms-cake-${index}`),
-        title: String(item.title ?? 'Signature Cake'),
+        title: String(item.title ?? item.name ?? 'Signature Cake'),
         description: String(item.description ?? 'Custom crafted for celebrations.'),
-        priceFrom: typeof item.priceFrom === 'number' ? item.priceFrom : undefined,
+        priceFrom:
+          typeof item.starting_price === 'number'
+            ? item.starting_price
+            : typeof item.priceFrom === 'number'
+              ? item.priceFrom
+              : undefined,
         askForPricing: item.show_price === false,
-        imageUrl: resolveMediaUrl((item.image as number | MediaLike | null | undefined) ?? null) ?? heroImages.cake,
+        imageUrl:
+          resolveMediaUrl(
+            (Array.isArray(item.photos) ? item.photos[0]?.image : undefined) as
+              | number
+              | MediaLike
+              | null
+              | undefined
+          ) ??
+          resolveMediaUrl((item.image as number | MediaLike | null | undefined) ?? null) ??
+          heroImages.cake,
         cardTone: toneClasses[index % toneClasses.length]
       }))
       .filter((item) => Boolean(item.title));
 
-    const testimonialDocs =
-      testimonialsRes.status === 'fulfilled'
-        ? ((testimonialsRes.value.docs as Array<Record<string, unknown>>) ?? [])
-        : [];
-
     const mappedTestimonials = testimonialDocs.slice(0, 6).map((item, index) => ({
       id: String(item.id ?? `cms-testimonial-${index}`),
-      quote: String(item.message ?? 'Loved every bite.'),
-      customerName: String(item.customerName ?? 'Happy customer'),
+      quote: String(item.message ?? item.quote ?? 'Loved every bite.'),
+      customerName: String(item.customerName ?? item.customer_name ?? 'Happy customer'),
       occasion: index % 2 === 0 ? 'Custom cake order' : 'Cafe pickup',
-      rating: typeof item.rating === 'number' ? Math.max(1, Math.min(5, item.rating)) : 5,
+      rating:
+        typeof item.rating === 'number'
+          ? Math.max(1, Math.min(5, item.rating))
+          : typeof item.star_rating === 'string'
+            ? Math.max(1, Math.min(5, Number(item.star_rating)))
+            : 5,
       cardTone: toneClasses[index % toneClasses.length]
     }));
-
-    const promoDocs =
-      promosRes.status === 'fulfilled'
-        ? ((promosRes.value.docs as Array<Record<string, unknown>>) ?? [])
-        : [];
-
-    const activePromo = promoDocs.find((item) => {
-      const active = item.active;
-      const startsAt = typeof item.startsAt === 'string' ? item.startsAt : null;
-      const endsAt = typeof item.endsAt === 'string' ? item.endsAt : null;
-
-      if (active === false) {
-        return false;
-      }
-
-      return isPromotionLive(startsAt, endsAt);
-    });
-
-    const faqDocs =
-      faqsRes.status === 'fulfilled'
-        ? ((faqsRes.value.docs as Array<Record<string, unknown>>) ?? [])
-        : [];
 
     const mappedFaqs = faqDocs.slice(0, 4).map((item, index) => ({
       id: String(item.id ?? `cms-faq-${index}`),
@@ -252,25 +234,28 @@ async function getHomePageData(): Promise<HomePageData> {
     return {
       heroHeadline: String(hero?.headline ?? 'Custom Cakes That Look Like Art And Taste Even Better.'),
       heroSubheadline: String(
-        hero?.subheadline ??
+        hero?.sub_headline ??
           'Flour Dude blends cafe comfort with celebration baking. Message us on WhatsApp and we will help you choose the perfect order.'
       ),
-      heroPrimaryCtaText: String(hero?.primaryCtaText ?? 'Start Your Cake Order'),
-      heroPrimaryCtaHref: String(
-        hero?.primaryCtaHref ?? buildWhatsAppLink(whatsappMessages.customCake)
-      ),
+      heroPrimaryCtaText: String(hero?.cta_1_text ?? 'Start Your Cake Order'),
+      heroPrimaryCtaHref: WA.customCake(),
       promo: activePromo
         ? {
-            title: String(activePromo.title ?? 'Limited-Time Offer'),
-            body: String(activePromo.body ?? 'Reserve your date now while slots are open.'),
-            endsAt: typeof activePromo.endsAt === 'string' ? activePromo.endsAt : undefined
+            title: String(activePromo.headline ?? activePromo.title ?? 'Limited-Time Offer'),
+            body: String(activePromo.description ?? activePromo.body ?? 'Reserve your date now while slots are open.'),
+            endsAt:
+              typeof activePromo.expires_at === 'string'
+                ? activePromo.expires_at
+                : typeof activePromo.endsAt === 'string'
+                  ? activePromo.endsAt
+                  : undefined
           }
         : null,
       featuredMenu: featuredMenu.length ? featuredMenu : fallbackFeaturedMenu,
       cakeShowcase: cakes.length ? cakes : fallbackCakes,
       testimonialCards: mappedTestimonials.length ? mappedTestimonials : fallbackTestimonials,
       faqCards: mappedFaqs.length ? mappedFaqs : fallbackFaqs,
-      locationLabel: String(settings?.location ?? siteConfig.locations[0])
+      locationLabel: String(settings.location ?? siteConfig.locations[0])
     };
   } catch {
     return {

@@ -43,7 +43,7 @@ async function fetchPayload<T>(path: string): Promise<T> {
 export async function getHeroBanner(): Promise<HeroBanner | null> {
   try {
     const result = await fetchPayload<{ docs: HeroBanner[] }>(
-      '/api/hero-banners?where[active][equals]=true&limit=1&sort=-updatedAt'
+      '/api/payload/hero-banners?where[active][equals]=true&limit=1&sort=-updatedAt'
     );
 
     return result.docs[0] ?? null;
@@ -55,7 +55,7 @@ export async function getHeroBanner(): Promise<HeroBanner | null> {
 export async function getFeaturedCakes(limit = 8): Promise<CakePortfolioItem[]> {
   try {
     const result = await fetchPayload<{ docs: CakePortfolioItem[] }>(
-      `/api/cake-portfolio-items?where[featured][equals]=true&depth=2&sort=-updatedAt&limit=${limit}`
+      `/api/payload/cake-portfolio-items?where[featured][equals]=true&depth=2&sort=-updatedAt&limit=${limit}`
     );
 
     return result.docs;
@@ -67,7 +67,7 @@ export async function getFeaturedCakes(limit = 8): Promise<CakePortfolioItem[]> 
 export async function getAllCakes(): Promise<CakePortfolioItem[]> {
   try {
     const result = await fetchPayload<{ docs: CakePortfolioItem[] }>(
-      '/api/cake-portfolio-items?depth=2&limit=200&sort=-updatedAt'
+      '/api/payload/cake-portfolio-items?depth=2&limit=200&sort=-updatedAt'
     );
 
     return [...result.docs].sort((a, b) => {
@@ -90,7 +90,7 @@ export async function getAllCakes(): Promise<CakePortfolioItem[]> {
 export async function getMenuCategories(): Promise<MenuCategory[]> {
   try {
     const result = await fetchPayload<{ docs: MenuCategory[] }>(
-      '/api/menu-categories?limit=100&sort=sort_order'
+      '/api/payload/menu-categories?limit=100&sort=sort_order'
     );
 
     return result.docs;
@@ -102,7 +102,7 @@ export async function getMenuCategories(): Promise<MenuCategory[]> {
 export async function getMenuItems(categorySlug?: string): Promise<MenuItem[]> {
   try {
     const result = await fetchPayload<{ docs: MenuItem[] }>(
-      '/api/menu-items?depth=2&limit=300&sort=sort_order'
+      '/api/payload/menu-items?depth=2&limit=300&sort=sort_order'
     );
 
     if (!categorySlug) {
@@ -121,7 +121,7 @@ export async function getMenuItems(categorySlug?: string): Promise<MenuItem[]> {
 export async function getTestimonials(limit = 3): Promise<Testimonial[]> {
   try {
     const result = await fetchPayload<{ docs: Testimonial[] }>(
-      `/api/testimonials?where[active][equals]=true&sort=sort_order&limit=${limit}`
+      `/api/payload/testimonials?where[active][equals]=true&sort=sort_order&limit=${limit}`
     );
 
     return result.docs;
@@ -136,7 +136,7 @@ export async function getActivePromotion(
   try {
     const now = new Date().toISOString();
     const query =
-      '/api/promotions?' +
+      '/api/payload/promotions?' +
       new URLSearchParams({
         'where[active][equals]': 'true',
         'where[banner_type][equals]': type,
@@ -153,7 +153,7 @@ export async function getActivePromotion(
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const result = await fetchPayload<SiteSettings>('/api/globals/site-settings');
+  const result = await fetchPayload<SiteSettings>('/api/payload/globals/site-settings');
   return result;
 }
 
@@ -222,8 +222,8 @@ export async function getSiteSettingsData(): Promise<SiteSettingsPageData> {
 export async function getFAQs(category?: string): Promise<FAQ[]> {
   try {
     const query = category
-      ? `/api/faqs?where[category][equals]=${encodeURIComponent(category)}&sort=sort_order&limit=200`
-      : '/api/faqs?sort=sort_order&limit=200';
+      ? `/api/payload/faqs?where[category][equals]=${encodeURIComponent(category)}&sort=sort_order&limit=200`
+      : '/api/payload/faqs?sort=sort_order&limit=200';
 
     const result = await fetchPayload<{ docs: FAQ[] }>(query);
     return result.docs;

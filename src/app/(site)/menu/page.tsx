@@ -6,7 +6,7 @@ import { DeliveryOrderButtons, MenuCatalogClient } from '@/components/menu/MenuC
 import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { formatLKR } from '@/lib/formatting';
 import { generateMetadata } from '@/lib/metadata';
-import { getMenuCategories, getMenuItems, getPayloadClient } from '@/lib/payload';
+import { getActivePromotion, getMenuCategories, getMenuItems, getSiteSettingsData } from '@/lib/payload';
 import { heroImages } from '@/lib/site';
 
 export const metadata = generateMetadata({
@@ -45,68 +45,55 @@ function isLivePromotion(startsAt?: string | null, endsAt?: string | null): bool
 }
 
 async function getPageData() {
-  const [categories, items] = await Promise.all([getMenuCategories(), getMenuItems()]);
+  const [categories, items, siteSettings, menuPromo] = await Promise.all([
+    getMenuCategories(),
+    getMenuItems(),
+    getSiteSettingsData(),
+    getActivePromotion('menu')
+  ]);
 
   let specialBanner: PromoBanner | null = null;
-  let settings: SiteSettingsData = {
-    uberEatsUrl: 'https://www.ubereats.com',
-    pickMeUrl: 'https://pickme.lk/food'
-  };
 
-  try {
-    const payload = await getPayloadClient();
+  if (menuPromo) {
+    const promoStartsAt =
+      typeof menuPromo.startsAt === 'string'
+        ? menuPromo.startsAt
+        : typeof menuPromo.expires_at === 'string'
+          ? undefined
+          : null;
+    const promoEndsAt =
+      typeof menuPromo.endsAt === 'string'
+        ? menuPromo.endsAt
+        : typeof menuPromo.expires_at === 'string'
+          ? menuPromo.expires_at
+          : null;
 
-    const [promoRes, settingsRes] = await Promise.allSettled([
-      payload.find({ collection: 'promotions', limit: 20, sort: '-createdAt' }),
-      payload.findGlobal({ slug: 'site-settings' })
-    ]);
+    const promoPrice =
+      typeof (menuPromo as unknown as { price?: number }).price === 'number'
+        ? (menuPromo as unknown as { price: number }).price
+        : typeof (menuPromo as unknown as { special_price?: number }).special_price === 'number'
+          ? (menuPromo as unknown as { special_price: number }).special_price
+          : null;
 
-    if (settingsRes.status === 'fulfilled') {
-      const result = settingsRes.value as Record<string, unknown>;
-      settings = {
-        uberEatsUrl:
-          typeof result.uberEatsUrl === 'string' && result.uberEatsUrl.trim().length
-            ? result.uberEatsUrl
-            : settings.uberEatsUrl,
-        pickMeUrl:
-          typeof result.pickMeUrl === 'string' && result.pickMeUrl.trim().length
-            ? result.pickMeUrl
-            : settings.pickMeUrl
+    const promoHeadline =
+      typeof menuPromo.headline === 'string'
+        ? menuPromo.headline
+        : typeof menuPromo.title === 'string'
+          ? menuPromo.title
+          : null;
+
+    if (promoHeadline && promoPrice !== null && isLivePromotion(promoStartsAt, promoEndsAt)) {
+      specialBanner = {
+        headline: promoHeadline,
+        price: promoPrice
       };
     }
-
-    if (promoRes.status === 'fulfilled') {
-      const promos = (promoRes.value.docs as Array<Record<string, unknown>>) ?? [];
-
-      const menuPromo = promos.find((promo) => {
-        const bannerType = promo.banner_type ?? promo.bannerType;
-        const isMenuBanner = typeof bannerType === 'string' && bannerType.toLowerCase() === 'menu';
-        const isActive = promo.active !== false;
-        const startsAt = typeof promo.startsAt === 'string' ? promo.startsAt : null;
-        const endsAt = typeof promo.endsAt === 'string' ? promo.endsAt : null;
-
-        return isMenuBanner && isActive && isLivePromotion(startsAt, endsAt);
-      });
-
-      if (menuPromo && typeof menuPromo.title === 'string') {
-        const promoPrice =
-          typeof menuPromo.price === 'number'
-            ? menuPromo.price
-            : typeof menuPromo.special_price === 'number'
-              ? menuPromo.special_price
-              : null;
-
-        if (promoPrice !== null) {
-          specialBanner = {
-            headline: menuPromo.title,
-            price: promoPrice
-          };
-        }
-      }
-    }
-  } catch {
-    // Keep graceful defaults when CMS is unavailable.
   }
+
+  const settings: SiteSettingsData = {
+    uberEatsUrl: siteSettings.uberEatsUrl,
+    pickMeUrl: siteSettings.pickMeUrl
+  };
 
   return {
     categories,
