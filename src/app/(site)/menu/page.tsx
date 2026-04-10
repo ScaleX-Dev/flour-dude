@@ -113,52 +113,75 @@ export default async function MenuPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-menu" schema={breadcrumbSchema} />
-      <section className="relative h-[280px] overflow-hidden bg-brown-deep">
+      <section className="relative h-[480px] md:h-[540px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24">
         <Image
           src={heroImages.waffle}
           alt="Close-up Flour Dude menu items"
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-25"
+          className="object-cover opacity-40 scale-105 animate-[ken-burns_30s_ease-in-out_forwards]"
         />
-        <div className="absolute inset-0 bg-brown-deep/85" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/50 to-transparent" />
 
-        <div className="content-shell relative z-10 flex h-full flex-col justify-center gap-4 py-8">
-          <Eyebrow className="text-caramel-light">Daily Fresh Selection</Eyebrow>
-          <DisplayHeading className="text-cream">Our Menu</DisplayHeading>
-          <MutedText className="text-cream/80">Made fresh every morning in Galle</MutedText>
+        <div className="content-shell relative z-10 w-full animate-rise-in">
+          <div className="max-w-3xl space-y-6">
+            <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+              Daily Fresh Selection
+            </h1>
+            <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-white leading-tight">
+              Our Menu.
+            </h2>
+            <p className="text-lg font-light leading-relaxed text-white/80 max-w-xl">
+              Made fresh every morning in our Galle kitchen. From signature coffee blends to artisanal wraps and indulgent waffles.
+            </p>
 
-          <div id="menu-hero-ctas" className="max-w-[780px] pt-2">
-            <DeliveryOrderButtons
-              uberEatsUrl={settings.uberEatsUrl}
-              pickMeUrl={settings.pickMeUrl}
-              placement="hero"
-            />
+            <div id="menu-hero-ctas" className="max-w-[500px] pt-4">
+              <DeliveryOrderButtons
+                uberEatsUrl={settings.uberEatsUrl}
+                pickMeUrl={settings.pickMeUrl}
+                placement="hero"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {specialBanner ? (
-        <section className="bg-caramel py-2.5 text-center text-sm font-medium text-white">
-          <div className="content-shell">Today&apos;s Special: {specialBanner.headline} — {formatLKR(specialBanner.price)}</div>
+        <section className="bg-brand-caramel/10 border-b border-brand-caramel/20 py-4 text-center text-sm font-medium text-brand-deepBrown tracking-wide">
+          <div className="content-shell flex items-center justify-center gap-3">
+             <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-caramel"></span>
+             </span>
+             Today&apos;s Special: <span className="font-semibold">{specialBanner.headline}</span> — {formatLKR(specialBanner.price)}
+          </div>
         </section>
       ) : null}
 
-      <MenuCatalogClient
-        categories={categories}
-        items={items}
-        uberEatsUrl={settings.uberEatsUrl}
-        pickMeUrl={settings.pickMeUrl}
-        heroCtaId="menu-hero-ctas"
-      />
+      <div className="bg-brand-cream">
+        <MenuCatalogClient
+          categories={categories}
+          items={items}
+          uberEatsUrl={settings.uberEatsUrl}
+          pickMeUrl={settings.pickMeUrl}
+          heroCtaId="menu-hero-ctas"
+        />
+      </div>
 
-      <section className="bg-cream py-14 text-center">
-        <div className="content-shell space-y-4">
-          <SectionHeading>Planning a celebration? We make custom cakes for every occasion. 🎂</SectionHeading>
-          <Link href="/cakes" className="inline-flex">
-            <Button variant="primary">See Custom Cakes →</Button>
-          </Link>
+      <section className="py-24 bg-white border-t border-brand-border/60 text-center">
+        <div className="content-shell max-w-3xl mx-auto space-y-8">
+          <h2 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+            Planning a celebration?
+          </h2>
+          <p className="text-brand-textMuted font-light text-lg">
+            We make breathtaking custom cakes for weddings, birthdays, and corporate events. Explore our portfolio to find your style.
+          </p>
+          <div className="pt-4">
+            <Link href="/cakes" className="group inline-flex items-center gap-2 font-sans font-medium text-brand-deepBrown border-b border-brand-deepBrown pb-1 hover:text-brand-caramel hover:border-brand-caramel transition-colors">
+              Explore Cake Portfolio <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+          </div>
         </div>
       </section>
     </>

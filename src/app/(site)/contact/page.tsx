@@ -22,65 +22,110 @@ export default async function ContactPage() {
   ]);
 
   return (
-    <>
+    <div className="bg-brand-cream min-h-screen pt-32 pb-24">
       <SchemaMarkup id="schema-breadcrumb-contact" schema={breadcrumbSchema} />
-      <section className="section-space bg-warmWhite">
-        <div className="content-shell grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-          <article className="space-y-5 rounded-card border border-borderColor bg-cream p-6">
-            <SectionHeading>Come Visit Us</SectionHeading>
+      
+      <section className="content-shell mb-16 text-center max-w-3xl mx-auto space-y-6 animate-rise-in">
+        <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+          Get in Touch
+        </h1>
+        <h2 className="font-display text-5xl md:text-6xl text-brand-deepBrown tracking-tighter leading-[1.1]">
+          Contact Flour Dude
+        </h2>
+        <p className="text-lg md:text-xl font-light text-brand-textMuted leading-relaxed">
+          Whether you have a general inquiry or want to visit our studio in Galle, we&apos;d love to hear from you.
+        </p>
+      </section>
 
-            <div className="space-y-3 text-sm text-textBody">
-              <p className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 text-caramel" />
-                <span>Bandara Mawatha & Thalapitiya Road, Galle</span>
-              </p>
-              <p className="flex items-start gap-2">
-                <Clock3 className="mt-0.5 h-4 w-4 text-caramel" />
-                <span>Open Daily 8:30 AM - 9:00 PM</span>
-              </p>
-              <p className="flex items-start gap-2">
-                <AtSign className="mt-0.5 h-4 w-4 text-caramel" />
-                <a href="https://instagram.com/flour_dude" target="_blank" rel="noreferrer" className="hover:text-caramel">
-                  @flour_dude
+      <section className="content-shell grid gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
+        <div className="space-y-8 animate-rise-in" style={{ animationDelay: '100ms' }}>
+          <article className="space-y-8 rounded-[32px] border border-brand-border/40 bg-white p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
+            <div className="space-y-2">
+              <h3 className="font-display text-3xl text-brand-deepBrown">Visit Us</h3>
+              <p className="font-light text-brand-textMuted">Stop by for a fresh bake or a consultation.</p>
+            </div>
+
+            <div className="space-y-6 text-lg font-light text-brand-textBody">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex-shrink-0 rounded-[16px] bg-brand-cream border border-brand-border/50 flex items-center justify-center text-brand-caramel">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div className="pt-2">
+                  <p className="font-medium text-brand-deepBrown">Galle Studio</p>
+                  <p className="text-brand-textMuted">Bandara Mawatha & Thalapitiya Road, Galle</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex-shrink-0 rounded-[16px] bg-brand-cream border border-brand-border/50 flex items-center justify-center text-brand-caramel">
+                  <Clock3 className="h-5 w-5" />
+                </div>
+                <div className="pt-2">
+                  <p className="font-medium text-brand-deepBrown">Opening Hours</p>
+                  <p className="text-brand-textMuted">Open Daily 8:30 AM - 9:00 PM</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex-shrink-0 rounded-[16px] bg-brand-cream border border-brand-border/50 flex items-center justify-center text-brand-caramel">
+                  <AtSign className="h-5 w-5" />
+                </div>
+                <div className="pt-2">
+                  <p className="font-medium text-brand-deepBrown">Social Media</p>
+                  <p className="text-brand-textMuted">
+                    <a href="https://instagram.com/flour_dude" target="_blank" rel="noreferrer" className="hover:text-brand-caramel transition-colors">
+                      @flour_dude
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-brand-border/40 space-y-4">
+              <p className="font-sans text-xs font-semibold tracking-wider uppercase text-brand-textMuted">Quick Order</p>
+              <div className="flex flex-wrap gap-3">
+                <a href={settings.uberEatsUrl} target="_blank" rel="noreferrer" className="flex-1">
+                  <Button className="w-full rounded-pill h-12 bg-brand-deepBrown text-white hover:bg-brand-caramel transition-colors">
+                    Uber Eats
+                  </Button>
                 </a>
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <a href={settings.uberEatsUrl} target="_blank" rel="noreferrer">
-                <Button variant="primary">Order on Uber Eats</Button>
+                <a href={settings.pickMeUrl} target="_blank" rel="noreferrer" className="flex-1">
+                  <Button className="w-full rounded-pill h-12 border border-brand-border bg-white text-brand-deepBrown hover:bg-brand-cream transition-colors">
+                    PickMe
+                  </Button>
+                </a>
+              </div>
+              <a href={buildWhatsAppLink(whatsappMessages.default)} target="_blank" rel="noreferrer" className="block w-full">
+                <Button className="w-full rounded-pill h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white transition-colors font-medium text-lg">
+                  Chat on WhatsApp
+                </Button>
               </a>
-              <a href={settings.pickMeUrl} target="_blank" rel="noreferrer">
-                <Button variant="outline">Order on PickMe</Button>
-              </a>
             </div>
+          </article>
+        </div>
 
-            <a href={buildWhatsAppLink(whatsappMessages.default)} target="_blank" rel="noreferrer">
-              <Button variant="whatsapp" size="lg">
-                Chat with us on WhatsApp
-              </Button>
-            </a>
+        <div className="space-y-8 animate-rise-in" style={{ animationDelay: '200ms' }}>
+          <article className="overflow-hidden rounded-[32px] border border-brand-border/40 bg-white shadow-sm p-2">
+            <div className="overflow-hidden rounded-[24px]">
+              <iframe
+                title="Flour Dude map"
+                src="https://maps.google.com/maps?q=Galle%2C%20Sri%20Lanka&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                className="h-[300px] w-full border-0 grayscale contrast-125 opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </article>
 
-          <article className="overflow-hidden rounded-card border border-borderColor bg-cream">
-            <iframe
-              title="Flour Dude map"
-              src="https://maps.google.com/maps?q=Galle%2C%20Sri%20Lanka&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              className="h-[400px] w-full border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+          <article className="rounded-[32px] border border-brand-border/40 bg-white p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
+            <div className="space-y-2 mb-8">
+              <h3 className="font-display text-3xl text-brand-deepBrown">Send an Inquiry</h3>
+              <p className="font-light text-brand-textMuted">Fill out the form below and we&apos;ll get back to you shortly.</p>
+            </div>
+            <GeneralInquiryForm />
           </article>
         </div>
       </section>
-
-      <section className="section-space bg-cream">
-        <div className="content-shell space-y-4">
-          <SectionHeading>General Inquiry</SectionHeading>
-          <MutedText>Send us your details and we will get back to you shortly.</MutedText>
-          <GeneralInquiryForm />
-        </div>
-      </section>
-    </>
+    </div>
   );
 }

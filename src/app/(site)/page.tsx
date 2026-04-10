@@ -291,171 +291,258 @@ export default async function SiteHomePage() {
   return (
     <>
       <SchemaMarkup id="schema-home-aggregate-rating" schema={aggregateRatingSchema} />
-      <section className="relative min-h-[92vh] overflow-hidden bg-brown-deep text-warmWhite">
+      <section className="relative min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-24 md:pb-32 pt-32">
         <Image
           src={heroImages.cake}
           alt="Signature Flour Dude celebration cake"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-center transform scale-105 animate-[ken-burns_20s_ease-out_forwards]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brown-deep/92 via-brown-deep/72 to-brown-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/60 to-transparent" />
+        <div className="absolute inset-0 bg-black/20" />
 
-        <div className="content-shell relative z-10 flex min-h-[92vh] items-end pb-20 pt-24">
-          <div className="max-w-3xl space-y-6 animate-rise-in">
-            <Eyebrow className="text-caramel-light">{data.locationLabel}</Eyebrow>
-            <DisplayHeading className="text-warmWhite">{data.heroHeadline}</DisplayHeading>
-            <BodyText className="max-w-2xl text-warmWhite/85">{data.heroSubheadline}</BodyText>
+        <div className="content-shell relative z-10 w-full">
+          <div className="max-w-4xl space-y-8 animate-rise-in">
+            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 py-2 px-5 backdrop-blur-md">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-caramel"></span>
+              </span>
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white/90">
+                {data.locationLabel}
+              </span>
+            </div>
+            
+            <h1 className="font-display text-5xl md:text-7xl lg:text-[88px] text-white tracking-tighter leading-[0.95]">
+              {data.heroHeadline}
+            </h1>
+            
+            <p className="max-w-2xl text-lg md:text-xl font-light leading-relaxed text-white/80">
+              {data.heroSubheadline}
+            </p>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <a href={data.heroPrimaryCtaHref} target="_blank" rel="noreferrer">
-                <Button variant="whatsapp" size="lg">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4">
+              <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
+                <a href={data.heroPrimaryCtaHref} target="_blank" rel="noreferrer">
                   {data.heroPrimaryCtaText}
-                </Button>
-              </a>
-              <Link href="/menu">
-                <Button variant="outline" size="lg" className="border-warmWhite text-warmWhite hover:bg-warmWhite/10 hover:text-warmWhite">
-                  View Full Menu
-                </Button>
-              </Link>
+                </a>
+              </Button>
+              <Button asChild className="rounded-pill px-8 h-14 border border-white/30 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
+                <Link href="/menu">
+                  Explore Menu
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
 
-        <ScrollIndicator />
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block">
+          <ScrollIndicator />
+        </div>
       </section>
 
       {data.promo ? (
-        <section className="section-space bg-rose/20">
-          <div className="content-shell rounded-card border border-borderColor bg-warmWhite p-6 sm:p-8">
-            <div className="flex flex-wrap items-start justify-between gap-5">
-              <div className="max-w-3xl space-y-2">
-                <Eyebrow className="text-rose">Limited Time</Eyebrow>
-                <SectionHeading>{data.promo.title}</SectionHeading>
-                <MutedText>{data.promo.body}</MutedText>
-                {data.promo.endsAt ? <PromoCountdown expiresAt={data.promo.endsAt} /> : null}
+        <section className="bg-brand-deepBrown text-white border-y border-white/10 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay"></div>
+          <div className="content-shell py-12 md:py-16">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+              <div className="flex-1 space-y-4 text-center lg:text-left">
+                <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                  Exclusive Offer
+                </p>
+                <h2 className="font-display text-3xl md:text-4xl tracking-tight text-white">
+                  {data.promo.title}
+                </h2>
+                <p className="text-white/70 font-light text-lg max-w-2xl mx-auto lg:mx-0">
+                  {data.promo.body}
+                </p>
               </div>
-              <WhatsAppButton label="Claim Offer on WhatsApp" messageType="customCake" />
+              
+              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+                {data.promo.endsAt ? <PromoCountdown expiresAt={data.promo.endsAt} /> : null}
+                <div className="hidden sm:block w-[1px] h-12 bg-white/20"></div>
+                <Button asChild className="rounded-pill px-8 h-12 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium whitespace-nowrap">
+                   <a href={WA.customCake()}>Claim on WhatsApp</a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
       ) : null}
 
-      <section className="section-space bg-warmWhite">
-        <div className="content-shell space-y-8">
-          <div className="space-y-2">
-            <Eyebrow>Featured Menu</Eyebrow>
-            <SectionHeading>Fresh Favorites From Our Kitchen</SectionHeading>
+      <section className="section-space bg-brand-cream">
+        <div className="content-shell space-y-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-border/60 pb-8">
+            <div className="space-y-4 max-w-2xl">
+              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                Daily Bake
+              </h2>
+              <h3 className="section-title mb-0">Signature Creations</h3>
+            </div>
+            <Button asChild className="rounded-pill px-6 h-12 border border-brand-deepBrown/20 bg-transparent text-brand-deepBrown hover:bg-brand-deepBrown hover:text-white transition-all">
+              <Link href="/menu">View Full Menu</Link>
+            </Button>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             {data.featuredMenu.map((item) => (
-              <article key={item.id} className="rounded-card border border-borderColor bg-cream p-5">
-                {item.badge ? (
-                  <p className="inline-flex rounded-pill bg-sage/20 px-3 py-1 text-xs font-semibold text-sage">{item.badge}</p>
-                ) : null}
-                <h3 className="mt-3 font-display text-2xl text-brown-deep">{item.name}</h3>
-                <MutedText className="mt-2">{item.description}</MutedText>
-                <p className="mt-4 text-sm font-semibold text-brown-mid">
-                  {formatLKR(item.price ?? 0)}
-                </p>
+              <article 
+                key={item.id} 
+                className="group relative flex flex-col justify-between rounded-card bg-white p-8 border border-transparent hover:border-brand-border/80 shadow-sm hover:shadow-floating transition-all duration-500"
+              >
+                <div className="space-y-4">
+                  {item.badge ? (
+                    <span className="inline-flex items-center rounded-full bg-brand-caramel/10 px-3 py-1 text-xs font-semibold tracking-wide text-brand-caramel uppercase">
+                      {item.badge}
+                    </span>
+                  ) : null}
+                  <h4 className="font-display text-2xl text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
+                    {item.name}
+                  </h4>
+                  <p className="font-light text-brand-textMuted leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+                <div className="mt-10 pt-6 border-t border-brand-border/40 flex items-center justify-between">
+                  <p className="font-sans text-lg font-medium text-brand-deepBrown">
+                    {formatLKR(item.price ?? 0)}
+                  </p>
+                  <span className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-deepBrown group-hover:bg-brand-caramel group-hover:text-white transition-colors">
+                    →
+                  </span>
+                </div>
               </article>
             ))}
-          </div>
-
-          <div>
-            <Link href="/menu">
-              <Button variant="primary">See Full Menu</Button>
-            </Link>
           </div>
         </div>
       </section>
 
-      <section className="section-space bg-cream">
-        <div className="content-shell space-y-8">
-          <div className="space-y-2">
-            <Eyebrow className="text-sage">Custom Cake Gallery</Eyebrow>
-            <SectionHeading>Choose A Style. We Customize The Rest.</SectionHeading>
+      <section className="section-space relative overflow-hidden bg-brand-deepBrown text-white">
+        <div className="absolute inset-y-0 right-0 w-full md:w-[45%] opacity-20 md:opacity-100">
+           <Image
+              src={heroImages.celebration}
+              alt="Bespoke Cake Design"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown via-brand-deepBrown/80 to-transparent" />
+        </div>
+
+        <div className="content-shell relative z-10">
+          <div className="max-w-2xl space-y-10">
+            <div className="space-y-6">
+              <p className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                Bespoke Design
+              </p>
+              <h2 className="font-display text-5xl md:text-6xl tracking-tight leading-[1.1] text-white">
+                Every celebration deserves a masterpiece.
+              </h2>
+              <p className="text-lg font-light leading-relaxed text-white/70 max-w-xl">
+                From elegant minimalist tiers to extravagant highly-detailed sculptures. We work closely with you to design a cake that perfectly captures the essence of your event and tastes unforgettable.
+              </p>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 pt-4">
+               <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
+                  <Link href="/cakes">Explore Cake Portfolio</Link>
+               </Button>
+               <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
+                  <a href={WA.customCake()}>Discuss A Design</a>
+               </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-space border-y border-brand-border bg-white">
+        <div className="content-shell space-y-16">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-textMuted">
+              Curation
+            </h2>
+            <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight">
+              A Selection of Excellence
+            </h3>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {data.cakeShowcase.map((cake) => (
-              <article key={cake.id} className={`overflow-hidden rounded-card border border-borderColor ${cake.cardTone}`}>
-                <div className="relative aspect-square">
+              <Link 
+                href="/cakes" 
+                key={cake.id} 
+                className="group flex flex-col gap-5 rounded-2xl p-4 transition-all hover:bg-brand-cream"
+              >
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-brand-cream">
                   <Image
                     src={cake.imageUrl}
                     alt={cake.title}
                     fill
                     sizes="(max-width: 1024px) 50vw, 25vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </div>
-                <div className="space-y-2 p-4">
-                  <h3 className="font-semibold text-brown-deep">{cake.title}</h3>
-                  <MutedText>{cake.description}</MutedText>
-                  <p className="text-sm font-semibold text-brown-mid">
+                <div className="space-y-2 px-2 text-center">
+                  <h4 className="font-sans text-lg tracking-wide text-brand-deepBrown">
+                    {cake.title}
+                  </h4>
+                  <p className="text-sm font-light text-brand-textMuted">
                     {formatPriceDisplay(cake.priceFrom ?? null, true, cake.askForPricing ?? false)}
                   </p>
-                  <a
-                    href={WA.cakeOrder(cake.title)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex pt-1 text-sm font-semibold text-caramel hover:text-caramel-light"
-                  >
-                    Order this design
-                  </a>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
-
-          <WhatsAppButton label="Design My Custom Cake" messageType="customCake" />
-        </div>
-      </section>
-
-      <section className="section-space bg-brown-deep text-warmWhite">
-        <div className="content-shell grid gap-8 md:grid-cols-2 md:items-center">
-          <div className="space-y-4">
-            <Eyebrow className="text-caramel-light">How It Works</Eyebrow>
-            <SectionHeading className="text-warmWhite">Send Your Idea. Receive Your Quote Fast.</SectionHeading>
-            <BodyText className="text-warmWhite/80">
-              Share inspiration photos, flavor choices, and your delivery date. Our team responds quickly and helps you finalize a cake that looks special and tastes incredible.
-            </BodyText>
-          </div>
-
-          <div className="rounded-card border border-white/15 bg-warmWhite/10 p-6 backdrop-blur-sm">
-            <ol className="space-y-4 text-sm text-warmWhite/90">
-              <li className="rounded-card border border-white/10 bg-white/5 p-4">1. Message us on WhatsApp with your event details.</li>
-              <li className="rounded-card border border-white/10 bg-white/5 p-4">2. Confirm design, flavor, and timeline.</li>
-              <li className="rounded-card border border-white/10 bg-white/5 p-4">3. Receive your cake by pickup or delivery.</li>
-            </ol>
-            <div className="mt-5">
-              <WhatsAppButton label="Start a WhatsApp Order" messageType="customCake" />
-            </div>
+          
+          <div className="text-center pt-8">
+             <a href={WA.customCake()} className="group inline-flex items-center gap-2 font-sans font-medium text-brand-deepBrown border-b border-brand-deepBrown pb-1 hover:text-brand-caramel hover:border-brand-caramel transition-colors">
+               Start A Custom Order <span className="group-hover:translate-x-1 transition-transform">→</span>
+             </a>
           </div>
         </div>
       </section>
 
-      <section className="section-space bg-warmWhite">
-        <div className="content-shell space-y-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="space-y-2">
-              <Eyebrow className="text-sage">Social Proof</Eyebrow>
-              <SectionHeading>Loved Across Galle</SectionHeading>
+      <section className="section-space bg-brand-cream">
+        <div className="content-shell space-y-16">
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left border-b border-brand-border/60 pb-8">
+            <div className="space-y-4">
+              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                Reputation
+              </h2>
+              <h3 className="section-title mb-0">Words from our Guests</h3>
             </div>
-            <p className="rounded-pill bg-sage/15 px-4 py-2 text-sm font-semibold text-sage">{siteConfig.ratingLabel}</p>
+            <div className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-2.5 shadow-sm border border-brand-border/40">
+              <span className="text-brand-caramel text-xl">★</span>
+              <span className="font-medium text-brand-deepBrown tracking-wide">
+                {siteConfig.ratingLabel}
+              </span>
+            </div>
           </div>
 
-          <div className="hidden gap-5 lg:grid lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {data.testimonialCards.slice(0, 3).map((item) => (
-              <article key={item.id} className={`relative rounded-card border border-borderColor p-6 ${item.cardTone}`}>
-                <p className="pointer-events-none absolute left-4 top-0 font-display text-[72px] leading-none text-caramel/20">“</p>
-                <BodyText className="relative z-10 mt-5 italic">{item.quote}</BodyText>
-                <div className="mt-4 space-y-1">
-                  <p className="text-[13px] font-semibold text-brown-deep">{item.customerName}</p>
-                  <p className="text-[12px] text-textMuted">{item.occasion}</p>
-                  <p className="text-sm text-caramel">{'⭐'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
+              <article 
+                key={item.id} 
+                className="flex flex-col justify-between rounded-[24px] bg-white p-8 border border-brand-border/50 shadow-sm"
+              >
+                <div>
+                  <div className="flex gap-1 mb-6 text-brand-caramel text-sm">
+                    {'★'.repeat(Math.max(1, Math.min(5, item.rating)))}
+                  </div>
+                  <p className="font-sans text-lg font-light leading-relaxed text-brand-deepBrown">
+                    &quot;{item.quote}&quot;
+                  </p>
+                </div>
+                <div className="mt-8 pt-6 border-t border-brand-border/50 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-brand-cream flex items-center justify-center font-display text-xl text-brand-caramel">
+                    {item.customerName.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-sans text-sm font-medium text-brand-deepBrown">{item.customerName}</p>
+                    <p className="text-xs text-brand-textMuted uppercase tracking-wider mt-0.5">{item.occasion}</p>
+                  </div>
                 </div>
               </article>
             ))}
@@ -465,71 +552,29 @@ export default async function SiteHomePage() {
         </div>
       </section>
 
-      <section className="section-space bg-rose/15">
-        <div className="content-shell grid gap-8 rounded-card border border-borderColor bg-warmWhite p-6 sm:p-10 md:grid-cols-[1.1fr_1fr] md:items-center">
-          <div className="space-y-3">
-            <Eyebrow className="text-rose">B2B and Events</Eyebrow>
-            <SectionHeading>Dessert Programs For Hotels, Offices, and Celebrations</SectionHeading>
-            <MutedText>
-              We build reliable catering plans for recurring office needs, launches, weddings, and hospitality partners in Galle and nearby areas.
-            </MutedText>
-            <p className="text-sm font-semibold text-brown-mid">Packages from {formatLKR(15000)}</p>
-            <WhatsAppButton label="Discuss B2B Catering" messageType="b2b" />
-          </div>
+      <section className="py-24 bg-brand-deepBrown text-white">
+        <div className="content-shell">
+          <div className="max-w-4xl mx-auto text-center space-y-10 bg-white/5 border border-white/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
+            <div className="space-y-4">
+              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                Experience Flour Dude
+              </h2>
+              <h3 className="font-display text-4xl md:text-5xl text-white tracking-tight leading-tight">
+                Secure your booking today.
+              </h3>
+              <p className="text-white/70 font-light text-lg max-w-2xl mx-auto pt-4">
+                Whether you need an immediate pick-me-up from our daily menu or want to plan the centerpiece cake for an upcoming wedding, our team is ready.
+              </p>
+            </div>
 
-          <div className="relative overflow-hidden rounded-card">
-            <Image
-              src={heroImages.celebration}
-              alt="Flour Dude event dessert setup"
-              width={960}
-              height={760}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="section-space bg-cream">
-        <div className="content-shell space-y-6">
-          <div className="space-y-2">
-            <Eyebrow>Frequently Asked Questions</Eyebrow>
-            <SectionHeading>Everything You Need Before Ordering</SectionHeading>
-          </div>
-
-          <div className="grid gap-4">
-            {data.faqCards.map((item) => (
-              <details key={item.id} className="group rounded-card border border-borderColor bg-warmWhite p-5" open={false}>
-                <summary className="cursor-pointer list-none pr-6 text-base font-semibold text-brown-deep">
-                  {item.question}
-                </summary>
-                <MutedText className="mt-3">{item.answer}</MutedText>
-              </details>
-            ))}
-          </div>
-
-          <div className="pt-2">
-            <Link href="/order">
-              <Button variant="ghost">See Ordering Details</Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section-space bg-brown-deep text-warmWhite">
-        <div className="content-shell space-y-5 text-center">
-          <Eyebrow className="text-caramel-light">Ready To Order</Eyebrow>
-          <SectionHeading className="text-warmWhite">Your Next Cake Starts With One WhatsApp Message.</SectionHeading>
-          <BodyText className="mx-auto max-w-2xl text-warmWhite/85">
-            Share your idea with Flour Dude now. We reply fast and guide every step from design to delivery.
-          </BodyText>
-
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <WhatsAppButton label="Order a Custom Cake" messageType="customCake" />
-            <Link href="/contact">
-              <Button variant="outline" className="border-warmWhite text-warmWhite hover:bg-warmWhite/10 hover:text-warmWhite">
-                Contact Us
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <Button asChild className="rounded-pill px-8 h-14 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide w-full sm:w-auto">
+                <a href={WA.customCake()}>Chat with us on WhatsApp</a>
               </Button>
-            </Link>
+              <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
+                <Link href="/contact">View Location & Hours</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
