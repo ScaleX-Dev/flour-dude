@@ -265,9 +265,9 @@ export function MenuCatalogClient({
 
   return (
     <>
-      <div className="sticky top-[var(--header-height)] z-10 border-b border-borderColor bg-warmWhite">
+      <div className="sticky top-[var(--header-height)] z-10 border-b border-brand-border/40 bg-white/80 backdrop-blur-xl shadow-sm">
         <div className="content-shell">
-          <div className="no-scrollbar -mx-2 flex overflow-x-auto px-2">
+          <div className="no-scrollbar -mx-2 flex overflow-x-auto px-2 justify-start md:justify-center">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.key;
 
@@ -276,13 +276,16 @@ export function MenuCatalogClient({
                   key={tab.key}
                   type="button"
                   onClick={() => setActiveTab(tab.key)}
-                  className={`mr-6 whitespace-nowrap border-b-2 py-4 text-sm transition ${
+                  className={`mr-8 whitespace-nowrap px-2 py-[22px] text-[13px] font-sans uppercase tracking-[0.1em] font-medium transition-all relative ${
                     isActive
-                      ? 'border-caramel text-caramel font-medium'
-                      : 'border-transparent text-textMuted hover:text-textBody'
+                      ? 'text-brand-caramel'
+                      : 'text-brand-textMuted hover:text-brand-deepBrown'
                   }`}
                 >
                   {tab.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brand-caramel rounded-t-full"></span>
+                  )}
                 </button>
               );
             })}
@@ -290,74 +293,80 @@ export function MenuCatalogClient({
         </div>
       </div>
 
-      <section className="section-space bg-warmWhite">
-        <div className="content-shell grid grid-cols-1 gap-5 pb-20 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredItems.map((item) => {
-            const emoji = categoryEmoji({ slug: normalizeSlug(item.categorySlug), name: item.categorySlug });
+      <section className="section-space bg-brand-cream">
+        <div className="content-shell">
+          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-20">
+            {filteredItems.map((item, index) => {
+              const emoji = categoryEmoji({ slug: normalizeSlug(item.categorySlug), name: item.categorySlug });
 
-            return (
-              <article key={item.id} className="relative overflow-hidden rounded-cake border border-borderColor bg-warmWhite shadow-soft">
-                {!item.available ? (
-                  <span className="absolute left-3 top-3 z-[2] rounded-pill bg-red-600 px-2.5 py-1 text-xs font-semibold text-white">
-                    Sold Out
-                  </span>
-                ) : null}
-
-                {item.badge ? (
-                  <span className="absolute right-3 top-3 z-[2] rounded-pill bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">
-                    {item.badge}
-                  </span>
-                ) : null}
-
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-t-cake bg-[#ece4dc]">
-                  {item.imageUrl ? (
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.name}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-5xl">{emoji}</div>
-                  )}
-                </div>
-
-                <div className="space-y-3 p-4">
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="text-[15px] font-bold text-brown-deep">{item.name}</h3>
-                    {item.available ? (
-                      <span className="inline-flex shrink-0 rounded-pill bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">
-                        Available
+              return (
+                <article
+                  key={item.id}
+                  style={{ animationDelay: `${index * 50}ms` }}
+                  className="group flex flex-col text-left gap-4 animate-rise-in fill-mode-both"
+                >
+                  <div className="relative aspect-square w-full overflow-hidden rounded-[24px] bg-white border border-transparent group-hover:border-brand-border/80 shadow-sm transition-all duration-500">
+                    {!item.available ? (
+                      <span className="absolute left-4 top-4 z-10 rounded-pill bg-brand-deepBrown px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase text-white">
+                        Sold Out
                       </span>
                     ) : null}
+
+                    {item.badge ? (
+                      <span className="absolute right-4 top-4 z-10 inline-flex bg-brand-caramel text-white px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase rounded-full shadow-md backdrop-blur-md">
+                        {item.badge}
+                      </span>
+                    ) : null}
+
+                    {item.imageUrl ? (
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-brand-cream">
+                        <span className="text-4xl opacity-50 grayscale">{emoji}</span>
+                      </div>
+                    )}
+
+                    <div className="absolute inset-0 bg-brand-deepBrown/5 opacity-0 group-hover:opacity-100 mix-blend-multiply transition-opacity duration-500" />
                   </div>
 
-                  {item.dietaryTags.length ? (
-                    <div className="flex flex-wrap gap-1.5">
-                      {item.dietaryTags.map((tag) => (
-                        <span key={`${item.id}-${tag}`} className="rounded-pill bg-sage/10 px-2.5 py-1 text-xs text-sage">
-                          {tag}
-                        </span>
-                      ))}
+                  <div className="flex flex-col flex-1 px-1">
+                    <div className="flex items-start justify-between gap-4 mb-2">
+                      <h3 className="font-display text-[22px] tracking-tight text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
+                        {item.name}
+                      </h3>
+                      <p className="font-sans text-[15px] font-medium text-brand-deepBrown shrink-0 pt-1">
+                        {formatLKR(item.price ?? 0)}
+                      </p>
                     </div>
-                  ) : null}
-
-                  <p className="overflow-hidden text-[13px] text-textMuted [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
-                    {truncateDescription(normalizeNullableText(item.description))}
-                  </p>
-
-                  <p
-                    className={`font-display text-[17px] text-caramel ${
-                      item.available ? '' : 'line-through text-red-600/80'
-                    }`}
-                  >
-                    {formatLKR(item.price)}
-                  </p>
-                </div>
-              </article>
-            );
-          })}
+                    
+                    <p className="text-[14px] text-brand-textMuted font-light leading-relaxed mb-4">
+                      {truncateDescription(normalizeNullableText(item.description))}
+                    </p>
+                    
+                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-brand-border/40">
+                      <div className="flex flex-wrap gap-1.5">
+                        {item.dietaryTags.map((tag) => (
+                          <span key={`${item.id}-${tag}`} className="inline-flex rounded-full bg-brand-sage/10 px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold text-brand-sage">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      
+                      {!item.available ? (
+                        <span className="text-xs text-red-500 font-semibold tracking-wide uppercase">Unavailable</span>
+                      ) : null}
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 

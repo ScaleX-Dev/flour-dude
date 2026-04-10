@@ -11,45 +11,50 @@ const config: Config = {
   theme: {
     extend: {
       borderRadius: {
-        button: '8px',
-        card: '12px',
-        cake: '12px',
+        button: '100px', // Soft, modern pill shape for all primary actions
+        card: '16px', // Elegant, smooth corners for imagery and product cards
+        cake: '20px',
         pill: '100px'
       },
       colors: {
+        // High-class, minimalistic boutique palette
         brown: {
-          deep: '#2C1A0E',
-          mid: '#5C3D2E'
+          deep: '#1A1614', // Almost black, much sharper and more modern for contrast
+          mid: '#4A3B32'
         },
         caramel: {
-          DEFAULT: '#C8813A',
-          light: '#E8A85A'
+          DEFAULT: '#D4A373', // Softer, more elegant gold/caramel accent
+          light: '#E6CCB8'
         },
-        cream: '#FAF6EE',
-        warmWhite: '#FFFDF8',
-        sage: '#7A8C6E',
-        rose: '#D4907A',
-        textBody: '#3A2A1E',
-        textMuted: '#7A6A5E',
-        borderColor: '#E8DDD0',
+        cream: '#FDFBF7', // Ultra-clean, slightly warm off-white (like Crumbl/editorial sites)
+        warmWhite: '#FFFFFF', // Pure white for stark contrast areas
+        sage: '#A3B19B',
+        rose: '#E2B4A7',
+        textBody: '#2A2421', // Dark charcoal for high legibility, not pure black
+        textMuted: '#8A817C',
+        borderColor: '#EAE4DD', // Very subtle borders
         wa: '#25D366',
         brand: {
-          deepBrown: '#2C1A0E',
-          caramel: '#C8813A',
-          caramelLight: '#E8A85A',
-          cream: '#FAF6EE',
-          warmWhite: '#FFFDF8',
-          sage: '#7A8C6E',
-          rose: '#D4907A',
-          textBody: '#3A2A1E',
-          textMuted: '#7A6A5E',
-          border: '#E8DDD0'
+          deepBrown: '#1A1614',
+          caramel: '#D4A373',
+          caramelLight: '#E6CCB8',
+          cream: '#FDFBF7',
+          warmWhite: '#FFFFFF',
+          sage: '#A3B19B',
+          rose: '#E2B4A7',
+          textBody: '#2A2421',
+          textMuted: '#8A817C',
+          border: '#EAE4DD'
         }
       },
       fontFamily: {
-        display: ['Playfair Display', 'serif'],
-        sans: ['DM Sans', 'sans-serif'],
+        display: ['Playfair Display', 'serif'], // Elegant serif
+        sans: ['DM Sans', 'sans-serif'], // Clean modern geometric
         mono: ['DM Mono', 'monospace']
+      },
+      boxShadow: {
+        'soft': '0 10px 40px -10px rgba(26, 22, 20, 0.08)', // High-class floating shadow
+        'floating': '0 20px 40px -20px rgba(26, 22, 20, 0.12)'
       },
       keyframes: {
         'wa-pulse': {

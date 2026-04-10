@@ -48,91 +48,179 @@ export default async function AboutPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-about" schema={breadcrumbSchema} />
-      <section className="relative min-h-[420px] overflow-hidden bg-brown-deep">
-        <Image src={founderImage} alt="Founder of Flour Dude" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-black/55" />
+      <section className="relative h-[480px] md:h-[540px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-32">
+        <Image 
+          src={founderImage} 
+          alt="Founder of Flour Dude" 
+          fill 
+          priority 
+          sizes="100vw" 
+          className="object-cover opacity-50 scale-105 animate-[ken-burns_30s_ease-out_forwards]" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/50 to-transparent" />
 
-        <div className="content-shell relative z-10 flex min-h-[420px] items-end pb-12">
-          <DisplayHeading className="max-w-4xl text-cream">Baked with Love in Galle</DisplayHeading>
+        <div className="content-shell relative z-10 w-full animate-rise-in">
+          <div className="max-w-3xl space-y-6">
+            <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+              Our Story
+            </h1>
+            <h2 className="font-display text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[0.95]">
+              Baked with Love in Galle.
+            </h2>
+            <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
+              Meet the team behind Flour Dude — Galle's most celebrated bakery and custom cake studio. Baked from scratch every single day.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section-space bg-warmWhite">
-        <div className="content-shell grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
-          <article className="space-y-4">
-            <Eyebrow>Our Story</Eyebrow>
-            <SectionHeading>{settings.founderName}</SectionHeading>
-            <div className="space-y-3">
-              {settings.founderStory.map((paragraph) => (
-                <MutedText key={paragraph}>{paragraph}</MutedText>
+      <section className="section-space border-b border-brand-border/60 bg-brand-cream">
+        <div className="content-shell grid gap-16 lg:grid-cols-[1fr_1fr] items-center">
+          <article className="space-y-8 max-w-2xl">
+            <div className="space-y-4">
+              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                The Founder
+              </h2>
+              <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+                {settings.founderName}
+              </h3>
+            </div>
+            <div className="space-y-6 text-lg font-light text-brand-textMuted leading-relaxed">
+              {settings.founderStory.map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
               ))}
             </div>
           </article>
 
-          <article className="overflow-hidden rounded-cake border border-borderColor bg-cream p-2">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-cake">
-              <Image src={founderImage} alt="Founder portrait" fill sizes="(max-width: 1024px) 100vw, 45vw" className="object-cover" />
+          <article className="relative">
+            <div className="absolute -inset-4 bg-brand-caramel/10 rounded-[40px] transform rotate-3"></div>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-brand-border/40 bg-white shadow-floating">
+              <Image 
+                src={founderImage} 
+                alt="Founder portrait" 
+                fill 
+                sizes="(max-width: 1024px) 100vw, 45vw" 
+                className="object-cover" 
+              />
             </div>
           </article>
         </div>
       </section>
 
-      <section className="section-space bg-cream">
-        <div className="content-shell grid grid-cols-2 gap-4">
-          {values.map((value) => (
-            <article key={value.title} className="rounded-card border border-borderColor bg-warmWhite p-5">
-              <p className="text-4xl">{value.emoji}</p>
-              <h2 className="mt-3 text-base font-bold text-brown-deep">{value.title}</h2>
-              <p className="mt-1 text-sm text-textMuted">{value.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <section className="section-space bg-white">
+        <div className="content-shell space-y-16">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+              Our Principles
+            </h2>
+            <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+              What We Stand For
+            </h3>
+          </div>
 
-      <section className="section-space bg-warmWhite">
-        <div className="content-shell space-y-6">
-          <SectionHeading>Milestones</SectionHeading>
-          <div className="flex flex-col gap-3 md:flex-row md:items-stretch">
-            {settings.milestones.map((milestone) => (
-              <article key={`${milestone.year}-${milestone.label}`} className="flex-1 rounded-card border border-borderColor bg-cream p-4">
-                <p className="font-display text-3xl text-caramel">{milestone.year}</p>
-                <p className="mt-2 text-sm text-textMuted">{milestone.label}</p>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {values.map((value, index) => (
+              <article 
+                key={value.title} 
+                style={{ animationDelay: `${index * 100}ms` }}
+                className="group p-8 rounded-[24px] border border-brand-border/50 bg-brand-cream/30 hover:bg-white hover:border-brand-border hover:shadow-floating transition-all duration-500"
+              >
+                <div className="w-14 h-14 rounded-full bg-white border border-brand-border/50 flex items-center justify-center shadow-sm text-2xl group-hover:scale-110 transition-transform duration-500">
+                  {value.emoji}
+                </div>
+                <h4 className="mt-8 text-xl font-display text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
+                  {value.title}
+                </h4>
+                <p className="mt-3 text-brand-textMuted font-light leading-relaxed">
+                  {value.body}
+                </p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-space bg-cream">
-        <div className="content-shell grid grid-cols-2 gap-3 md:grid-cols-3">
-          {settings.galleryImageUrls.slice(0, 6).map((imageUrl, index) => (
-            <article key={`${imageUrl}-${index}`} className="group relative overflow-hidden rounded-cake">
-              <Image
-                src={imageUrl}
-                alt={`Flour Dude gallery ${index + 1}`}
-                width={900}
-                height={900}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-            </article>
-          ))}
+      <section className="section-space bg-brand-cream border-t border-brand-border/60">
+        <div className="content-shell space-y-12">
+          <div className="space-y-4 max-w-2xl">
+            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+              Journey
+            </h2>
+            <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+              Milestones
+            </h3>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-3 xl:grid-cols-4">
+            {settings.milestones.map((milestone) => (
+              <article 
+                key={`${milestone.year}-${milestone.label}`} 
+                className="flex flex-col justify-center rounded-[24px] border border-brand-border/50 bg-white p-8 shadow-sm hover:shadow-floating hover:border-brand-border transition-all duration-500"
+              >
+                <p className="font-display text-5xl text-brand-caramel">{milestone.year}</p>
+                <div className="w-8 h-[1px] bg-brand-border my-6"></div>
+                <p className="text-lg font-light text-brand-textBody leading-relaxed">{milestone.label}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section-space bg-brown-deep text-center text-warmWhite">
-        <div className="content-shell space-y-4">
-          <SectionHeading className="text-warmWhite">Ready to order?</SectionHeading>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <a href={buildWhatsAppLink(whatsappMessages.customCake)} target="_blank" rel="noreferrer">
-              <Button variant="whatsapp" size="lg">
-                Order on WhatsApp
-              </Button>
-            </a>
-            <Link href="/cakes">
-              <Button variant="outline" className="border-warmWhite text-warmWhite hover:bg-warmWhite/10 hover:text-warmWhite">
-                See Our Cakes →
-              </Button>
-            </Link>
+      <section className="section-space bg-white border-t border-brand-border/60">
+        <div className="content-shell space-y-12">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
+            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+              Studio
+            </h2>
+            <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+              Behind The Scenes
+            </h3>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {settings.galleryImageUrls.slice(0, 6).map((imageUrl, index) => (
+              <article 
+                key={`${imageUrl}-${index}`} 
+                className="group relative aspect-square overflow-hidden rounded-[24px] bg-brand-cream"
+              >
+                <Image
+                  src={imageUrl}
+                  alt={`Flour Dude gallery ${index + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+                <div className="absolute inset-0 transition-opacity duration-500 bg-brand-deepBrown/10 opacity-0 group-hover:opacity-100 mix-blend-multiply" />
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-brand-deepBrown text-white">
+        <div className="content-shell">
+          <div className="max-w-4xl mx-auto text-center space-y-10 bg-white/5 border border-white/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
+            <div className="space-y-4">
+              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                Experience Flour Dude
+              </h2>
+              <h3 className="font-display text-4xl md:text-5xl text-white tracking-tight leading-tight">
+                Ready to order?
+              </h3>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <a href={buildWhatsAppLink(whatsappMessages.customCake)} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
+                <Button className="rounded-pill px-8 h-14 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide w-full">
+                  Order on WhatsApp
+                </Button>
+              </a>
+              <Link href="/cakes" className="w-full sm:w-auto">
+                <Button className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full">
+                  See Our Cakes →
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

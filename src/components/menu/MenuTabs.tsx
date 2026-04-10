@@ -32,8 +32,8 @@ export function MenuTabs({ categories, items }: MenuTabsProps) {
   const category = categories.find((entry) => entry.slug === activeCategory);
 
   return (
-    <section className="space-y-5">
-      <div className="no-scrollbar -mx-2 flex gap-2 overflow-x-auto px-2 pb-1">
+    <section className="space-y-12">
+      <div className="no-scrollbar -mx-4 flex gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0 border-b border-brand-border/40 justify-start md:justify-center">
         {categories.map((entry) => {
           const isActive = entry.slug === activeCategory;
 
@@ -42,40 +42,47 @@ export function MenuTabs({ categories, items }: MenuTabsProps) {
               key={entry.slug}
               type="button"
               onClick={() => setActiveCategory(entry.slug)}
-              className={`whitespace-nowrap rounded-pill border px-5 py-2 text-sm font-medium transition ${
+              className={`whitespace-nowrap px-8 py-4 text-sm font-medium tracking-wide uppercase transition-all relative ${
                 isActive
-                  ? 'border-brand-caramel bg-brand-caramel text-brand-warmWhite'
-                  : 'border-brand-border bg-brand-warmWhite text-brand-textBody hover:border-brand-caramelLight'
+                  ? 'text-brand-deepBrown'
+                  : 'text-brand-textMuted hover:text-brand-caramel'
               }`}
             >
               {entry.name}
+              {isActive && (
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-brand-deepBrown rounded-t-full"></span>
+              )}
             </button>
           );
         })}
       </div>
 
-      <div className="rounded-card border border-brand-border bg-brand-warmWhite p-5 sm:p-7">
-        <h2 className="section-title text-3xl text-brand-deepBrown">{category?.name}</h2>
-        <p className="mt-2 text-sm text-brand-textMuted">{category?.description}</p>
+      <div className="rounded-card p-6 sm:p-10 border border-brand-border bg-white shadow-soft">
+        <div className="max-w-2xl">
+           <h2 className="font-display text-4xl text-brand-deepBrown pb-2">{category?.name}.</h2>
+           <p className="mt-2 text-lg font-light text-brand-textMuted max-w-xl">{category?.description}</p>
+        </div>
 
-        <div className="mt-6 grid gap-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-2">
           {filteredItems.map((item) => (
             <article
               key={item.name}
-              className="rounded-card border border-brand-border/80 bg-brand-cream/50 p-4 sm:flex sm:items-start sm:justify-between"
+              className="group flex flex-col justify-between rounded-[20px] border border-transparent bg-brand-cream/50 hover:bg-white hover:border-brand-border hover:shadow-floating p-8 transition-all duration-500"
             >
-              <div>
-                <h3 className="font-semibold text-brand-textBody">{item.name}</h3>
-                {item.description ? (
-                  <p className="mt-1 max-w-xl text-sm text-brand-textMuted">{item.description}</p>
-                ) : null}
+              <div className="space-y-4">
                 {item.isFeatured ? (
-                  <span className="mt-2 inline-flex rounded-pill bg-brand-sage/20 px-3 py-1 text-xs font-medium text-brand-sage">
-                    Chef pick
+                  <span className="inline-flex rounded-full bg-brand-caramel/10 border border-brand-caramel/20 px-3 py-1 text-xs font-semibold tracking-wide text-brand-caramel uppercase">
+                    Chef's Choice
                   </span>
                 ) : null}
+                <div className="flex items-start justify-between gap-6">
+                   <h3 className="font-display text-xl text-brand-deepBrown group-hover:text-brand-caramel transition-colors">{item.name}</h3>
+                   <p className="font-sans text-lg font-medium text-brand-deepBrown shrink-0">{formatLKR(item.price ?? 0)}</p>
+                </div>
+                {item.description ? (
+                   <p className="text-base font-light text-brand-textMuted leading-relaxed">{item.description}</p>
+                ) : null}
               </div>
-              <p className="mt-3 text-sm font-semibold text-brand-deepBrown sm:mt-0">{formatLKR(item.price ?? 0)}</p>
             </article>
           ))}
         </div>
