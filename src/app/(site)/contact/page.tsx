@@ -33,7 +33,7 @@ export default async function ContactPage() {
           Contact Flour Dude
         </h2>
         <p className="text-lg md:text-xl font-light text-brand-textMuted leading-relaxed">
-          Whether you have a general inquiry or want to visit our studio in Galle, we'd love to hear from you.
+          Whether you have a general inquiry or want to visit our studio in Galle, we&apos;d love to hear from you.
         </p>
       </section>
 
@@ -120,7 +120,7 @@ export default async function ContactPage() {
           <article className="rounded-[32px] border border-brand-border/40 bg-white p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
             <div className="space-y-2 mb-8">
               <h3 className="font-display text-3xl text-brand-deepBrown">Send an Inquiry</h3>
-              <p className="font-light text-brand-textMuted">Fill out the form below and we'll get back to you shortly.</p>
+              <p className="font-light text-brand-textMuted">Fill out the form below and we&apos;ll get back to you shortly.</p>
             </div>
             <GeneralInquiryForm />
           </article>

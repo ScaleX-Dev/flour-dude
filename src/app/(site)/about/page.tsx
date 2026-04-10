@@ -68,7 +68,7 @@ export default async function AboutPage() {
               Baked with Love in Galle.
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
-              Meet the team behind Flour Dude — Galle's most celebrated bakery and custom cake studio. Baked from scratch every single day.
+              Meet the team behind Flour Dude — Galle&apos;s most celebrated bakery and custom cake studio. Baked from scratch every single day.
             </p>
           </div>
         </div>

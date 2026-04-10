@@ -176,7 +176,7 @@ export default function EventsPage() {
         <div className="content-shell max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
-              Let's Talk About Your Event
+              Let&apos;s Talk About Your Event
             </h2>
             <p className="text-lg text-brand-textMuted font-light">
               Fill out the form below. We aim to reply within 24 hours with a custom quote.

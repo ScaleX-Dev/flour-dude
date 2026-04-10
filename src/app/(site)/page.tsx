@@ -532,7 +532,7 @@ export default async function SiteHomePage() {
                     {'★'.repeat(Math.max(1, Math.min(5, item.rating)))}
                   </div>
                   <p className="font-sans text-lg font-light leading-relaxed text-brand-deepBrown">
-                    "{item.quote}"
+                    &quot;{item.quote}&quot;
                   </p>
                 </div>
                 <div className="mt-8 pt-6 border-t border-brand-border/50 flex items-center gap-3">

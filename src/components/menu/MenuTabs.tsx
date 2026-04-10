@@ -72,7 +72,7 @@ export function MenuTabs({ categories, items }: MenuTabsProps) {
               <div className="space-y-4">
                 {item.isFeatured ? (
                   <span className="inline-flex rounded-full bg-brand-caramel/10 border border-brand-caramel/20 px-3 py-1 text-xs font-semibold tracking-wide text-brand-caramel uppercase">
-                    Chef's Choice
+                    Chef&apos;s Choice
                   </span>
                 ) : null}
                 <div className="flex items-start justify-between gap-6">
