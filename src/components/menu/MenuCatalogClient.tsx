@@ -28,7 +28,7 @@ type MenuItem = {
   available?: boolean | null;
   badge?: string | null;
   allergens?: string[] | null;
-  dietaryTags?: string[];
+  dietaryTags?: Array<string | { tag?: string | null }>;
   category?: { slug?: string | null; name?: string | null } | number | null;
 };
 
@@ -43,22 +43,7 @@ type MenuCatalogClientProps = {
 type TabItem = {
   key: string;
   label: string;
-};
-
-const tabEmojiMap: Record<string, string> = {
-  cakes: '🎂',
-  waffles: '🧇',
-  'wraps-sandwiches': '🥪',
-  'coffee-tea': '☕',
-  'chocolate-drinks': '🍫'
-};
-
-const emojiByName: Record<string, string> = {
-  cakes: '🎂',
-  waffles: '🧇',
-  'wraps & sandwiches': '🥪',
-  'coffee & tea': '☕',
-  'chocolate drinks': '🍫'
+  description?: string;
 };
 
 function normalizeSlug(input: string): string {
@@ -67,10 +52,6 @@ function normalizeSlug(input: string): string {
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
-}
-
-function categoryEmoji(item: { slug: string; name: string }): string {
-  return tabEmojiMap[item.slug] ?? emojiByName[item.name.toLowerCase()] ?? '🍽️';
 }
 
 function truncateDescription(value: string | undefined): string {
@@ -207,7 +188,9 @@ export function MenuCatalogClient({
                 ? item.price_lkr
                 : 0,
           available: item.available ?? true,
-          dietaryTags: item.dietaryTags ?? item.allergens ?? [],
+          dietaryTags: (item.dietaryTags ?? item.allergens ?? [])
+            .map((tag) => (typeof tag === 'string' ? tag : tag?.tag ?? ''))
+            .filter((tag): tag is string => Boolean(tag && tag.trim().length)),
           imageUrl: photoUrl
         };
       }),
@@ -216,18 +199,17 @@ export function MenuCatalogClient({
 
   const tabs = useMemo<TabItem[]>(() => {
     const cmsTabs = sortedCategories
-      .filter((category) => Boolean(tabEmojiMap[normalizeSlug(category.slug)] || emojiByName[category.name.toLowerCase()]))
       .map((category) => {
         const slug = normalizeSlug(category.slug);
-        const emoji = categoryEmoji({ slug, name: category.name });
 
         return {
           key: slug,
-          label: `${emoji} ${category.name}`
+          label: category.name,
+          description: normalizeNullableText(category.description)
         };
       });
 
-    return [{ key: 'all', label: 'All' }, ...cmsTabs];
+    return [{ key: 'all', label: 'All Menu' }, ...cmsTabs];
   }, [sortedCategories]);
 
   const [activeTab, setActiveTab] = useState<string>('all');
@@ -263,9 +245,11 @@ export function MenuCatalogClient({
     return list.filter((item) => normalizeSlug(item.categorySlug) === activeTab);
   }, [activeTab, normalizedItems]);
 
+  const activeTabMeta = useMemo(() => tabs.find((tab) => tab.key === activeTab), [tabs, activeTab]);
+
   return (
     <>
-      <div className="sticky top-[var(--header-height)] z-10 border-b border-brand-border/40 bg-white/80 backdrop-blur-xl shadow-sm">
+      <div className="sticky top-[var(--header-height)] z-10 border-b border-brand-border/60 bg-[#f2ece3]/95 backdrop-blur-xl">
         <div className="content-shell">
           <div className="no-scrollbar -mx-2 flex overflow-x-auto px-2 justify-start md:justify-center">
             {tabs.map((tab) => {
@@ -276,15 +260,15 @@ export function MenuCatalogClient({
                   key={tab.key}
                   type="button"
                   onClick={() => setActiveTab(tab.key)}
-                  className={`mr-8 whitespace-nowrap px-2 py-[22px] text-[13px] font-sans uppercase tracking-[0.1em] font-medium transition-all relative ${
+                  className={`mr-8 whitespace-nowrap px-1 py-[20px] text-[12px] font-sans uppercase tracking-[0.16em] font-semibold transition-all relative ${
                     isActive
-                      ? 'text-brand-caramel'
-                      : 'text-brand-textMuted hover:text-brand-deepBrown'
+                      ? 'text-brand-deepBrown'
+                      : 'text-brand-textMuted hover:text-brand-deepBrown/80'
                   }`}
                 >
                   {tab.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brand-caramel rounded-t-full"></span>
+                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-brand-deepBrown rounded-t-full"></span>
                   )}
                 </button>
               );
@@ -293,19 +277,27 @@ export function MenuCatalogClient({
         </div>
       </div>
 
-      <section className="section-space bg-brand-cream">
-        <div className="content-shell">
-          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-20">
-            {filteredItems.map((item, index) => {
-              const emoji = categoryEmoji({ slug: normalizeSlug(item.categorySlug), name: item.categorySlug });
+      <section className="section-space bg-[#f2ece3]">
+        <div className="content-shell space-y-12">
+          <div className="max-w-3xl border-b border-brand-border/60 pb-8">
+            <p className="font-sans text-xs uppercase tracking-[0.2em] text-brand-textMuted">Menu / {activeTabMeta?.label ?? 'All Menu'}</p>
+            <h2 className="mt-4 font-display text-5xl md:text-6xl text-brand-deepBrown tracking-tight leading-[1.05]">
+              {activeTabMeta?.label ?? 'All Menu'}
+            </h2>
+            <p className="mt-4 text-brand-textMuted text-lg font-light max-w-2xl">
+              {activeTabMeta?.description ?? 'Small-batch bakes and cafe drinks curated for everyday comfort and celebrations.'}
+            </p>
+          </div>
 
+          <div className="grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pb-20">
+            {filteredItems.map((item, index) => {
               return (
                 <article
                   key={item.id}
                   style={{ animationDelay: `${index * 50}ms` }}
-                  className="group flex flex-col text-left gap-4 animate-rise-in fill-mode-both"
+                  className="group flex flex-col text-center gap-5 animate-rise-in fill-mode-both"
                 >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-[24px] bg-white border border-transparent group-hover:border-brand-border/80 shadow-sm transition-all duration-500">
+                  <div className="relative mx-auto aspect-square w-full max-w-[240px] overflow-hidden rounded-full bg-[#17483f] border border-[#17483f]/30 shadow-[0_20px_45px_-26px_rgba(23,72,63,0.55)] transition-all duration-500 group-hover:scale-[1.02]">
                     {!item.available ? (
                       <span className="absolute left-4 top-4 z-10 rounded-pill bg-brand-deepBrown px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase text-white">
                         Sold Out
@@ -324,33 +316,33 @@ export function MenuCatalogClient({
                         alt={item.name}
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-brand-cream">
-                        <span className="text-4xl opacity-50 grayscale">{emoji}</span>
+                      <div className="absolute inset-0 flex items-center justify-center bg-[#17483f]">
+                        <span className="text-4xl text-white/75 font-display">{item.name.charAt(0)}</span>
                       </div>
                     )}
 
-                    <div className="absolute inset-0 bg-brand-deepBrown/5 opacity-0 group-hover:opacity-100 mix-blend-multiply transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
-                  <div className="flex flex-col flex-1 px-1">
-                    <div className="flex items-start justify-between gap-4 mb-2">
-                      <h3 className="font-display text-[22px] tracking-tight text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
+                  <div className="flex flex-col flex-1 px-1 max-w-[280px] mx-auto">
+                    <div className="mb-2">
+                      <h3 className="font-sans text-[20px] tracking-[-0.02em] font-semibold text-brand-deepBrown transition-colors">
                         {item.name}
                       </h3>
-                      <p className="font-sans text-[15px] font-medium text-brand-deepBrown shrink-0 pt-1">
+                      <p className="font-sans text-[15px] font-medium text-brand-deepBrown pt-2">
                         {formatLKR(item.price ?? 0)}
                       </p>
                     </div>
                     
-                    <p className="text-[14px] text-brand-textMuted font-light leading-relaxed mb-4">
+                    <p className="text-[14px] text-brand-textMuted font-light leading-relaxed mb-4 min-h-[42px]">
                       {truncateDescription(normalizeNullableText(item.description))}
                     </p>
                     
-                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-brand-border/40">
-                      <div className="flex flex-wrap gap-1.5">
+                    <div className="mt-auto flex flex-col items-center gap-2 pt-4 border-t border-brand-border/40">
+                      <div className="flex flex-wrap justify-center gap-1.5">
                         {item.dietaryTags.map((tag) => (
                           <span key={`${item.id}-${tag}`} className="inline-flex rounded-full bg-brand-sage/10 px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold text-brand-sage">
                             {tag}

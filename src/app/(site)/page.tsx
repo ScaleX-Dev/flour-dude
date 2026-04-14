@@ -276,6 +276,31 @@ async function getHomePageData(): Promise<HomePageData> {
 
 export default async function SiteHomePage() {
   const data = await getHomePageData();
+  const menuCategoryHighlights = [
+    {
+      title: 'All-Day Breakfast',
+      items: 'Wraps, waffles, sandwiches, quesadilla and more'
+    },
+    {
+      title: 'Cakes and Muffins',
+      items: 'Fresh bakes for everyday cravings and celebrations'
+    },
+    {
+      title: 'Brownies and Cookies',
+      items: 'Fudgy brownies, chunky cookies, and dessert add-ons'
+    },
+    {
+      title: 'Drinks',
+      items: 'Hot coffee, cold coffee, matcha, iced tea, refreshers, frappes, and milkshakes'
+    }
+  ];
+  const customCakeTestimonials =
+    data.testimonialCards.filter(
+      (item) =>
+        item.occasion.toLowerCase().includes('custom') ||
+        item.occasion.toLowerCase().includes('cake') ||
+        item.quote.toLowerCase().includes('cake')
+    ).slice(0, 2) || [];
   const aggregateRatingSchema = {
     '@context': 'https://schema.org',
     '@type': 'AggregateRating',
@@ -335,6 +360,11 @@ export default async function SiteHomePage() {
                 </Link>
               </Button>
             </div>
+
+            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 py-2.5 px-5 backdrop-blur-md">
+              <span className="text-brand-caramel text-lg">★</span>
+              <span className="text-sm font-medium tracking-wide text-white">Rated 5 stars on Uber Eats</span>
+            </div>
           </div>
         </div>
 
@@ -377,13 +407,28 @@ export default async function SiteHomePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-border/60 pb-8">
             <div className="space-y-4 max-w-2xl">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Daily Bake
+                All-Day Menu
               </h2>
-              <h3 className="section-title mb-0">Signature Creations</h3>
+              <h3 className="section-title mb-0">Breakfast, Bakes, and Cafe Drinks</h3>
+              <p className="text-brand-textMuted font-light text-lg leading-relaxed">
+                Cafe-style favorites inspired by the drinks and comfort lineup people love, made fresh daily in Galle.
+              </p>
             </div>
             <Button asChild className="rounded-pill px-6 h-12 border border-brand-deepBrown/20 bg-transparent text-brand-deepBrown hover:bg-brand-deepBrown hover:text-white transition-all">
               <Link href="/menu">View Full Menu</Link>
             </Button>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {menuCategoryHighlights.map((category) => (
+              <article
+                key={category.title}
+                className="rounded-[24px] border border-brand-border/40 bg-white p-6 shadow-sm"
+              >
+                <h4 className="font-display text-2xl text-brand-deepBrown">{category.title}</h4>
+                <p className="mt-3 font-light text-brand-textMuted leading-relaxed">{category.items}</p>
+              </article>
+            ))}
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -434,23 +479,36 @@ export default async function SiteHomePage() {
           <div className="max-w-2xl space-y-10">
             <div className="space-y-6">
               <p className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Bespoke Design
+                Custom Cakes
               </p>
               <h2 className="font-display text-5xl md:text-6xl tracking-tight leading-[1.1] text-white">
-                Every celebration deserves a masterpiece.
+                Customised cakes for every celebration.
               </h2>
               <p className="text-lg font-light leading-relaxed text-white/70 max-w-xl">
-                From elegant minimalist tiers to extravagant highly-detailed sculptures. We work closely with you to design a cake that perfectly captures the essence of your event and tastes unforgettable.
+                Birthdays, anniversaries, bridal showers, weddings, graduations, office milestones, and more. We design around your theme and guide you to the right size, flavor, and style.
+              </p>
+              <p className="text-sm uppercase tracking-[0.18em] text-white/60">
+                Portfolio-led ordering flow: view designs, then enquire on WhatsApp.
               </p>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 pt-4">
                <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
-                  <Link href="/cakes">Explore Cake Portfolio</Link>
+                  <Link href="/cakes">View Portfolio</Link>
                </Button>
                <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
-                  <a href={WA.customCake()}>Discuss A Design</a>
+                  <a href={WA.customCake()}>Enquire Now (WhatsApp)</a>
                </Button>
+            </div>
+
+            <div className="grid gap-4 pt-4 sm:grid-cols-2">
+              {(customCakeTestimonials.length ? customCakeTestimonials : data.testimonialCards.slice(0, 2)).map((item) => (
+                <article key={`custom-${item.id}`} className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm">
+                  <p className="text-sm text-brand-caramel">{'★'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">&quot;{item.quote}&quot;</p>
+                  <p className="mt-3 text-xs uppercase tracking-wider text-white/60">{item.customerName}</p>
+                </article>
+              ))}
             </div>
           </div>
         </div>
@@ -509,9 +567,9 @@ export default async function SiteHomePage() {
           <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left border-b border-brand-border/60 pb-8">
             <div className="space-y-4">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Reputation
+                Testimonials
               </h2>
-              <h3 className="section-title mb-0">Words from our Guests</h3>
+              <h3 className="section-title mb-0">What Our Guests Say</h3>
             </div>
             <div className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-2.5 shadow-sm border border-brand-border/40">
               <span className="text-brand-caramel text-xl">★</span>

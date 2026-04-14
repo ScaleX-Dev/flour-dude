@@ -65,10 +65,10 @@ export default async function AboutPage() {
               Our Story
             </h1>
             <h2 className="font-display text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[0.95]">
-              Baked with Love in Galle.
+              About Flour Dude.
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
-              Meet the team behind Flour Dude — Galle&apos;s most celebrated bakery and custom cake studio. Baked from scratch every single day.
+              We are a Galle-born bakery cafe focused on all-day comfort food, handcrafted drinks, and customised cakes for life&apos;s biggest moments.
             </p>
           </div>
         </div>

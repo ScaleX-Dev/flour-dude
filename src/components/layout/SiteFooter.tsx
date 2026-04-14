@@ -7,6 +7,7 @@ const quickLinks = [
   { href: '/menu', label: 'Menu' },
   { href: '/cakes', label: 'Custom Cakes' },
   { href: '/events', label: 'Events' },
+  { href: '/events', label: 'B2B Catering' },
   { href: '/about', label: 'About' },
   { href: '/order', label: 'How to Order' },
   { href: '/contact', label: 'Contact' }
@@ -20,11 +21,11 @@ export function SiteFooter() {
           <div className="space-y-6 xl:col-span-4 pr-8">
             <h2 className="font-display text-4xl tracking-tight text-white">Flour Dude.</h2>
             <p className="text-base text-brand-cream/70 leading-relaxed font-light">
-              Premium custom cakes, artisanal bakes, and exceptional coffee. Crafted with passion in the heart of Galle, Sri Lanka.
+              All-day breakfast, handcrafted drinks, customised cakes, and event-ready dessert catering from the heart of Galle.
             </p>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-2 px-4 shadow-sm backdrop-blur-sm">
               <span className="text-yellow-400 text-lg">★</span>
-              <span className="text-sm font-medium tracking-wide">5.0 on Uber Eats (140+ Reviews)</span>
+              <span className="text-sm font-medium tracking-wide">Rated 5 stars on Uber Eats</span>
             </div>
           </div>
 

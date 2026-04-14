@@ -73,10 +73,10 @@ export default function EventsPage() {
               Events & B2B
             </h1>
             <h2 className="font-display text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[0.95]">
-              Celebrate in Style.
+              Events and B2B Catering.
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
-              From intimate gatherings to grand hotel banquets, we create unforgettable dessert experiences across Galle and the Southern Province.
+              From birthdays and private events to corporate launches and hotel partnerships, we design dessert and cake solutions that fit your brief and budget.
             </p>
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <a href="#event-inquiry-form">

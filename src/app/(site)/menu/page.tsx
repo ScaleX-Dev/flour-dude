@@ -133,7 +133,7 @@ export default async function MenuPage() {
               Our Menu.
             </h2>
             <p className="text-lg font-light leading-relaxed text-white/80 max-w-xl">
-              Made fresh every morning in our Galle kitchen. From signature coffee blends to artisanal wraps and indulgent waffles.
+              All-day breakfast, cakes and muffins, brownies and cookies, plus cafe-style drinks including hot coffee, cold coffee, matcha, iced teas, refreshers, frappes, and milkshakes.
             </p>
 
             <div id="menu-hero-ctas" className="max-w-[500px] pt-4">
@@ -158,6 +158,31 @@ export default async function MenuPage() {
           </div>
         </section>
       ) : null}
+
+      <section className="bg-white border-b border-brand-border/60">
+        <div className="content-shell py-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <article className="rounded-2xl border border-brand-border/40 bg-brand-cream/40 p-4">
+            <p className="text-xs uppercase tracking-[0.15em] text-brand-caramel font-semibold">1</p>
+            <h3 className="mt-2 font-display text-2xl text-brand-deepBrown">All-Day Breakfast</h3>
+            <p className="mt-2 text-sm font-light text-brand-textMuted">Wraps, waffles, sandwiches, quesadilla and more.</p>
+          </article>
+          <article className="rounded-2xl border border-brand-border/40 bg-brand-cream/40 p-4">
+            <p className="text-xs uppercase tracking-[0.15em] text-brand-caramel font-semibold">2</p>
+            <h3 className="mt-2 font-display text-2xl text-brand-deepBrown">Cakes and Muffins</h3>
+            <p className="mt-2 text-sm font-light text-brand-textMuted">Freshly baked classics and seasonal specials.</p>
+          </article>
+          <article className="rounded-2xl border border-brand-border/40 bg-brand-cream/40 p-4">
+            <p className="text-xs uppercase tracking-[0.15em] text-brand-caramel font-semibold">3</p>
+            <h3 className="mt-2 font-display text-2xl text-brand-deepBrown">Brownies and Cookies</h3>
+            <p className="mt-2 text-sm font-light text-brand-textMuted">Fudgy, chewy, and perfect with coffee.</p>
+          </article>
+          <article className="rounded-2xl border border-brand-border/40 bg-brand-cream/40 p-4">
+            <p className="text-xs uppercase tracking-[0.15em] text-brand-caramel font-semibold">4</p>
+            <h3 className="mt-2 font-display text-2xl text-brand-deepBrown">Drinks</h3>
+            <p className="mt-2 text-sm font-light text-brand-textMuted">A cafe lineup inspired by your favorite coffeehouse selections.</p>
+          </article>
+        </div>
+      </section>
 
       <div className="bg-brand-cream">
         <MenuCatalogClient
