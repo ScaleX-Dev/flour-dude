@@ -5,7 +5,7 @@ import { SiteHeader } from '@/components/layout/SiteHeader';
 import { WhatsAppFAB } from '@/components/layout/WhatsAppFab';
 import { LOCAL_BUSINESS_SCHEMA, SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/lib/site';
-import './globals.css';
+import '../globals.css';
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function SiteRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
       <body>

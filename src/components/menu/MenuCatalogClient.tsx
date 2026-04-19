@@ -106,7 +106,7 @@ export function DeliveryOrderButtons({
         target="_blank"
         rel="noreferrer"
         onClick={() => trackDeliveryClick('uber_eats')}
-        className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-[#FF6600] px-4 py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
+        className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-brand-caramel px-4 py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
           compact ? 'min-h-[44px]' : 'min-h-[48px]'
         }`}
       >
@@ -119,7 +119,7 @@ export function DeliveryOrderButtons({
         target="_blank"
         rel="noreferrer"
         onClick={() => trackDeliveryClick('pickme')}
-        className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-[#E31837] px-4 py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
+        className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-brand-deepBrown px-4 py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
           compact ? 'min-h-[44px]' : 'min-h-[48px]'
         }`}
       >
@@ -351,7 +351,7 @@ export function MenuCatalogClient({
                       </div>
                       
                       {!item.available ? (
-                        <span className="text-xs text-red-500 font-semibold tracking-wide uppercase">Unavailable</span>
+                        <span className="text-xs text-brand-rose font-semibold tracking-wide uppercase">Unavailable</span>
                       ) : null}
                     </div>
                   </div>

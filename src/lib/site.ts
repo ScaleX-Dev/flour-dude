@@ -269,28 +269,28 @@ export const cakePortfolio: CakeSeed[] = [
     description: 'Three layers, biscoff crunch center, caramel drip, lotus shards.',
     priceFrom: 9500,
     imageUrl: '/images/cake-portfolio-1.jpg',
-    accent: 'bg-[#f4d7b5]'
+    accent: 'bg-brand-caramel/20'
   },
   {
     title: 'Pastel Birthday Garden Cake',
     description: 'Hand-piped florals with soft pink and sage tones for birthdays.',
     priceFrom: 12000,
     imageUrl: '/images/cake-portfolio-2.jpg',
-    accent: 'bg-[#f7d4cf]'
+    accent: 'bg-brand-rose/20'
   },
   {
     title: 'Chocolate Fudge Matilda Tower',
     description: 'Bold cocoa sponge with extra ganache for serious chocoholics.',
     priceFrom: 8900,
     imageUrl: '/images/cake-portfolio-3.jpg',
-    accent: 'bg-[#dcc1a2]'
+    accent: 'bg-brand-cream'
   },
   {
     title: 'Wedding White Textured Cake',
     description: 'Elegant minimal texture work, pearl finish, fresh flower styling.',
     priceFrom: 18000,
     imageUrl: '/images/cake-portfolio-4.jpg',
-    accent: 'bg-[#efe5d8]'
+    accent: 'bg-brand-warmWhite'
   }
 ];
 

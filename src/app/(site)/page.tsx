@@ -120,7 +120,7 @@ function isPromotionLive(startsAt?: string | null, endsAt?: string | null): bool
 }
 
 async function getHomePageData(): Promise<HomePageData> {
-  const toneClasses = ['bg-cream', 'bg-[#f8ede0]', 'bg-[#f4e8de]', 'bg-[#f7efe7]'];
+  const toneClasses = ['bg-brand-cream', 'bg-brand-caramel/10', 'bg-brand-rose/10', 'bg-brand-warmWhite'];
   const fallbackFeaturedMenu: FeaturedMenuCard[] = menuItems
     .filter((item) => item.isFeatured)
     .slice(0, 3)
@@ -316,7 +316,7 @@ export default async function SiteHomePage() {
   return (
     <>
       <SchemaMarkup id="schema-home-aggregate-rating" schema={aggregateRatingSchema} />
-      <section className="relative min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-24 md:pb-32 pt-32">
+      <section className="relative min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col pt-32">
         <Image
           src={heroImages.cake}
           alt="Signature Flour Dude celebration cake"
@@ -328,7 +328,7 @@ export default async function SiteHomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/60 to-transparent" />
         <div className="absolute inset-0 bg-black/20" />
 
-        <div className="content-shell relative z-10 w-full">
+        <div className="content-shell relative z-10 flex w-full flex-1 items-end pb-24 md:pb-32">
           <div className="max-w-4xl space-y-8 animate-rise-in">
             <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2 px-5 backdrop-blur-md">
               <span className="relative flex h-2.5 w-2.5">
@@ -484,7 +484,7 @@ export default async function SiteHomePage() {
               <h2 className="font-display text-5xl md:text-6xl tracking-tight leading-[1.1] text-white">
                 Customised cakes for every celebration.
               </h2>
-              <p className="text-lg font-light leading-relaxed text-brand-deepBrown/80 max-w-xl">
+              <p className="text-lg font-light leading-relaxed text-white/80 max-w-xl">
                 Birthdays, anniversaries, bridal showers, weddings, graduations, office milestones, and more. We design around your theme and guide you to the right size, flavor, and style.
               </p>
               <p className="text-sm uppercase tracking-[0.18em] text-white/60">

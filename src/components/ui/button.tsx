@@ -11,7 +11,7 @@ const buttonVariants = cva(
         primary: 'bg-brand-caramel text-white hover:bg-brand-caramel-light rounded-pill px-8 py-3',
         outline: 'border-2 border-brand-caramel text-brand-caramel hover:bg-brand-caramel/10 rounded-pill px-8 py-3',
         dark: 'bg-brand-deepBrown text-brand-cream hover:bg-brand-charcoal rounded-pill px-8 py-3',
-        whatsapp: 'bg-[#25D366] text-white hover:bg-[#128C7E] rounded-pill px-8 py-3',
+        whatsapp: 'bg-[var(--wa-green)] text-white hover:brightness-95 rounded-pill px-8 py-3',
         ghost: 'bg-transparent text-brand-textBody hover:bg-brand-cream rounded-pill px-8 py-3'
       },
       size: {

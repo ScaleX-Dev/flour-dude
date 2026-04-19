@@ -41,7 +41,7 @@ function FieldError({ message }: { message?: string }) {
     return null;
   }
 
-  return <p className="text-xs text-rose">{message}</p>;
+  return <p className="text-xs text-brand-rose">{message}</p>;
 }
 
 export function EventInquiryForm() {
@@ -94,8 +94,8 @@ export function EventInquiryForm() {
 
   if (status === 'success') {
     return (
-      <div className="rounded-card border border-borderColor bg-warmWhite p-6 text-center">
-        <p className="text-base font-semibold text-brown-deep">Thank you! We&apos;ll be in touch within 24 hours.</p>
+      <div className="rounded-card border border-brand-border bg-brand-warmWhite p-6 text-center">
+        <p className="text-base font-semibold text-brand-deepBrown">Thank you! We&apos;ll be in touch within 24 hours.</p>
         <a
           href={buildWhatsAppLink(whatsappMessages.b2b)}
           target="_blank"
@@ -109,33 +109,33 @@ export function EventInquiryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 rounded-card border border-borderColor bg-warmWhite p-6 sm:grid-cols-2">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 rounded-card border border-brand-border bg-brand-warmWhite p-6 sm:grid-cols-2">
       <label className="space-y-1 text-sm">
         <span>Full Name*</span>
-        <input {...register('fullName')} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2" />
+        <input {...register('fullName')} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2" />
         <FieldError message={errors.fullName?.message} />
       </label>
 
       <label className="space-y-1 text-sm">
         <span>Email Address*</span>
-        <input type="email" {...register('email')} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2" />
+        <input type="email" {...register('email')} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2" />
         <FieldError message={errors.email?.message} />
       </label>
 
       <label className="space-y-1 text-sm">
         <span>Phone Number*</span>
-        <input type="tel" {...register('phone')} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2" />
+        <input type="tel" {...register('phone')} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2" />
         <FieldError message={errors.phone?.message} />
       </label>
 
       <label className="space-y-1 text-sm">
         <span>Organisation / Venue</span>
-        <input {...register('organization')} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2" />
+        <input {...register('organization')} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2" />
       </label>
 
       <label className="space-y-1 text-sm">
         <span>Event Type*</span>
-        <select {...register('eventType')} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2">
+        <select {...register('eventType')} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2">
           {eventTypes.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -147,19 +147,19 @@ export function EventInquiryForm() {
 
       <label className="space-y-1 text-sm">
         <span>Event Date*</span>
-        <input type="date" min={todayIso} {...register('eventDate')} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2" />
+        <input type="date" min={todayIso} {...register('eventDate')} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2" />
         <FieldError message={errors.eventDate?.message} />
       </label>
 
       <label className="space-y-1 text-sm">
         <span>Estimated Guest Count*</span>
-        <input type="number" min={10} {...register('guestCount', { valueAsNumber: true })} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2" />
+        <input type="number" min={10} {...register('guestCount', { valueAsNumber: true })} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2" />
         <FieldError message={errors.guestCount?.message} />
       </label>
 
       <label className="space-y-1 text-sm">
         <span>Budget Range</span>
-        <select {...register('budgetRange')} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2">
+        <select {...register('budgetRange')} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2">
           <option value="">Select budget</option>
           {budgetRanges.map((option) => (
             <option key={option} value={option}>
@@ -171,11 +171,11 @@ export function EventInquiryForm() {
 
       <label className="space-y-1 text-sm sm:col-span-2">
         <span>Message / Additional Details</span>
-        <textarea {...register('message')} rows={5} className="w-full rounded-button border border-borderColor bg-cream px-3 py-2" />
+        <textarea {...register('message')} rows={5} className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2" />
       </label>
 
       {status === 'error' ? (
-        <p className="text-sm text-rose sm:col-span-2">Something went wrong. Please try again or WhatsApp us directly.</p>
+        <p className="text-sm text-brand-rose sm:col-span-2">Something went wrong. Please try again or WhatsApp us directly.</p>
       ) : null}
 
       <div className="sm:col-span-2">

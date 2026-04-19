@@ -46,6 +46,9 @@ const users: CollectionConfig = {
 
 const media: CollectionConfig = {
   slug: 'media',
+  access: {
+    read: () => true
+  },
   upload: {
     adminThumbnail: 'thumbnail',
     imageSizes: [
@@ -75,6 +78,9 @@ const media: CollectionConfig = {
 
 const menuCategory: CollectionConfig = {
   slug: 'menu-categories',
+  access: {
+    read: () => true
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug', 'sort_order', 'icon_emoji']
@@ -97,6 +103,9 @@ const menuCategory: CollectionConfig = {
 
 const menuItem: CollectionConfig = {
   slug: 'menu-items',
+  access: {
+    read: () => true
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'category', 'price_lkr', 'available', 'sort_order']
@@ -146,6 +155,9 @@ const menuItem: CollectionConfig = {
 
 const cakePortfolioItem: CollectionConfig = {
   slug: 'cake-portfolio-items',
+  access: {
+    read: () => true
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'featured', 'starting_price', 'updatedAt']
@@ -194,6 +206,9 @@ const cakePortfolioItem: CollectionConfig = {
 
 const heroBanner: CollectionConfig = {
   slug: 'hero-banners',
+  access: {
+    read: () => true
+  },
   admin: {
     useAsTitle: 'headline',
     defaultColumns: ['headline', 'active', 'updatedAt']
@@ -242,6 +257,9 @@ const heroBanner: CollectionConfig = {
 
 const testimonial: CollectionConfig = {
   slug: 'testimonials',
+  access: {
+    read: () => true
+  },
   admin: {
     useAsTitle: 'customer_name',
     defaultColumns: ['customer_name', 'star_rating', 'active', 'sort_order']
@@ -267,6 +285,9 @@ const testimonial: CollectionConfig = {
 
 const faq: CollectionConfig = {
   slug: 'faqs',
+  access: {
+    read: () => true
+  },
   admin: {
     useAsTitle: 'question',
     defaultColumns: ['question', 'category', 'sort_order']
@@ -290,6 +311,9 @@ const faq: CollectionConfig = {
 
 const promotion: CollectionConfig = {
   slug: 'promotions',
+  access: {
+    read: () => true
+  },
   admin: {
     useAsTitle: 'headline',
     defaultColumns: ['headline', 'banner_type', 'active', 'expires_at']
@@ -402,6 +426,9 @@ const inquiry: CollectionConfig = {
 
 const siteSettings: GlobalConfig = {
   slug: 'site-settings',
+  access: {
+    read: () => true
+  },
   fields: [
     { name: 'whatsapp_number', type: 'text', required: true },
     { name: 'owner_email', type: 'email', required: true },
@@ -473,6 +500,11 @@ const cloudinaryAdapter = ({ prefix }: { prefix?: string }) => ({
 export default buildConfig({
   admin: {
     user: 'users',
+    importMap: {
+      autoGenerate: true,
+      baseDir: path.resolve(dirname),
+      importMapFile: path.resolve(dirname, 'src/app/(payload)/admin/importMap.js')
+    },
     meta: {
       titleSuffix: '— Flour Dude CMS'
     }

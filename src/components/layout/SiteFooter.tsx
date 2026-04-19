@@ -31,7 +31,7 @@ export function SiteFooter() {
               All-day breakfast, handcrafted drinks, customised cakes, and event-ready dessert catering from the heart of Galle.
             </p>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-brand-warmWhite/5 py-2 px-4 shadow-sm backdrop-blur-sm">
-              <span className="text-yellow-400 text-lg">★</span>
+              <span className="text-brand-caramel text-lg">★</span>
               <span className="text-sm font-medium tracking-wide">Rated 5 stars on Uber Eats</span>
             </div>
           </div>
