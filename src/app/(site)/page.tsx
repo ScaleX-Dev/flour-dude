@@ -374,7 +374,7 @@ export default async function SiteHomePage() {
       </section>
 
       {data.promo ? (
-        <section className="bg-brand-deepBrown text-white border-y border-white/10 relative overflow-hidden">
+        <section className="bg-brand-sage text-brand-deepBrown border-y border-brand-border relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay"></div>
           <div className="content-shell py-12 md:py-16">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
@@ -385,15 +385,15 @@ export default async function SiteHomePage() {
                 <h2 className="font-display text-3xl md:text-4xl tracking-tight text-white">
                   {data.promo.title}
                 </h2>
-                <p className="text-white/70 font-light text-lg max-w-2xl mx-auto lg:mx-0">
+                <p className="text-brand-deepBrown/80 font-light text-lg max-w-2xl mx-auto lg:mx-0">
                   {data.promo.body}
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-white/30 p-6 rounded-3xl border border-brand-deepBrown/10 backdrop-blur-sm">
                 {data.promo.endsAt ? <PromoCountdown expiresAt={data.promo.endsAt} /> : null}
                 <div className="hidden sm:block w-[1px] h-12 bg-white/20"></div>
-                <Button asChild className="rounded-pill px-8 h-12 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium whitespace-nowrap">
+                <Button asChild className="rounded-pill px-8 h-12 bg-brand-deepBrown text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium whitespace-nowrap">
                    <a href={WA.customCake()}>Claim on WhatsApp</a>
                 </Button>
               </div>
@@ -484,7 +484,7 @@ export default async function SiteHomePage() {
               <h2 className="font-display text-5xl md:text-6xl tracking-tight leading-[1.1] text-white">
                 Customised cakes for every celebration.
               </h2>
-              <p className="text-lg font-light leading-relaxed text-white/70 max-w-xl">
+              <p className="text-lg font-light leading-relaxed text-brand-deepBrown/80 max-w-xl">
                 Birthdays, anniversaries, bridal showers, weddings, graduations, office milestones, and more. We design around your theme and guide you to the right size, flavor, and style.
               </p>
               <p className="text-sm uppercase tracking-[0.18em] text-white/60">
@@ -503,7 +503,7 @@ export default async function SiteHomePage() {
 
             <div className="grid gap-4 pt-4 sm:grid-cols-2">
               {(customCakeTestimonials.length ? customCakeTestimonials : data.testimonialCards.slice(0, 2)).map((item) => (
-                <article key={`custom-${item.id}`} className="rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm">
+                <article key={`custom-${item.id}`} className="rounded-2xl border border-white/15 bg-white/30 p-5 backdrop-blur-sm">
                   <p className="text-sm text-brand-caramel">{'★'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">&quot;{item.quote}&quot;</p>
                   <p className="mt-3 text-xs uppercase tracking-wider text-white/60">{item.customerName}</p>
@@ -612,7 +612,7 @@ export default async function SiteHomePage() {
 
       <section className="py-24 bg-brand-deepBrown text-white">
         <div className="content-shell">
-          <div className="max-w-4xl mx-auto text-center space-y-10 bg-white/5 border border-white/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
+          <div className="max-w-4xl mx-auto text-center space-y-10 bg-white/30 border border-brand-deepBrown/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
             <div className="space-y-4">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
                 Experience Flour Dude
@@ -620,13 +620,13 @@ export default async function SiteHomePage() {
               <h3 className="font-display text-4xl md:text-5xl text-white tracking-tight leading-tight">
                 Secure your booking today.
               </h3>
-              <p className="text-white/70 font-light text-lg max-w-2xl mx-auto pt-4">
+              <p className="text-brand-deepBrown/80 font-light text-lg max-w-2xl mx-auto pt-4">
                 Whether you need an immediate pick-me-up from our daily menu or want to plan the centerpiece cake for an upcoming wedding, our team is ready.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Button asChild className="rounded-pill px-8 h-14 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 bg-brand-deepBrown text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
                 <a href={WA.customCake()}>Chat with us on WhatsApp</a>
               </Button>
               <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
