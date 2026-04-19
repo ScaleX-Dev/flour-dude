@@ -67,7 +67,7 @@
   }
 
   .glass-panel {
-    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-soft;
+    @apply bg-brand-warmWhite/70 backdrop-blur-xl border border-white/40 shadow-soft;
   }
 
   .glass-dark {

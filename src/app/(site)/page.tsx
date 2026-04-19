@@ -330,7 +330,7 @@ export default async function SiteHomePage() {
 
         <div className="content-shell relative z-10 w-full">
           <div className="max-w-4xl space-y-8 animate-rise-in">
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 py-2 px-5 backdrop-blur-md">
+            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2 px-5 backdrop-blur-md">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-caramel"></span>
@@ -349,19 +349,19 @@ export default async function SiteHomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4">
-              <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
                 <a href={data.heroPrimaryCtaHref} target="_blank" rel="noreferrer">
                   {data.heroPrimaryCtaText}
                 </a>
               </Button>
-              <Button asChild className="rounded-pill px-8 h-14 border border-white/30 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 border border-white/30 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
                 <Link href="/menu">
                   Explore Menu
                 </Link>
               </Button>
             </div>
 
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 py-2.5 px-5 backdrop-blur-md">
+            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2.5 px-5 backdrop-blur-md">
               <span className="text-brand-caramel text-lg">★</span>
               <span className="text-sm font-medium tracking-wide text-white">Rated 5 stars on Uber Eats</span>
             </div>
@@ -390,10 +390,10 @@ export default async function SiteHomePage() {
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-white/30 p-6 rounded-3xl border border-brand-deepBrown/10 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-brand-warmWhite/30 p-6 rounded-3xl border border-brand-deepBrown/10 backdrop-blur-sm">
                 {data.promo.endsAt ? <PromoCountdown expiresAt={data.promo.endsAt} /> : null}
-                <div className="hidden sm:block w-[1px] h-12 bg-white/20"></div>
-                <Button asChild className="rounded-pill px-8 h-12 bg-brand-deepBrown text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium whitespace-nowrap">
+                <div className="hidden sm:block w-[1px] h-12 bg-brand-warmWhite/20"></div>
+                <Button asChild className="rounded-pill px-8 h-12 bg-brand-deepBrown text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium whitespace-nowrap">
                    <a href={WA.customCake()}>Claim on WhatsApp</a>
                 </Button>
               </div>
@@ -404,7 +404,7 @@ export default async function SiteHomePage() {
 
       <section className="section-space bg-brand-cream">
         <div className="content-shell space-y-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-border/60 pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-border pb-8">
             <div className="space-y-4 max-w-2xl">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
                 All-Day Menu
@@ -423,7 +423,7 @@ export default async function SiteHomePage() {
             {menuCategoryHighlights.map((category) => (
               <article
                 key={category.title}
-                className="rounded-[24px] border border-brand-border/40 bg-white p-6 shadow-sm"
+                className="rounded-[24px] border border-brand-border/40 bg-brand-warmWhite p-6 shadow-sm"
               >
                 <h4 className="font-display text-2xl text-brand-deepBrown">{category.title}</h4>
                 <p className="mt-3 font-light text-brand-textMuted leading-relaxed">{category.items}</p>
@@ -435,7 +435,7 @@ export default async function SiteHomePage() {
             {data.featuredMenu.map((item) => (
               <article 
                 key={item.id} 
-                className="group relative flex flex-col justify-between rounded-card bg-white p-8 border border-transparent hover:border-brand-border/80 shadow-sm hover:shadow-floating transition-all duration-500"
+                className="group relative flex flex-col justify-between rounded-card bg-brand-warmWhite p-8 border border-transparent hover:border-brand-border/80 shadow-sm hover:shadow-floating transition-all duration-500"
               >
                 <div className="space-y-4">
                   {item.badge ? (
@@ -493,17 +493,17 @@ export default async function SiteHomePage() {
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 pt-4">
-               <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
+               <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium w-full text-base">
                   <Link href="/cakes">View Portfolio</Link>
                </Button>
-               <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
+               <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium w-full text-base">
                   <a href={WA.customCake()}>Enquire Now (WhatsApp)</a>
                </Button>
             </div>
 
             <div className="grid gap-4 pt-4 sm:grid-cols-2">
               {(customCakeTestimonials.length ? customCakeTestimonials : data.testimonialCards.slice(0, 2)).map((item) => (
-                <article key={`custom-${item.id}`} className="rounded-2xl border border-white/15 bg-white/30 p-5 backdrop-blur-sm">
+                <article key={`custom-${item.id}`} className="rounded-2xl border border-white/15 bg-brand-warmWhite/30 p-5 backdrop-blur-sm">
                   <p className="text-sm text-brand-caramel">{'★'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
                   <p className="mt-3 text-sm leading-relaxed text-white/80">&quot;{item.quote}&quot;</p>
                   <p className="mt-3 text-xs uppercase tracking-wider text-white/60">{item.customerName}</p>
@@ -514,7 +514,7 @@ export default async function SiteHomePage() {
         </div>
       </section>
 
-      <section className="section-space border-y border-brand-border bg-white">
+      <section className="section-space border-y border-brand-border bg-brand-warmWhite">
         <div className="content-shell space-y-16">
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-textMuted">
@@ -564,14 +564,14 @@ export default async function SiteHomePage() {
 
       <section className="section-space bg-brand-cream">
         <div className="content-shell space-y-16">
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left border-b border-brand-border/60 pb-8">
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left border-b border-brand-border pb-8">
             <div className="space-y-4">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
                 Testimonials
               </h2>
               <h3 className="section-title mb-0">What Our Guests Say</h3>
             </div>
-            <div className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-2.5 shadow-sm border border-brand-border/40">
+            <div className="inline-flex items-center gap-3 rounded-full bg-brand-warmWhite px-5 py-2.5 shadow-sm border border-brand-border/40">
               <span className="text-brand-caramel text-xl">★</span>
               <span className="font-medium text-brand-deepBrown tracking-wide">
                 {siteConfig.ratingLabel}
@@ -583,7 +583,7 @@ export default async function SiteHomePage() {
             {data.testimonialCards.slice(0, 3).map((item) => (
               <article 
                 key={item.id} 
-                className="flex flex-col justify-between rounded-[24px] bg-white p-8 border border-brand-border/50 shadow-sm"
+                className="flex flex-col justify-between rounded-[24px] bg-brand-warmWhite p-8 border border-brand-border/50 shadow-sm"
               >
                 <div>
                   <div className="flex gap-1 mb-6 text-brand-caramel text-sm">
@@ -612,7 +612,7 @@ export default async function SiteHomePage() {
 
       <section className="py-24 bg-brand-deepBrown text-white">
         <div className="content-shell">
-          <div className="max-w-4xl mx-auto text-center space-y-10 bg-white/30 border border-brand-deepBrown/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
+          <div className="max-w-4xl mx-auto text-center space-y-10 bg-brand-warmWhite/30 border border-brand-deepBrown/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
             <div className="space-y-4">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
                 Experience Flour Dude
@@ -626,10 +626,10 @@ export default async function SiteHomePage() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Button asChild className="rounded-pill px-8 h-14 bg-brand-deepBrown text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 bg-brand-deepBrown text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
                 <a href={WA.customCake()}>Chat with us on WhatsApp</a>
               </Button>
-              <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
                 <Link href="/contact">View Location & Hours</Link>
               </Button>
             </div>

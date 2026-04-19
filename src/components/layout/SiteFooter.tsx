@@ -25,12 +25,12 @@ export function SiteFooter() {
               alt="Flour Dude Bakery and Cafe"
               width={210}
               height={80}
-              className="h-16 w-auto rounded-lg bg-white p-1"
+              className="h-16 w-auto rounded-lg bg-brand-warmWhite p-1"
             />
             <p className="text-base text-brand-cream/70 leading-relaxed font-light">
               All-day breakfast, handcrafted drinks, customised cakes, and event-ready dessert catering from the heart of Galle.
             </p>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-2 px-4 shadow-sm backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-brand-warmWhite/5 py-2 px-4 shadow-sm backdrop-blur-sm">
               <span className="text-yellow-400 text-lg">★</span>
               <span className="text-sm font-medium tracking-wide">Rated 5 stars on Uber Eats</span>
             </div>
@@ -64,7 +64,7 @@ export function SiteFooter() {
           <div className="xl:col-span-3 space-y-6">
             <h3 className="mb-6 font-sans text-sm font-semibold tracking-[0.15em] uppercase text-brand-caramel">Order Now</h3>
             <div className="grid gap-3">
-              <Button asChild className="w-full justify-center rounded-pill h-12 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium">
+              <Button asChild className="w-full justify-center rounded-pill h-12 bg-brand-warmWhite text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium">
                 <a href={buildWhatsAppLink(whatsappMessages.default)} target="_blank" rel="noopener noreferrer">
                   Order via WhatsApp
                 </a>
@@ -72,7 +72,7 @@ export function SiteFooter() {
               <div className="grid grid-cols-2 gap-3">
                 <Button
                   asChild
-                  className="w-full justify-center rounded-pill h-12 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium"
+                  className="w-full justify-center rounded-pill h-12 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium"
                 >
                   <a href="https://www.ubereats.com" target="_blank" rel="noopener noreferrer">
                     Uber Eats
@@ -80,7 +80,7 @@ export function SiteFooter() {
                 </Button>
                 <Button
                   asChild
-                  className="w-full justify-center rounded-pill h-12 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium"
+                  className="w-full justify-center rounded-pill h-12 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium"
                 >
                   <a href="https://pickme.lk/food" target="_blank" rel="noopener noreferrer">
                     PickMe

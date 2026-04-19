@@ -74,7 +74,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="section-space border-b border-brand-border/60 bg-brand-cream">
+      <section className="section-space border-b border-brand-border bg-brand-cream">
         <div className="content-shell grid gap-16 lg:grid-cols-[1fr_1fr] items-center">
           <article className="space-y-8 max-w-2xl">
             <div className="space-y-4">
@@ -94,7 +94,7 @@ export default async function AboutPage() {
 
           <article className="relative">
             <div className="absolute -inset-4 bg-brand-caramel/10 rounded-[40px] transform rotate-3"></div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-brand-border/40 bg-white shadow-floating">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-brand-border/40 bg-brand-warmWhite shadow-floating">
               <Image 
                 src={founderImage} 
                 alt="Founder portrait" 
@@ -107,7 +107,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="section-space bg-white">
+      <section className="section-space bg-brand-warmWhite">
         <div className="content-shell space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
@@ -123,9 +123,9 @@ export default async function AboutPage() {
               <article 
                 key={value.title} 
                 style={{ animationDelay: `${index * 100}ms` }}
-                className="group p-8 rounded-[24px] border border-brand-border/50 bg-brand-cream/30 hover:bg-white hover:border-brand-border hover:shadow-floating transition-all duration-500"
+                className="group p-8 rounded-[24px] border border-brand-border/50 bg-brand-cream/30 hover:bg-brand-warmWhite hover:border-brand-border hover:shadow-floating transition-all duration-500"
               >
-                <div className="w-14 h-14 rounded-full bg-white border border-brand-border/50 flex items-center justify-center shadow-sm text-2xl group-hover:scale-110 transition-transform duration-500">
+                <div className="w-14 h-14 rounded-full bg-brand-warmWhite border border-brand-border/50 flex items-center justify-center shadow-sm text-2xl group-hover:scale-110 transition-transform duration-500">
                   {value.emoji}
                 </div>
                 <h4 className="mt-8 text-xl font-display text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
@@ -140,7 +140,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="section-space bg-brand-cream border-t border-brand-border/60">
+      <section className="section-space bg-brand-cream border-t border-brand-border">
         <div className="content-shell space-y-12">
           <div className="space-y-4 max-w-2xl">
             <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
@@ -155,7 +155,7 @@ export default async function AboutPage() {
             {settings.milestones.map((milestone) => (
               <article 
                 key={`${milestone.year}-${milestone.label}`} 
-                className="flex flex-col justify-center rounded-[24px] border border-brand-border/50 bg-white p-8 shadow-sm hover:shadow-floating hover:border-brand-border transition-all duration-500"
+                className="flex flex-col justify-center rounded-[24px] border border-brand-border/50 bg-brand-warmWhite p-8 shadow-sm hover:shadow-floating hover:border-brand-border transition-all duration-500"
               >
                 <p className="font-display text-5xl text-brand-caramel">{milestone.year}</p>
                 <div className="w-8 h-[1px] bg-brand-border my-6"></div>
@@ -166,7 +166,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="section-space bg-white border-t border-brand-border/60">
+      <section className="section-space bg-brand-warmWhite border-t border-brand-border">
         <div className="content-shell space-y-12">
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
@@ -199,7 +199,7 @@ export default async function AboutPage() {
 
       <section className="py-24 bg-brand-deepBrown text-white">
         <div className="content-shell">
-          <div className="max-w-4xl mx-auto text-center space-y-10 bg-white/5 border border-white/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
+          <div className="max-w-4xl mx-auto text-center space-y-10 bg-brand-warmWhite/5 border border-white/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
             <div className="space-y-4">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
                 Experience Flour Dude
@@ -211,12 +211,12 @@ export default async function AboutPage() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <a href={buildWhatsAppLink(whatsappMessages.customCake)} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
-                <Button className="rounded-pill px-8 h-14 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide w-full">
+                <Button className="rounded-pill px-8 h-14 bg-brand-warmWhite text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide w-full">
                   Order on WhatsApp
                 </Button>
               </a>
               <Link href="/cakes" className="w-full sm:w-auto">
-                <Button className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full">
+                <Button className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full">
                   See Our Cakes →
                 </Button>
               </Link>

@@ -51,7 +51,7 @@ export default async function CakesPage() {
             </p>
             <div className="pt-4">
               <a href={buildWhatsAppLink(whatsappMessages.customCake)} target="_blank" rel="noreferrer">
-                <Button className="rounded-pill px-8 h-14 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide">
+                <Button className="rounded-pill px-8 h-14 bg-brand-warmWhite text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide">
                   Discuss A Custom Order
                 </Button>
               </a>

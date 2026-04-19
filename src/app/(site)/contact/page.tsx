@@ -39,7 +39,7 @@ export default async function ContactPage() {
 
       <section className="content-shell grid gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
         <div className="space-y-8 animate-rise-in" style={{ animationDelay: '100ms' }}>
-          <article className="space-y-8 rounded-[32px] border border-brand-border/40 bg-white p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
+          <article className="space-y-8 rounded-[32px] border border-brand-border/40 bg-brand-warmWhite p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
             <div className="space-y-2">
               <h3 className="font-display text-3xl text-brand-deepBrown">Visit Us</h3>
               <p className="font-light text-brand-textMuted">Stop by for a fresh bake or a consultation.</p>
@@ -90,7 +90,7 @@ export default async function ContactPage() {
                   </Button>
                 </a>
                 <a href={settings.pickMeUrl} target="_blank" rel="noreferrer" className="flex-1">
-                  <Button className="w-full rounded-pill h-12 border border-brand-border bg-white text-brand-deepBrown hover:bg-brand-cream transition-colors">
+                  <Button className="w-full rounded-pill h-12 border border-brand-border bg-brand-warmWhite text-brand-deepBrown hover:bg-brand-cream transition-colors">
                     PickMe
                   </Button>
                 </a>
@@ -105,7 +105,7 @@ export default async function ContactPage() {
         </div>
 
         <div className="space-y-8 animate-rise-in" style={{ animationDelay: '200ms' }}>
-          <article className="overflow-hidden rounded-[32px] border border-brand-border/40 bg-white shadow-sm p-2">
+          <article className="overflow-hidden rounded-[32px] border border-brand-border/40 bg-brand-warmWhite shadow-sm p-2">
             <div className="overflow-hidden rounded-[24px]">
               <iframe
                 title="Flour Dude map"
@@ -117,7 +117,7 @@ export default async function ContactPage() {
             </div>
           </article>
 
-          <article className="rounded-[32px] border border-brand-border/40 bg-white p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
+          <article className="rounded-[32px] border border-brand-border/40 bg-brand-warmWhite p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
             <div className="space-y-2 mb-8">
               <h3 className="font-display text-3xl text-brand-deepBrown">Send an Inquiry</h3>
               <p className="font-light text-brand-textMuted">Fill out the form below and we&apos;ll get back to you shortly.</p>

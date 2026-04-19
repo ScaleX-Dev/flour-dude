@@ -159,7 +159,7 @@ export default async function MenuPage() {
         </section>
       ) : null}
 
-      <section className="bg-white border-b border-brand-border/60">
+      <section className="bg-brand-warmWhite border-b border-brand-border">
         <div className="content-shell py-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <article className="rounded-2xl border border-brand-border/40 bg-brand-cream/40 p-4">
             <p className="text-xs uppercase tracking-[0.15em] text-brand-caramel font-semibold">1</p>
@@ -194,7 +194,7 @@ export default async function MenuPage() {
         />
       </div>
 
-      <section className="py-24 bg-white border-t border-brand-border/60 text-center">
+      <section className="py-24 bg-brand-warmWhite border-t border-brand-border text-center">
         <div className="content-shell max-w-3xl mx-auto space-y-8">
           <h2 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
             Planning a celebration?

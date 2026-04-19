@@ -249,7 +249,7 @@ export function MenuCatalogClient({
 
   return (
     <>
-      <div className="sticky top-[var(--header-height)] z-10 border-b border-brand-border/60 bg-[#f2ece3]/95 backdrop-blur-xl">
+      <div className="sticky top-[var(--header-height)] z-10 border-b border-brand-border bg-brand-cream/95 backdrop-blur-xl">
         <div className="content-shell">
           <div className="no-scrollbar -mx-2 flex overflow-x-auto px-2 justify-start md:justify-center">
             {tabs.map((tab) => {
@@ -277,9 +277,9 @@ export function MenuCatalogClient({
         </div>
       </div>
 
-      <section className="section-space bg-[#f2ece3]">
+      <section className="section-space bg-brand-cream">
         <div className="content-shell space-y-12">
-          <div className="max-w-3xl border-b border-brand-border/60 pb-8">
+          <div className="max-w-3xl border-b border-brand-border pb-8">
             <p className="font-sans text-xs uppercase tracking-[0.2em] text-brand-textMuted">Menu / {activeTabMeta?.label ?? 'All Menu'}</p>
             <h2 className="mt-4 font-display text-5xl md:text-6xl text-brand-deepBrown tracking-tight leading-[1.05]">
               {activeTabMeta?.label ?? 'All Menu'}
@@ -297,7 +297,7 @@ export function MenuCatalogClient({
                   style={{ animationDelay: `${index * 50}ms` }}
                   className="group flex flex-col text-center gap-5 animate-rise-in fill-mode-both"
                 >
-                  <div className="relative mx-auto aspect-square w-full max-w-[240px] overflow-hidden rounded-full bg-[#17483f] border border-[#17483f]/30 shadow-[0_20px_45px_-26px_rgba(23,72,63,0.55)] transition-all duration-500 group-hover:scale-[1.02]">
+                  <div className="relative mx-auto aspect-square w-full max-w-[240px] overflow-hidden rounded-full bg-brand-deepBrown border border-brand-deepBrown/30 shadow-[0_20px_45px_-26px_rgba(23,72,63,0.55)] transition-all duration-500 group-hover:scale-[1.02]">
                     {!item.available ? (
                       <span className="absolute left-4 top-4 z-10 rounded-pill bg-brand-deepBrown px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase text-white">
                         Sold Out
@@ -319,7 +319,7 @@ export function MenuCatalogClient({
                         className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-[#17483f]">
+                      <div className="absolute inset-0 flex items-center justify-center bg-brand-deepBrown">
                         <span className="text-4xl text-white/75 font-display">{item.name.charAt(0)}</span>
                       </div>
                     )}
@@ -363,7 +363,7 @@ export function MenuCatalogClient({
       </section>
 
       {showMobileBar ? (
-        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-borderColor bg-warmWhite px-4 py-3 md:hidden">
+        <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-brand-border bg-brand-warmWhite px-4 py-3 md:hidden">
           <DeliveryOrderButtons
             uberEatsUrl={uberEatsUrl}
             pickMeUrl={pickMeUrl}
