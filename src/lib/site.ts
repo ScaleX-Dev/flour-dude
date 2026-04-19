@@ -40,12 +40,9 @@ export const whatsappLinks = {
 };
 
 export const heroImages = {
-  cake:
-    'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1600,h_1100/samples/food/fish-vegetables.jpg',
-  waffle:
-    'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_900/samples/food/dessert.jpg',
-  celebration:
-    'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_900/samples/people/kitchen-bar.jpg'
+  cake: '/images/hero-cake.jpg',
+  waffle: '/images/hero-menu.jpg',
+  celebration: '/images/hero-events.jpg'
 } as const;
 
 type MenuCategorySeed = Pick<MenuCategory, 'name' | 'description'> & {
@@ -83,16 +80,14 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Espresso Single',
     description: 'Balanced espresso shot.',
     price: 400,
-    imageUrl:
-      'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/hero-events.jpg'
   },
   {
     categorySlug: 'hot-coffee',
     name: 'Espresso Double',
     description: 'Double espresso for a stronger finish.',
     price: 550,
-    imageUrl:
-      'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/hero-events.jpg'
   },
   { categorySlug: 'hot-coffee', name: 'Americano', description: 'Espresso with hot water.', price: 450 },
   { categorySlug: 'hot-coffee', name: 'Cappuccino', description: 'Espresso, steamed milk, milk foam.', price: 650 },
@@ -107,16 +102,14 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Iced Americano',
     description: 'Chilled espresso over ice.',
     price: 500,
-    imageUrl:
-      'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/hero-events.jpg'
   },
   {
     categorySlug: 'cold-coffee',
     name: 'Iced Latte',
     description: 'Espresso with milk over ice.',
     price: 700,
-    imageUrl:
-      'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/hero-events.jpg'
   },
   { categorySlug: 'cold-coffee', name: 'Vanilla Latte', description: 'Iced latte with vanilla.', price: 750 },
   { categorySlug: 'cold-coffee', name: 'Iced Caramel Latte', description: 'Caramel-infused iced latte.', price: 750 },
@@ -134,8 +127,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Iced Matcha Latte',
     description: 'Ceremonial-style matcha with milk and ice.',
     price: 850,
-    imageUrl:
-      'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/hero-menu.jpg'
   },
   { categorySlug: 'matcha', name: 'Hot Matcha Latte', description: 'Warm whisked matcha latte.', price: 750 },
   { categorySlug: 'matcha', name: 'Strawberry Iced Matcha', description: 'Layered strawberry and iced matcha.', price: 1000 },
@@ -145,8 +137,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Coffee Caramel',
     description: 'Blended caramel coffee frappe.',
     price: 950,
-    imageUrl:
-      'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/hero-menu.jpg'
   },
   { categorySlug: 'ice-blends', name: 'Double Chocolate', description: 'Thick blended chocolate drink.', price: 1000 },
 
@@ -155,8 +146,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Peach Iced Tea',
     description: 'Light black tea with peach notes.',
     price: 500,
-    imageUrl:
-      'https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/menu-feature-cheesecake.jpg'
   },
   { categorySlug: 'iced-tea', name: 'Lime Iced Tea', description: 'Citrus iced tea.', price: 500 },
   { categorySlug: 'iced-tea', name: 'Strawberry Iced Tea', description: 'Berry-forward iced tea.', price: 500 },
@@ -167,8 +157,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Nutella Milkshake',
     description: 'Chocolate-hazelnut milkshake.',
     price: 900,
-    imageUrl:
-      'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/menu-feature-cheesecake.jpg'
   },
   { categorySlug: 'milkshakes', name: 'Kit Kat Milkshake', description: 'Chocolate wafer shake.', price: 900 },
   { categorySlug: 'milkshakes', name: "Dude's Cookie Shake", description: 'Cookie-thick signature shake.', price: 850 },
@@ -179,8 +168,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Lime & Mint Refresher',
     description: 'Crisp lime with mint.',
     price: 600,
-    imageUrl:
-      'https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/hero-menu.jpg'
   },
   { categorySlug: 'refreshers', name: 'Strawberry Refresher', description: 'Strawberry cooler.', price: 650 },
   { categorySlug: 'refreshers', name: 'Passion Refresher', description: 'Tropical passion cooler.', price: 650 },
@@ -191,8 +179,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Chicken Wrap',
     description: 'Grilled chicken wrap.',
     price: 900,
-    imageUrl:
-      'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/menu-feature-savory.jpg'
   },
   { categorySlug: 'savory', name: 'Chicken Waffles', description: 'Savory waffle and chicken combo.', price: 900 },
   { categorySlug: 'savory', name: 'Smoked Chicken Sandwich', description: 'Toasted smoked chicken sandwich.', price: 1100 },
@@ -205,8 +192,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Nutella Waffle',
     description: 'Warm waffle with Nutella.',
     price: 1100,
-    imageUrl:
-      'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/menu-feature-waffle.jpg'
   },
   { categorySlug: 'waffles-sweets', name: 'Kit Kat / Oreo Waffle', description: 'Loaded with crushed bars and cookies.', price: 1200 },
   { categorySlug: 'waffles-sweets', name: 'Choco Peanut Waffle', description: 'Chocolate waffle with roasted peanut crunch.', price: 900 },
@@ -219,40 +205,35 @@ export const menuItems: MenuItemSeed[] = [
     description: 'Dense chocolate sponge finished with rich fudge ganache.',
     price: 900,
     isFeatured: true,
-    imageUrl:
-      'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/cake-portfolio-3.jpg'
   },
   {
     categorySlug: 'cakes-muffins',
     name: 'Oreo Cake',
     description: 'Cookies-and-cream cake finished with Oreo crumble.',
     price: 550,
-    imageUrl:
-      'https://images.unsplash.com/photo-1559622214-6b2f2fa6f1dd?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/cake-portfolio-2.jpg'
   },
   {
     categorySlug: 'cakes-muffins',
     name: 'Coffee Cake',
     description: 'Moist coffee sponge layered with silky coffee cream.',
     price: 850,
-    imageUrl:
-      'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/cake-portfolio-1.jpg'
   },
   {
     categorySlug: 'cakes-muffins',
     name: 'Strawberry Lemon Bar',
     description: 'Bright lemon base with strawberry glaze and buttery crumb.',
     price: 650,
-    imageUrl:
-      'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/menu-feature-cheesecake.jpg'
   },
   {
     categorySlug: 'cakes-muffins',
     name: 'Double Chocolate Banana Muffins',
     description: 'Banana muffin loaded with dark chocolate and cocoa chips.',
     price: 480,
-    imageUrl:
-      'https://images.unsplash.com/photo-1604882406195-d94d0f40f277?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/cake-portfolio-4.jpg'
   },
   { categorySlug: 'cakes-muffins', name: 'Strawberry Cheesecake', description: 'Creamy baked cheesecake with strawberry notes.', price: 1200 },
   { categorySlug: 'cakes-muffins', name: 'Passion Cheesecake', description: 'Tangy passion fruit cheesecake.', price: 1200 },
@@ -267,8 +248,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Fudge Brownie',
     description: 'Dense and rich chocolate brownie.',
     price: 300,
-    imageUrl:
-      'https://images.unsplash.com/photo-1606313564200-e75d5e30476f?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/cake-portfolio-3.jpg'
   },
   { categorySlug: 'brownies-cookies', name: 'Nutella Brownie', description: 'Fudge brownie with Nutella swirl.', price: 350 },
   { categorySlug: 'brownies-cookies', name: 'Peanut Butter Brownie', description: 'Brownie finished with peanut butter.', price: 450 },
@@ -277,8 +257,7 @@ export const menuItems: MenuItemSeed[] = [
     name: 'Chocolate Chip Cookies',
     description: 'Classic soft-center cookie.',
     price: 180,
-    imageUrl:
-      'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=1200&q=80'
+    imageUrl: '/images/menu-feature-cheesecake.jpg'
   },
   { categorySlug: 'brownies-cookies', name: 'Double Chocolate Chip Cookies', description: 'Dark cocoa cookie with chocolate chips.', price: 220 },
   { categorySlug: 'brownies-cookies', name: 'Cookie Choco Tub', description: 'Shareable chocolate cookie tub.', price: 500 }
@@ -289,32 +268,28 @@ export const cakePortfolio: CakeSeed[] = [
     title: 'Lotus Biscoff Celebration Cake',
     description: 'Three layers, biscoff crunch center, caramel drip, lotus shards.',
     priceFrom: 9500,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/food/pot-mussels.jpg',
+    imageUrl: '/images/cake-portfolio-1.jpg',
     accent: 'bg-[#f4d7b5]'
   },
   {
     title: 'Pastel Birthday Garden Cake',
     description: 'Hand-piped florals with soft pink and sage tones for birthdays.',
     priceFrom: 12000,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/food/spices.jpg',
+    imageUrl: '/images/cake-portfolio-2.jpg',
     accent: 'bg-[#f7d4cf]'
   },
   {
     title: 'Chocolate Fudge Matilda Tower',
     description: 'Bold cocoa sponge with extra ganache for serious chocoholics.',
     priceFrom: 8900,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/food/dessert.jpg',
+    imageUrl: '/images/cake-portfolio-3.jpg',
     accent: 'bg-[#dcc1a2]'
   },
   {
     title: 'Wedding White Textured Cake',
     description: 'Elegant minimal texture work, pearl finish, fresh flower styling.',
     priceFrom: 18000,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/people/jazz.jpg',
+    imageUrl: '/images/cake-portfolio-4.jpg',
     accent: 'bg-[#efe5d8]'
   }
 ];

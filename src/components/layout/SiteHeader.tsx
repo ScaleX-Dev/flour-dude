@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -54,11 +55,20 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
         <Link 
           href="/" 
           className={cn(
-            "font-display text-2xl md:text-[28px] tracking-tight font-medium transition-colors duration-300",
-            isSolid ? "text-brand-deepBrown" : "text-white"
+            'inline-flex items-center rounded-xl border px-2.5 py-1.5 transition-all duration-300',
+            isSolid
+              ? 'border-brand-border/60 bg-white/80'
+              : 'border-white/30 bg-white/95 backdrop-blur-sm'
           )}
         >
-          Flour Dude.
+          <Image
+            src="/images/flour-dude-logo.png"
+            alt="Flour Dude Bakery and Cafe"
+            width={168}
+            height={64}
+            priority
+            className="h-10 w-auto md:h-12"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -120,7 +130,13 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
             <SheetTitle className="sr-only">Main Navigation</SheetTitle>
             <div className="flex h-full flex-col px-10 py-12">
               <div className="mb-16">
-                <p className="font-display text-3xl text-brand-cream">Flour Dude.</p>
+                <Image
+                  src="/images/flour-dude-logo.png"
+                  alt="Flour Dude Bakery and Cafe"
+                  width={168}
+                  height={64}
+                  className="h-14 w-auto rounded-md bg-white/95 p-1"
+                />
                 <div className="w-12 h-[1px] bg-brand-caramel mt-6"></div>
               </div>
 

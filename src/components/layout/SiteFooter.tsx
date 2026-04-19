@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
 
@@ -19,7 +20,13 @@ export function SiteFooter() {
       <div className="content-shell pt-20 pb-16">
         <div className="grid gap-12 sm:grid-cols-2 xl:grid-cols-12">
           <div className="space-y-6 xl:col-span-4 pr-8">
-            <h2 className="font-display text-4xl tracking-tight text-white">Flour Dude.</h2>
+            <Image
+              src="/images/flour-dude-logo.png"
+              alt="Flour Dude Bakery and Cafe"
+              width={210}
+              height={80}
+              className="h-16 w-auto rounded-lg bg-white p-1"
+            />
             <p className="text-base text-brand-cream/70 leading-relaxed font-light">
               All-day breakfast, handcrafted drinks, customised cakes, and event-ready dessert catering from the heart of Galle.
             </p>
