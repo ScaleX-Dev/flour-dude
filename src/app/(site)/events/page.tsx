@@ -73,10 +73,10 @@ export default function EventsPage() {
               Events & B2B
             </h1>
             <h2 className="font-display text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[0.95]">
-              Celebrate in Style.
+              Events and B2B Catering.
             </h2>
             <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
-              From intimate gatherings to grand hotel banquets, we create unforgettable dessert experiences across Galle and the Southern Province.
+              From birthdays and private events to corporate launches and hotel partnerships, we design dessert and cake solutions that fit your brief and budget.
             </p>
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <a href="#event-inquiry-form">
@@ -85,7 +85,7 @@ export default function EventsPage() {
                 </Button>
               </a>
               <a href={WA.b2b()} target="_blank" rel="noreferrer">
-                <Button className="rounded-pill px-8 h-14 border border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide flex items-center gap-2">
+                <Button className="rounded-pill px-8 h-14 border border-white/20 bg-brand-warmWhite/5 backdrop-blur-md text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide flex items-center gap-2">
                   <MessageCircleMore className="h-5 w-5" />
                   Chat on WhatsApp
                 </Button>
@@ -95,7 +95,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section className="section-space bg-brand-cream border-b border-brand-border/60">
+      <section className="section-space bg-brand-cream border-b border-brand-border">
         <div className="content-shell space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-4">
             <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
@@ -111,7 +111,7 @@ export default function EventsPage() {
               <article 
                 key={service.title} 
                 style={{ animationDelay: `${index * 100}ms` }}
-                className="group p-8 rounded-[32px] border border-brand-border/40 bg-white shadow-sm hover:shadow-floating hover:border-brand-border duration-500 transition-all"
+                className="group p-8 rounded-[32px] border border-brand-border/40 bg-brand-warmWhite shadow-sm hover:shadow-floating hover:border-brand-border duration-500 transition-all"
               >
                 <div className="w-16 h-16 rounded-[20px] bg-brand-cream border border-brand-border/50 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-500">
                   {service.emoji}
@@ -128,7 +128,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section className="section-space bg-white border-b border-brand-border/60">
+      <section className="section-space bg-brand-warmWhite border-b border-brand-border">
         <div className="content-shell grid gap-6 md:grid-cols-3">
           {highlights.map((item, index) => (
             <article 
@@ -159,7 +159,7 @@ export default function EventsPage() {
             {steps.map((step, index) => (
               <article 
                 key={step} 
-                className="relative rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-sm p-8 hover:bg-white/10 transition-colors"
+                className="relative rounded-[32px] border border-white/10 bg-brand-warmWhite/5 backdrop-blur-sm p-8 hover:bg-brand-warmWhite/10 transition-colors"
               >
                 <div className="text-brand-caramel/20 font-display text-7xl absolute top-4 right-6 pointer-events-none">
                   0{index + 1}
@@ -182,7 +182,7 @@ export default function EventsPage() {
               Fill out the form below. We aim to reply within 24 hours with a custom quote.
             </p>
           </div>
-          <div className="bg-white p-8 md:p-12 rounded-[32px] border border-brand-border/40 shadow-floating">
+          <div className="bg-brand-warmWhite p-8 md:p-12 rounded-[32px] border border-brand-border/40 shadow-floating">
             <EventInquiryForm />
           </div>
         </div>

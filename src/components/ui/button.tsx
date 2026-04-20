@@ -4,15 +4,15 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap font-medium transition-transform transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-caramel/40 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center whitespace-nowrap font-medium transition-transform transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-caramel/40 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'bg-caramel text-white hover:bg-caramel-light rounded-pill px-8 py-3',
-        outline: 'border-2 border-caramel text-caramel hover:bg-caramel/10 rounded-pill px-8 py-3',
-        dark: 'bg-brown-deep text-cream hover:bg-brown-mid rounded-pill px-8 py-3',
-        whatsapp: 'bg-wa text-white hover:bg-green-500 rounded-pill px-8 py-3',
-        ghost: 'bg-transparent text-textBody hover:bg-cream rounded-pill px-8 py-3'
+        primary: 'bg-brand-caramel text-white hover:bg-brand-caramel-light rounded-pill px-8 py-3',
+        outline: 'border-2 border-brand-caramel text-brand-caramel hover:bg-brand-caramel/10 rounded-pill px-8 py-3',
+        dark: 'bg-brand-deepBrown text-brand-cream hover:bg-brand-charcoal rounded-pill px-8 py-3',
+        whatsapp: 'bg-[var(--wa-green)] text-white hover:brightness-95 rounded-pill px-8 py-3',
+        ghost: 'bg-transparent text-brand-textBody hover:bg-brand-cream rounded-pill px-8 py-3'
       },
       size: {
         default: 'text-sm',

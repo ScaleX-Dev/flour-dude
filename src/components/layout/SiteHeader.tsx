@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -46,7 +47,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
       className={cn(
         'fixed inset-x-0 top-0 z-50 h-[var(--header-height)] transition-all duration-500 ease-out',
         isSolid 
-          ? 'bg-brand-cream/85 backdrop-blur-xl border-b border-brand-border/60 shadow-soft' 
+          ? 'bg-brand-cream/85 backdrop-blur-xl border-b border-brand-border shadow-soft' 
           : 'bg-transparent border-transparent text-white'
       )}
     >
@@ -54,11 +55,20 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
         <Link 
           href="/" 
           className={cn(
-            "font-display text-2xl md:text-[28px] tracking-tight font-medium transition-colors duration-300",
-            isSolid ? "text-brand-deepBrown" : "text-white"
+            'inline-flex items-center rounded-xl border px-2.5 py-1.5 transition-all duration-300',
+            isSolid
+              ? 'border-brand-border bg-brand-warmWhite/80'
+              : 'border-white/30 bg-brand-warmWhite/95 backdrop-blur-sm'
           )}
         >
-          Flour Dude.
+          <Image
+            src="/images/flour-dude-logo.png"
+            alt="Flour Dude Bakery and Cafe"
+            width={168}
+            height={64}
+            priority
+            className="h-10 w-auto md:h-12"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
@@ -79,7 +89,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
                 {isActive && (
                   <span className={cn(
                     "absolute -bottom-2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 rounded-full",
-                    isSolid ? "bg-brand-caramel" : "bg-white"
+                    isSolid ? "bg-brand-caramel" : "bg-brand-warmWhite"
                   )} />
                 )}
               </Link>
@@ -92,7 +102,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
             "rounded-pill px-6 h-11 font-sans text-sm tracking-wide transition-all duration-300",
             isSolid 
               ? "bg-brand-deepBrown text-white hover:bg-brand-caramel hover:text-white" 
-              : "bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white"
+              : "bg-brand-warmWhite text-brand-deepBrown hover:bg-brand-caramel hover:text-white"
           )}>
             <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
               Order Now
@@ -107,7 +117,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
               aria-label="Open menu"
               className={cn(
                 "inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors md:hidden",
-                isSolid ? "text-brand-deepBrown hover:bg-brand-deepBrown/5" : "text-white hover:bg-white/10"
+                isSolid ? "text-brand-deepBrown hover:bg-brand-deepBrown/5" : "text-white hover:bg-brand-warmWhite/10"
               )}
             >
               <Menu className="h-6 w-6" strokeWidth={1.5} />
@@ -120,7 +130,13 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
             <SheetTitle className="sr-only">Main Navigation</SheetTitle>
             <div className="flex h-full flex-col px-10 py-12">
               <div className="mb-16">
-                <p className="font-display text-3xl text-brand-cream">Flour Dude.</p>
+                <Image
+                  src="/images/flour-dude-logo.png"
+                  alt="Flour Dude Bakery and Cafe"
+                  width={168}
+                  height={64}
+                  className="h-14 w-auto rounded-md bg-brand-warmWhite/95 p-1"
+                />
                 <div className="w-12 h-[1px] bg-brand-caramel mt-6"></div>
               </div>
 
@@ -147,7 +163,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
               <div className="mt-auto pt-10 border-t border-white/10">
                 <Button 
                   asChild 
-                  className="w-full h-14 text-base rounded-pill bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all duration-300"
+                  className="w-full h-14 text-base rounded-pill bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300"
                 >
                   <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
                     Order via WhatsApp

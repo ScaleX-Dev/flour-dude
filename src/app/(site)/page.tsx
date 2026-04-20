@@ -120,7 +120,7 @@ function isPromotionLive(startsAt?: string | null, endsAt?: string | null): bool
 }
 
 async function getHomePageData(): Promise<HomePageData> {
-  const toneClasses = ['bg-cream', 'bg-[#f8ede0]', 'bg-[#f4e8de]', 'bg-[#f7efe7]'];
+  const toneClasses = ['bg-brand-cream', 'bg-brand-caramel/10', 'bg-brand-rose/10', 'bg-brand-warmWhite'];
   const fallbackFeaturedMenu: FeaturedMenuCard[] = menuItems
     .filter((item) => item.isFeatured)
     .slice(0, 3)
@@ -276,6 +276,31 @@ async function getHomePageData(): Promise<HomePageData> {
 
 export default async function SiteHomePage() {
   const data = await getHomePageData();
+  const menuCategoryHighlights = [
+    {
+      title: 'All-Day Breakfast',
+      items: 'Wraps, waffles, sandwiches, quesadilla and more'
+    },
+    {
+      title: 'Cakes and Muffins',
+      items: 'Fresh bakes for everyday cravings and celebrations'
+    },
+    {
+      title: 'Brownies and Cookies',
+      items: 'Fudgy brownies, chunky cookies, and dessert add-ons'
+    },
+    {
+      title: 'Drinks',
+      items: 'Hot coffee, cold coffee, matcha, iced tea, refreshers, frappes, and milkshakes'
+    }
+  ];
+  const customCakeTestimonials =
+    data.testimonialCards.filter(
+      (item) =>
+        item.occasion.toLowerCase().includes('custom') ||
+        item.occasion.toLowerCase().includes('cake') ||
+        item.quote.toLowerCase().includes('cake')
+    ).slice(0, 2) || [];
   const aggregateRatingSchema = {
     '@context': 'https://schema.org',
     '@type': 'AggregateRating',
@@ -291,49 +316,58 @@ export default async function SiteHomePage() {
   return (
     <>
       <SchemaMarkup id="schema-home-aggregate-rating" schema={aggregateRatingSchema} />
-      <section className="relative min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-24 md:pb-32 pt-32">
+      <section className="relative min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col pt-32">
         <Image
           src={heroImages.cake}
           alt="Signature Flour Dude celebration cake"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center transform scale-105 animate-[ken-burns_20s_ease-out_forwards]"
+          className="object-cover object-center animate-[ken-burns_20s_ease-out_forwards]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/60 to-transparent" />
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown via-brand-deepBrown/40 to-transparent" />
+        <div className="absolute inset-0 bg-black/10" />
 
-        <div className="content-shell relative z-10 w-full">
-          <div className="max-w-4xl space-y-8 animate-rise-in">
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 py-2 px-5 backdrop-blur-md">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-caramel"></span>
-              </span>
-              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white/90">
-                {data.locationLabel}
-              </span>
+        <div className="content-shell relative z-10 flex w-full flex-1 items-end justify-start pb-24 md:pb-32">
+          <div className="max-w-2xl w-full space-y-8 animate-rise-in text-left">
+            <div>
+              <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2 px-5 backdrop-blur-md">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-caramel"></span>
+                </span>
+                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white/90">
+                  {data.locationLabel}
+                </span>
+              </div>
             </div>
             
             <h1 className="font-display text-5xl md:text-7xl lg:text-[88px] text-white tracking-tighter leading-[0.95]">
               {data.heroHeadline}
             </h1>
             
-            <p className="max-w-2xl text-lg md:text-xl font-light leading-relaxed text-white/80">
+            <p className="max-w-xl text-lg md:text-xl font-light leading-relaxed text-white/80">
               {data.heroSubheadline}
             </p>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4">
-              <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
                 <a href={data.heroPrimaryCtaHref} target="_blank" rel="noreferrer">
                   {data.heroPrimaryCtaText}
                 </a>
               </Button>
-              <Button asChild className="rounded-pill px-8 h-14 border border-white/30 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 border border-white/30 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
                 <Link href="/menu">
                   Explore Menu
                 </Link>
               </Button>
+            </div>
+
+            <div>
+              <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2.5 px-5 backdrop-blur-md">
+                <span className="text-brand-caramel text-lg">★</span>
+                <span className="text-sm font-medium tracking-wide text-white">Rated 5 stars on Uber Eats</span>
+              </div>
             </div>
           </div>
         </div>
@@ -344,7 +378,7 @@ export default async function SiteHomePage() {
       </section>
 
       {data.promo ? (
-        <section className="bg-brand-deepBrown text-white border-y border-white/10 relative overflow-hidden">
+        <section className="bg-brand-sage text-brand-deepBrown border-y border-brand-border relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay"></div>
           <div className="content-shell py-12 md:py-16">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
@@ -355,15 +389,15 @@ export default async function SiteHomePage() {
                 <h2 className="font-display text-3xl md:text-4xl tracking-tight text-white">
                   {data.promo.title}
                 </h2>
-                <p className="text-white/70 font-light text-lg max-w-2xl mx-auto lg:mx-0">
+                <p className="text-brand-deepBrown/80 font-light text-lg max-w-2xl mx-auto lg:mx-0">
                   {data.promo.body}
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-brand-warmWhite/30 p-6 rounded-3xl border border-brand-deepBrown/10 backdrop-blur-sm">
                 {data.promo.endsAt ? <PromoCountdown expiresAt={data.promo.endsAt} /> : null}
-                <div className="hidden sm:block w-[1px] h-12 bg-white/20"></div>
-                <Button asChild className="rounded-pill px-8 h-12 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium whitespace-nowrap">
+                <div className="hidden sm:block w-[1px] h-12 bg-brand-warmWhite/20"></div>
+                <Button asChild className="rounded-pill px-8 h-12 bg-brand-deepBrown text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium whitespace-nowrap">
                    <a href={WA.customCake()}>Claim on WhatsApp</a>
                 </Button>
               </div>
@@ -374,23 +408,38 @@ export default async function SiteHomePage() {
 
       <section className="section-space bg-brand-cream">
         <div className="content-shell space-y-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-border/60 pb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-border pb-8">
             <div className="space-y-4 max-w-2xl">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Daily Bake
+                All-Day Menu
               </h2>
-              <h3 className="section-title mb-0">Signature Creations</h3>
+              <h3 className="section-title mb-0">Breakfast, Bakes, and Cafe Drinks</h3>
+              <p className="text-brand-textMuted font-light text-lg leading-relaxed">
+                Cafe-style favorites inspired by the drinks and comfort lineup people love, made fresh daily in Galle.
+              </p>
             </div>
             <Button asChild className="rounded-pill px-6 h-12 border border-brand-deepBrown/20 bg-transparent text-brand-deepBrown hover:bg-brand-deepBrown hover:text-white transition-all">
               <Link href="/menu">View Full Menu</Link>
             </Button>
           </div>
 
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {menuCategoryHighlights.map((category) => (
+              <article
+                key={category.title}
+                className="rounded-[24px] border border-brand-border/40 bg-brand-warmWhite p-6 shadow-sm"
+              >
+                <h4 className="font-display text-2xl text-brand-deepBrown">{category.title}</h4>
+                <p className="mt-3 font-light text-brand-textMuted leading-relaxed">{category.items}</p>
+              </article>
+            ))}
+          </div>
+
           <div className="grid gap-6 md:grid-cols-3">
             {data.featuredMenu.map((item) => (
               <article 
                 key={item.id} 
-                className="group relative flex flex-col justify-between rounded-card bg-white p-8 border border-transparent hover:border-brand-border/80 shadow-sm hover:shadow-floating transition-all duration-500"
+                className="group relative flex flex-col justify-between rounded-card bg-brand-warmWhite p-8 border border-transparent hover:border-brand-border/80 shadow-sm hover:shadow-floating transition-all duration-500"
               >
                 <div className="space-y-4">
                   {item.badge ? (
@@ -434,29 +483,42 @@ export default async function SiteHomePage() {
           <div className="max-w-2xl space-y-10">
             <div className="space-y-6">
               <p className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Bespoke Design
+                Custom Cakes
               </p>
               <h2 className="font-display text-5xl md:text-6xl tracking-tight leading-[1.1] text-white">
-                Every celebration deserves a masterpiece.
+                Customised cakes for every celebration.
               </h2>
-              <p className="text-lg font-light leading-relaxed text-white/70 max-w-xl">
-                From elegant minimalist tiers to extravagant highly-detailed sculptures. We work closely with you to design a cake that perfectly captures the essence of your event and tastes unforgettable.
+              <p className="text-lg font-light leading-relaxed text-white/80 max-w-xl">
+                Birthdays, anniversaries, bridal showers, weddings, graduations, office milestones, and more. We design around your theme and guide you to the right size, flavor, and style.
+              </p>
+              <p className="text-sm uppercase tracking-[0.18em] text-white/60">
+                Portfolio-led ordering flow: view designs, then enquire on WhatsApp.
               </p>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 pt-4">
-               <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
-                  <Link href="/cakes">Explore Cake Portfolio</Link>
+               <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium w-full text-base">
+                  <Link href="/cakes">View Portfolio</Link>
                </Button>
-               <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium w-full text-base">
-                  <a href={WA.customCake()}>Discuss A Design</a>
+               <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium w-full text-base">
+                  <a href={WA.customCake()}>Enquire Now (WhatsApp)</a>
                </Button>
+            </div>
+
+            <div className="grid gap-4 pt-4 sm:grid-cols-2">
+              {(customCakeTestimonials.length ? customCakeTestimonials : data.testimonialCards.slice(0, 2)).map((item) => (
+                <article key={`custom-${item.id}`} className="rounded-2xl border border-white/15 bg-brand-warmWhite/30 p-5 backdrop-blur-sm">
+                  <p className="text-sm text-brand-caramel">{'★'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">&quot;{item.quote}&quot;</p>
+                  <p className="mt-3 text-xs uppercase tracking-wider text-white/60">{item.customerName}</p>
+                </article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-space border-y border-brand-border bg-white">
+      <section className="section-space border-y border-brand-border bg-brand-warmWhite">
         <div className="content-shell space-y-16">
           <div className="text-center max-w-3xl mx-auto space-y-4">
             <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-textMuted">
@@ -506,14 +568,14 @@ export default async function SiteHomePage() {
 
       <section className="section-space bg-brand-cream">
         <div className="content-shell space-y-16">
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left border-b border-brand-border/60 pb-8">
+          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left border-b border-brand-border pb-8">
             <div className="space-y-4">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Reputation
+                Testimonials
               </h2>
-              <h3 className="section-title mb-0">Words from our Guests</h3>
+              <h3 className="section-title mb-0">What Our Guests Say</h3>
             </div>
-            <div className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-2.5 shadow-sm border border-brand-border/40">
+            <div className="inline-flex items-center gap-3 rounded-full bg-brand-warmWhite px-5 py-2.5 shadow-sm border border-brand-border/40">
               <span className="text-brand-caramel text-xl">★</span>
               <span className="font-medium text-brand-deepBrown tracking-wide">
                 {siteConfig.ratingLabel}
@@ -525,7 +587,7 @@ export default async function SiteHomePage() {
             {data.testimonialCards.slice(0, 3).map((item) => (
               <article 
                 key={item.id} 
-                className="flex flex-col justify-between rounded-[24px] bg-white p-8 border border-brand-border/50 shadow-sm"
+                className="flex flex-col justify-between rounded-[24px] bg-brand-warmWhite p-8 border border-brand-border/50 shadow-sm"
               >
                 <div>
                   <div className="flex gap-1 mb-6 text-brand-caramel text-sm">
@@ -554,7 +616,7 @@ export default async function SiteHomePage() {
 
       <section className="py-24 bg-brand-deepBrown text-white">
         <div className="content-shell">
-          <div className="max-w-4xl mx-auto text-center space-y-10 bg-white/5 border border-white/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
+          <div className="max-w-4xl mx-auto text-center space-y-10 bg-brand-warmWhite/30 border border-brand-deepBrown/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
             <div className="space-y-4">
               <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
                 Experience Flour Dude
@@ -562,16 +624,16 @@ export default async function SiteHomePage() {
               <h3 className="font-display text-4xl md:text-5xl text-white tracking-tight leading-tight">
                 Secure your booking today.
               </h3>
-              <p className="text-white/70 font-light text-lg max-w-2xl mx-auto pt-4">
+              <p className="text-brand-deepBrown/80 font-light text-lg max-w-2xl mx-auto pt-4">
                 Whether you need an immediate pick-me-up from our daily menu or want to plan the centerpiece cake for an upcoming wedding, our team is ready.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Button asChild className="rounded-pill px-8 h-14 bg-white text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 bg-brand-deepBrown text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
                 <a href={WA.customCake()}>Chat with us on WhatsApp</a>
               </Button>
-              <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-white hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
+              <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
                 <Link href="/contact">View Location & Hours</Link>
               </Button>
             </div>

@@ -19,9 +19,9 @@ const sizeClasses: Record<WhatsAppButtonProps['size'], string> = {
 };
 
 const variantClasses: Record<WhatsAppButtonProps['variant'], string> = {
-  primary: 'bg-[#25D366] text-white hover:bg-[#20BA5A]',
-  outline: 'border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366]/10',
-  ghost: 'text-[#25D366] underline hover:no-underline'
+  primary: 'bg-[var(--wa-green)] text-white hover:brightness-95',
+  outline: 'border-2 border-[var(--wa-green)] text-[var(--wa-green)] hover:bg-[var(--wa-green)]/10',
+  ghost: 'text-[var(--wa-green)] underline hover:no-underline'
 };
 
 function WhatsAppIcon() {

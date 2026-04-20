@@ -46,14 +46,14 @@ export function GeneralInquiryForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-4 rounded-card border border-borderColor bg-warmWhite p-6 sm:grid-cols-2">
+    <form onSubmit={onSubmit} className="grid gap-4 rounded-card border border-brand-border bg-brand-warmWhite p-6 sm:grid-cols-2">
       <label className="space-y-1 text-sm">
         <span>Full Name</span>
         <input
           required
           value={values.name}
           onChange={(event) => setValues((prev) => ({ ...prev, name: event.target.value }))}
-          className="w-full rounded-button border border-borderColor bg-cream px-3 py-2"
+          className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2"
         />
       </label>
 
@@ -64,7 +64,7 @@ export function GeneralInquiryForm() {
           type="email"
           value={values.email}
           onChange={(event) => setValues((prev) => ({ ...prev, email: event.target.value }))}
-          className="w-full rounded-button border border-borderColor bg-cream px-3 py-2"
+          className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2"
         />
       </label>
 
@@ -75,16 +75,16 @@ export function GeneralInquiryForm() {
           rows={5}
           value={values.message}
           onChange={(event) => setValues((prev) => ({ ...prev, message: event.target.value }))}
-          className="w-full rounded-button border border-borderColor bg-cream px-3 py-2"
+          className="w-full rounded-button border border-brand-border bg-brand-cream px-3 py-2"
         />
       </label>
 
       {status === 'success' ? (
-        <p className="text-sm text-sage sm:col-span-2">Message sent! We&apos;ll be in touch soon.</p>
+        <p className="text-sm text-brand-sage sm:col-span-2">Message sent! We&apos;ll be in touch soon.</p>
       ) : null}
 
       {status === 'error' ? (
-        <p className="text-sm text-rose sm:col-span-2">Something went wrong. Please WhatsApp us directly.</p>
+        <p className="text-sm text-brand-rose sm:col-span-2">Something went wrong. Please WhatsApp us directly.</p>
       ) : null}
 
       <div className="sm:col-span-2">

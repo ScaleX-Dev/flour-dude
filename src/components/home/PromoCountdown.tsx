@@ -33,9 +33,9 @@ function getRemaining(expiresAt: string): Remaining {
 
 function Cell({ label, value }: { label: string; value: number }) {
   return (
-    <div className="min-w-[62px] rounded-btn border border-borderColor bg-warmWhite px-3 py-2 text-center shadow-soft">
-      <p className="font-display text-xl text-brown-deep">{value.toString().padStart(2, '0')}</p>
-      <p className="text-[10px] uppercase tracking-[0.14em] text-textMuted">{label}</p>
+    <div className="min-w-[62px] rounded-btn border border-brand-border bg-brand-warmWhite px-3 py-2 text-center shadow-soft">
+      <p className="font-display text-xl text-brand-deepBrown">{value.toString().padStart(2, '0')}</p>
+      <p className="text-[10px] uppercase tracking-[0.14em] text-brand-textMuted">{label}</p>
     </div>
   );
 }

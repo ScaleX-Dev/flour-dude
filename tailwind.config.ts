@@ -11,61 +11,39 @@ const config: Config = {
   theme: {
     extend: {
       borderRadius: {
-        button: '100px', // Soft, modern pill shape for all primary actions
-        card: '16px', // Elegant, smooth corners for imagery and product cards
-        cake: '20px',
+        button: '100px',
+        card: '24px',
+        cake: '32px',
         pill: '100px'
       },
       colors: {
-        // High-class, minimalistic boutique palette
-        brown: {
-          deep: '#1A1614', // Almost black, much sharper and more modern for contrast
-          mid: '#4A3B32'
-        },
-        caramel: {
-          DEFAULT: '#D4A373', // Softer, more elegant gold/caramel accent
-          light: '#E6CCB8'
-        },
-        cream: '#FDFBF7', // Ultra-clean, slightly warm off-white (like Crumbl/editorial sites)
-        warmWhite: '#FFFFFF', // Pure white for stark contrast areas
-        sage: '#A3B19B',
-        rose: '#E2B4A7',
-        textBody: '#2A2421', // Dark charcoal for high legibility, not pure black
-        textMuted: '#8A817C',
-        borderColor: '#EAE4DD', // Very subtle borders
-        wa: '#25D366',
         brand: {
-          deepBrown: '#1A1614',
-          caramel: '#D4A373',
-          caramelLight: '#E6CCB8',
-          cream: '#FDFBF7',
+          deepBrown: '#2a2725', // Deeper shade for high contrast text and strong grounds
+          charcoal: '#666666', // Brand color base dark gray
+          caramel: '#EABF71', // Brand color mustard/gold
+          caramelLight: '#f5d9a1',
+          cream: '#F3F3E9', // Brand off-white
           warmWhite: '#FFFFFF',
-          sage: '#A3B19B',
-          rose: '#E2B4A7',
-          textBody: '#2A2421',
-          textMuted: '#8A817C',
-          border: '#EAE4DD'
+          sage: '#88B6B4', // Brand teal/mint
+          rose: '#E3ACA7', // Brand soft rose
+          textBody: '#403d39', // Dark highly legible body text
+          textMuted: '#8a8581', 
+          border: '#e6e4d9',
         }
       },
       fontFamily: {
-        display: ['Playfair Display', 'serif'], // Elegant serif
-        sans: ['DM Sans', 'sans-serif'], // Clean modern geometric
+        display: ['Playfair Display', 'serif'],
+        sans: ['DM Sans', 'sans-serif'],
         mono: ['DM Mono', 'monospace']
       },
       boxShadow: {
-        'soft': '0 10px 40px -10px rgba(26, 22, 20, 0.08)', // High-class floating shadow
-        'floating': '0 20px 40px -20px rgba(26, 22, 20, 0.12)'
+        soft: '0 12px 30px -10px rgba(42, 39, 37, 0.06)',
+        floating: '0 24px 50px -15px rgba(42, 39, 37, 0.12)'
       },
       keyframes: {
         'wa-pulse': {
-          '0%, 88%, 100%': {
-            transform: 'scale(1)',
-            boxShadow: '0 0 0 0 rgba(37, 211, 102, 0.55)'
-          },
-          '92%': {
-            transform: 'scale(1.04)',
-            boxShadow: '0 0 0 16px rgba(37, 211, 102, 0)'
-          }
+          '0%, 88%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(37, 211, 102, 0.55)' },
+          '92%': { transform: 'scale(1.04)', boxShadow: '0 0 0 16px rgba(37, 211, 102, 0)' }
         },
         'rise-in': {
           '0%': { opacity: '0', transform: 'translateY(20px)' },

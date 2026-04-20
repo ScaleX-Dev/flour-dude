@@ -10,7 +10,7 @@ import type {
   SiteSettings,
   Testimonial
 } from '@/payload-types';
-import { heroImages, siteConfig } from '@/lib/site';
+import { heroImages, menuCategories, menuItems, siteConfig } from '@/lib/site';
 
 const REVALIDATE_SECONDS = 60;
 
@@ -28,7 +28,43 @@ function getBaseURL() {
   return 'http://localhost:3000';
 }
 
+function getConfiguredDatabaseHost(): string | null {
+  const candidates = [
+    process.env.DATABASE_URI,
+    process.env.POSTGRES_URL,
+    process.env.PAYLOAD_DATABASE_URI
+  ].filter((value): value is string => Boolean(value));
+
+  for (const candidate of candidates) {
+    try {
+      return new URL(candidate).hostname;
+    } catch {
+      continue;
+    }
+  }
+
+  return null;
+}
+
+function shouldSkipLocalPayloadFetch(): boolean {
+  const dbHost = getConfiguredDatabaseHost();
+  if (!dbHost) {
+    return false;
+  }
+
+  const runningInContainer =
+    process.env.DOCKER === 'true' ||
+    process.env.CONTAINER === 'true' ||
+    process.env.KUBERNETES_SERVICE_HOST !== undefined;
+
+  return process.env.NODE_ENV !== 'production' && !runningInContainer && dbHost === 'postgres';
+}
+
 async function fetchPayload<T>(path: string): Promise<T> {
+  if (shouldSkipLocalPayloadFetch()) {
+    throw new Error('Payload fetch skipped because database host "postgres" is not reachable in this local environment.');
+  }
+
   const response = await fetch(`${getBaseURL()}${path}`, {
     next: { revalidate: REVALIDATE_SECONDS }
   });
@@ -88,33 +124,75 @@ export async function getAllCakes(): Promise<CakePortfolioItem[]> {
 }
 
 export async function getMenuCategories(): Promise<MenuCategory[]> {
+  const fallbackCategories = menuCategories.map((category, index) =>
+    ({
+      id: `seed-category-${index + 1}`,
+      name: category.name,
+      slug: category.slug,
+      description: category.description,
+      sort_order: index + 1
+    }) as unknown as MenuCategory
+  );
+
   try {
     const result = await fetchPayload<{ docs: MenuCategory[] }>(
       '/api/payload/menu-categories?limit=100&sort=sort_order'
     );
 
-    return result.docs;
+    return result.docs.length ? result.docs : fallbackCategories;
   } catch {
-    return [];
+    return fallbackCategories;
   }
 }
 
 export async function getMenuItems(categorySlug?: string): Promise<MenuItem[]> {
+  const fallbackItems = menuItems.map((item, index) =>
+    ({
+      id: `seed-item-${index + 1}`,
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      imageUrl: item.imageUrl,
+      category: {
+        slug: item.categorySlug,
+        name: menuCategories.find((category) => category.slug === item.categorySlug)?.name ?? item.categorySlug
+      },
+      categorySlug: item.categorySlug,
+      sort_order: index + 1,
+      isFeatured: item.isFeatured ?? false,
+      available: true,
+      dietaryTags: []
+    }) as unknown as MenuItem
+  );
+
   try {
     const result = await fetchPayload<{ docs: MenuItem[] }>(
       '/api/payload/menu-items?depth=2&limit=300&sort=sort_order'
     );
 
+    const baseItems = result.docs.length ? result.docs : fallbackItems;
+
     if (!categorySlug) {
-      return result.docs;
+      return baseItems;
     }
 
-    return result.docs.filter((item) => {
+    return baseItems.filter((item) => {
       const category = item.category;
-      return typeof category === 'object' && category !== null && category.slug === categorySlug;
+      if (typeof category === 'object' && category !== null && category.slug === categorySlug) {
+        return true;
+      }
+
+      return (item as unknown as { categorySlug?: string }).categorySlug === categorySlug;
     });
   } catch {
-    return [];
+    if (!categorySlug) {
+      return fallbackItems;
+    }
+
+    return fallbackItems.filter((item) => {
+      const mapped = item as unknown as { categorySlug?: string };
+      return mapped.categorySlug === categorySlug;
+    });
   }
 }
 

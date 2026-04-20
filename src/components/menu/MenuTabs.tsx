@@ -57,7 +57,7 @@ export function MenuTabs({ categories, items }: MenuTabsProps) {
         })}
       </div>
 
-      <div className="rounded-card p-6 sm:p-10 border border-brand-border bg-white shadow-soft">
+      <div className="rounded-card p-6 sm:p-10 border border-brand-border bg-brand-warmWhite shadow-soft">
         <div className="max-w-2xl">
            <h2 className="font-display text-4xl text-brand-deepBrown pb-2">{category?.name}.</h2>
            <p className="mt-2 text-lg font-light text-brand-textMuted max-w-xl">{category?.description}</p>
@@ -67,7 +67,7 @@ export function MenuTabs({ categories, items }: MenuTabsProps) {
           {filteredItems.map((item) => (
             <article
               key={item.name}
-              className="group flex flex-col justify-between rounded-[20px] border border-transparent bg-brand-cream/50 hover:bg-white hover:border-brand-border hover:shadow-floating p-8 transition-all duration-500"
+              className="group flex flex-col justify-between rounded-[20px] border border-transparent bg-brand-cream/50 hover:bg-brand-warmWhite hover:border-brand-border hover:shadow-floating p-8 transition-all duration-500"
             >
               <div className="space-y-4">
                 {item.isFeatured ? (

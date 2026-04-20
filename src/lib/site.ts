@@ -40,12 +40,9 @@ export const whatsappLinks = {
 };
 
 export const heroImages = {
-  cake:
-    'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1600,h_1100/samples/food/fish-vegetables.jpg',
-  waffle:
-    'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_900/samples/food/dessert.jpg',
-  celebration:
-    'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_900/samples/people/kitchen-bar.jpg'
+  cake: '/images/IMG_5790.JPG',
+  waffle: '/images/hero-menu.jpg',
+  celebration: '/images/hero-events.jpg'
 } as const;
 
 type MenuCategorySeed = Pick<MenuCategory, 'name' | 'description'> & {
@@ -55,6 +52,7 @@ type MenuCategorySeed = Pick<MenuCategory, 'name' | 'description'> & {
 type MenuItemSeed = Pick<MenuItem, 'name' | 'description' | 'price'> & {
   categorySlug: string;
   isFeatured?: boolean;
+  imageUrl?: string;
 };
 
 type CakeSeed = Pick<CakePortfolioItem, 'title' | 'description' | 'priceFrom'> & {
@@ -63,109 +61,206 @@ type CakeSeed = Pick<CakePortfolioItem, 'title' | 'description' | 'priceFrom'> &
 };
 
 export const menuCategories: MenuCategorySeed[] = [
-  { slug: 'cakes', name: 'Cakes', description: 'Layer cakes and slices for everyday cravings.' },
-  { slug: 'waffles', name: 'Waffles', description: 'Loaded waffles, sweet and savory.' },
-  {
-    slug: 'wraps-sandwiches',
-    name: 'Wraps & Sandwiches',
-    description: 'Cafe-ready options for brunch and tea time.'
-  },
-  { slug: 'coffee-tea', name: 'Coffee & Tea', description: 'Hot brews and iced cafe classics.' },
-  { slug: 'chocolate-drinks', name: 'Chocolate Drinks', description: 'Rich and creamy chocolate bar drinks.' },
-  {
-    slug: 'custom-cakes',
-    name: 'Custom Cakes',
-    description: 'Personalised creations made to brief via WhatsApp.'
-  },
-  {
-    slug: 'b2b-event-catering',
-    name: 'B2B / Event Catering',
-    description: 'Corporate trays, wedding dessert tables, and hotel partnerships.'
-  }
+  { slug: 'hot-coffee', name: 'Hot Coffee', description: 'Classic espresso-based hot drinks.' },
+  { slug: 'cold-coffee', name: 'Cold Coffee', description: 'Iced coffee lineup and creamy cold favorites.' },
+  { slug: 'matcha', name: 'Matcha', description: 'Earthy matcha in hot and iced formats.' },
+  { slug: 'ice-blends', name: 'Frappes & Blends', description: 'Thick blended drinks and indulgent textures.' },
+  { slug: 'iced-tea', name: 'Iced Tea', description: 'Light fruit iced teas for all-day refreshment.' },
+  { slug: 'milkshakes', name: 'Milkshakes', description: 'Dessert-style milkshakes with bold flavors.' },
+  { slug: 'refreshers', name: 'Refreshers', description: 'Citrus and tropical coolers.' },
+  { slug: 'savory', name: 'Savory', description: 'Wraps, sandwiches, quesadilla and more.' },
+  { slug: 'waffles-sweets', name: 'Waffles & Sweets', description: 'Sweet waffle plates and add-ons.' },
+  { slug: 'cakes-muffins', name: 'Cakes & Muffins', description: 'Daily slices, cake jars, and fresh muffins.' },
+  { slug: 'brownies-cookies', name: 'Brownies & Cookies', description: 'Baked treats and shareable snack boxes.' }
 ];
 
 export const menuItems: MenuItemSeed[] = [
   {
-    categorySlug: 'cakes',
-    name: 'Matilda Chocolate Cake',
-    description: 'Dense chocolate sponge with silky ganache and cocoa crumbs.',
+    categorySlug: 'hot-coffee',
+    name: 'Espresso Single',
+    description: 'Balanced espresso shot.',
+    price: 400,
+    imageUrl: '/images/DSC02838.jpeg'
+  },
+  {
+    categorySlug: 'hot-coffee',
+    name: 'Espresso Double',
+    description: 'Double espresso for a stronger finish.',
+    price: 550,
+    imageUrl: '/images/DSC02838.jpeg'
+  },
+  { categorySlug: 'hot-coffee', name: 'Americano', description: 'Espresso with hot water.', price: 450, imageUrl: '/images/DSC02843.jpeg' },
+  { categorySlug: 'hot-coffee', name: 'Cappuccino', description: 'Espresso, steamed milk, milk foam.', price: 650, imageUrl: '/images/DSC02843.jpeg' },
+  { categorySlug: 'hot-coffee', name: 'Flat White', description: 'Silky microfoam with espresso.', price: 650, imageUrl: '/images/DSC02843.jpeg' },
+  { categorySlug: 'hot-coffee', name: 'Latte', description: 'Smooth espresso latte.', price: 650, imageUrl: '/images/DSC02843.jpeg' },
+  { categorySlug: 'hot-coffee', name: 'Latte Macchiato', description: 'Layered milk and espresso.', price: 650, imageUrl: '/images/DSC02843.jpeg' },
+  { categorySlug: 'hot-coffee', name: 'Cafe Mocha', description: 'Espresso with chocolate and milk.', price: 750, imageUrl: '/images/DSC02861.jpeg' },
+  { categorySlug: 'hot-coffee', name: 'Hot Chocolate', description: 'Rich cocoa and steamed milk.', price: 600, imageUrl: '/images/DSC02861.jpeg' },
+
+  {
+    categorySlug: 'cold-coffee',
+    name: 'Iced Americano',
+    description: 'Chilled espresso over ice.',
+    price: 500,
+    imageUrl: '/images/DSC02975.jpeg'
+  },
+  {
+    categorySlug: 'cold-coffee',
+    name: 'Iced Latte',
+    description: 'Espresso with milk over ice.',
+    price: 700,
+    imageUrl: '/images/DSC02975.jpeg'
+  },
+  { categorySlug: 'cold-coffee', name: 'Vanilla Latte', description: 'Iced latte with vanilla.', price: 750, imageUrl: '/images/DSC02975.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Iced Caramel Latte', description: 'Caramel-infused iced latte.', price: 750, imageUrl: '/images/DSC02975.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Cinnamon Iced Latte', description: 'Warm cinnamon notes in iced milk coffee.', price: 650, imageUrl: '/images/DSC02999.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Spanish Latte', description: 'Creamy sweet condensed milk latte.', price: 700, imageUrl: '/images/DSC02999.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Iced Mocha', description: 'Chocolate and espresso over ice.', price: 750, imageUrl: '/images/DSC02999.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Spanish Mocha Latte', description: 'Mocha twist on Spanish latte.', price: 750, imageUrl: '/images/DSC02999.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Iced Vienna Coffee', description: 'Iced coffee with cream crown.', price: 1000, imageUrl: '/images/DSC02999.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Nutella Latte', description: 'Hazelnut-cocoa latte blend.', price: 1000, imageUrl: '/images/DSC02999.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Affogato', description: 'Espresso over creamy ice cream.', price: 600, imageUrl: '/images/DSC02999.jpeg' },
+  { categorySlug: 'cold-coffee', name: 'Iced Chocolate', description: 'Cold chocolate milk drink.', price: 650, imageUrl: '/images/DSC02975.jpeg' },
+
+  {
+    categorySlug: 'matcha',
+    name: 'Iced Matcha Latte',
+    description: 'Ceremonial-style matcha with milk and ice.',
+    price: 850,
+    imageUrl: '/images/DSC03585\ Large.jpeg'
+  },
+  { categorySlug: 'matcha', name: 'Hot Matcha Latte', description: 'Warm whisked matcha latte.', price: 750, imageUrl: '/images/DSC03638\ Large.jpeg' },
+  { categorySlug: 'matcha', name: 'Strawberry Iced Matcha', description: 'Layered strawberry and iced matcha.', price: 1000, imageUrl: '/images/DSC03585\ Large.jpeg' },
+
+  {
+    categorySlug: 'ice-blends',
+    name: 'Coffee Caramel',
+    description: 'Blended caramel coffee frappe.',
+    price: 950,
+    imageUrl: '/images/DSC03694\ Large.jpeg'
+  },
+  { categorySlug: 'ice-blends', name: 'Double Chocolate', description: 'Thick blended chocolate drink.', price: 1000, imageUrl: '/images/DSC03694\ Large.jpeg' },
+
+  {
+    categorySlug: 'iced-tea',
+    name: 'Peach Iced Tea',
+    description: 'Light black tea with peach notes.',
+    price: 500,
+    imageUrl: '/images/DSC02975.jpeg'
+  },
+  { categorySlug: 'iced-tea', name: 'Lime Iced Tea', description: 'Citrus iced tea.', price: 500, imageUrl: '/images/DSC02975.jpeg' },
+  { categorySlug: 'iced-tea', name: 'Strawberry Iced Tea', description: 'Berry-forward iced tea.', price: 500, imageUrl: '/images/DSC02975.jpeg' },
+  { categorySlug: 'iced-tea', name: 'Blueberry Iced Tea', description: 'Blueberry infused iced tea.', price: 550, imageUrl: '/images/DSC02975.jpeg' },
+
+  {
+    categorySlug: 'milkshakes',
+    name: 'Nutella Milkshake',
+    description: 'Chocolate-hazelnut milkshake.',
     price: 900,
-    isFeatured: true
+    imageUrl: '/images/DSC03694\ Large.jpeg'
   },
+  { categorySlug: 'milkshakes', name: 'Kit Kat Milkshake', description: 'Chocolate wafer shake.', price: 900, imageUrl: '/images/DSC03694\ Large.jpeg' },
+  { categorySlug: 'milkshakes', name: "Dude's Cookie Shake", description: 'Cookie-thick signature shake.', price: 850, imageUrl: '/images/DSC03694\ Large.jpeg' },
+  { categorySlug: 'milkshakes', name: 'Strawberry Milk Cloud', description: 'Strawberry cream milkshake.', price: 900, imageUrl: '/images/DSC03694\ Large.jpeg' },
+
   {
-    categorySlug: 'cakes',
-    name: 'Tres Leches',
-    description: 'Vanilla sponge soaked in a three-milk blend with whipped cream.',
-    price: 1100,
-    isFeatured: true
+    categorySlug: 'refreshers',
+    name: 'Lime & Mint Refresher',
+    description: 'Crisp lime with mint.',
+    price: 600,
+    imageUrl: '/images/DSC02975.jpeg'
   },
+  { categorySlug: 'refreshers', name: 'Strawberry Refresher', description: 'Strawberry cooler.', price: 650, imageUrl: '/images/DSC02975.jpeg' },
+  { categorySlug: 'refreshers', name: 'Passion Refresher', description: 'Tropical passion cooler.', price: 650, imageUrl: '/images/DSC02975.jpeg' },
+  { categorySlug: 'refreshers', name: 'Tropical Refresher', description: 'Mixed tropical fruit refresher.', price: 700, imageUrl: '/images/DSC02975.jpeg' },
+
   {
-    categorySlug: 'cakes',
-    name: 'Oreo Cake',
-    description: 'Cookies-and-cream mini cake topped with crushed Oreos.',
-    price: 550
-  },
-  {
-    categorySlug: 'cakes',
-    name: 'Strawberry Cheesecake',
-    description: 'Baked cheesecake with fresh strawberry glaze.',
-    price: 1400
-  },
-  {
-    categorySlug: 'waffles',
-    name: 'Nutella Waffle',
-    description: 'Warm waffle, Nutella drizzle, roasted almonds, vanilla cream.',
-    price: 1300,
-    isFeatured: true
-  },
-  {
-    categorySlug: 'waffles',
-    name: 'Messy Waffle',
-    description: 'Brownie bits, caramel, chocolate sauce, and soft serve scoop.',
-    price: 1500
-  },
-  {
-    categorySlug: 'waffles',
-    name: 'Chicken Waffle',
-    description: 'Crispy chicken, honey-chili glaze, and herb mayo.',
-    price: 1200
-  },
-  {
-    categorySlug: 'wraps-sandwiches',
+    categorySlug: 'savory',
     name: 'Chicken Wrap',
-    description: 'Smoked chicken, slaw, garlic aioli, grilled tortilla.',
-    price: 1150
+    description: 'Grilled chicken wrap.',
+    price: 900,
+    imageUrl: '/images/menu-feature-savory.jpg'
+  },
+  { categorySlug: 'savory', name: 'Chicken Waffles', description: 'Savory waffle and chicken combo.', price: 900, imageUrl: '/images/menu-feature-savory.jpg' },
+  { categorySlug: 'savory', name: 'Smoked Chicken Sandwich', description: 'Toasted smoked chicken sandwich.', price: 1100, imageUrl: '/images/menu-feature-savory.jpg' },
+  { categorySlug: 'savory', name: 'Quesadilla', description: 'Cheese and chicken quesadilla.', price: 1450, imageUrl: '/images/menu-feature-savory.jpg' },
+  { categorySlug: 'savory', name: 'Fries', description: 'Crispy fries.', price: 600, imageUrl: '/images/menu-feature-savory.jpg' },
+  { categorySlug: 'savory', name: 'Scrambled Eggs', description: 'Soft scrambled eggs.', price: 500, imageUrl: '/images/menu-feature-savory.jpg' },
+
+  {
+    categorySlug: 'waffles-sweets',
+    name: 'Nutella Waffle',
+    description: 'Warm waffle with Nutella.',
+    price: 1100,
+    imageUrl: '/images/menu-feature-waffle.jpg'
+  },
+  { categorySlug: 'waffles-sweets', name: 'Kit Kat / Oreo Waffle', description: 'Loaded with crushed bars and cookies.', price: 1200, imageUrl: '/images/menu-feature-waffle.jpg' },
+  { categorySlug: 'waffles-sweets', name: 'Choco Peanut Waffle', description: 'Chocolate waffle with roasted peanut crunch.', price: 900, imageUrl: '/images/menu-feature-waffle.jpg' },
+  { categorySlug: 'waffles-sweets', name: 'Messy Waffle', description: 'Nutella, strawberry, or Kit Kat loaded finish.', price: 1300, isFeatured: true, imageUrl: '/images/menu-feature-waffle.jpg' },
+  { categorySlug: 'waffles-sweets', name: 'French Toast', description: 'Golden French toast plate.', price: 850, imageUrl: '/images/menu-feature-waffle.jpg' },
+
+  {
+    categorySlug: 'cakes-muffins',
+    name: 'Matilda Chocolate Fudge Cake',
+    description: 'Dense chocolate sponge finished with rich fudge ganache.',
+    price: 900,
+    isFeatured: true,
+    imageUrl: '/images/cake-portfolio-3.jpg'
   },
   {
-    categorySlug: 'wraps-sandwiches',
-    name: 'Smoked Chicken Sandwich',
-    description: 'Triple toasted sandwich with cheddar and caramelized onions.',
-    price: 1450
+    categorySlug: 'cakes-muffins',
+    name: 'Oreo Cake',
+    description: 'Cookies-and-cream cake finished with Oreo crumble.',
+    price: 550,
+    imageUrl: '/images/cake-portfolio-2.jpg'
   },
   {
-    categorySlug: 'coffee-tea',
-    name: 'Caramel Latte',
-    description: 'Espresso, steamed milk, caramel blend.',
-    price: 850
+    categorySlug: 'cakes-muffins',
+    name: 'Coffee Cake',
+    description: 'Moist coffee sponge layered with silky coffee cream.',
+    price: 850,
+    imageUrl: '/images/cake-portfolio-1.jpg'
   },
   {
-    categorySlug: 'coffee-tea',
-    name: 'Iced Ceylon Milk Tea',
-    description: 'Slow-brewed Ceylon tea over ice with creamy milk.',
-    price: 780
+    categorySlug: 'cakes-muffins',
+    name: 'Strawberry Lemon Bar',
+    description: 'Bright lemon base with strawberry glaze and buttery crumb.',
+    price: 650,
+    imageUrl: '/images/cake-portfolio-4.jpg'
   },
   {
-    categorySlug: 'chocolate-drinks',
-    name: 'Dark Chocolate Mocha',
-    description: 'Dark chocolate and espresso, topped with cream.',
-    price: 920
+    categorySlug: 'cakes-muffins',
+    name: 'Double Chocolate Banana Muffins',
+    description: 'Banana muffin loaded with dark chocolate and cocoa chips.',
+    price: 480,
+    imageUrl: '/images/cake-portfolio-4.jpg'
   },
+  { categorySlug: 'cakes-muffins', name: 'Strawberry Cheesecake', description: 'Creamy baked cheesecake with strawberry notes.', price: 1200, imageUrl: '/images/menu-feature-cheesecake.jpg' },
+  { categorySlug: 'cakes-muffins', name: 'Passion Cheesecake', description: 'Tangy passion fruit cheesecake.', price: 1200, imageUrl: '/images/menu-feature-cheesecake.jpg' },
+  { categorySlug: 'cakes-muffins', name: 'Tiramisu', description: 'Coffee-soaked layered tiramisu.', price: 1300, imageUrl: '/images/cake-portfolio-3.jpg' },
+  { categorySlug: 'cakes-muffins', name: 'Tres Leches', description: 'Three-milk soaked cake slice.', price: 700, imageUrl: '/images/cake-portfolio-1.jpg' },
+  { categorySlug: 'cakes-muffins', name: 'Cafe Mocha Cake', description: 'Mocha-infused cake slice.', price: 850, imageUrl: '/images/cake-portfolio-3.jpg' },
+  { categorySlug: 'cakes-muffins', name: 'Banana Muffin', description: 'Soft classic banana muffin.', price: 320, imageUrl: '/images/cake-portfolio-4.jpg' },
+  { categorySlug: 'cakes-muffins', name: 'Cream Cheese Banana Muffin', description: 'Banana muffin with cream cheese core.', price: 550, imageUrl: '/images/cake-portfolio-4.jpg' },
+
   {
-    categorySlug: 'chocolate-drinks',
-    name: 'Belgian Hot Chocolate',
-    description: 'Thick hot chocolate with cinnamon dust.',
-    price: 980
-  }
+    categorySlug: 'brownies-cookies',
+    name: 'Fudge Brownie',
+    description: 'Dense and rich chocolate brownie.',
+    price: 300,
+    imageUrl: '/images/cake-portfolio-3.jpg'
+  },
+  { categorySlug: 'brownies-cookies', name: 'Nutella Brownie', description: 'Fudge brownie with Nutella swirl.', price: 350, imageUrl: '/images/cake-portfolio-3.jpg' },
+  { categorySlug: 'brownies-cookies', name: 'Peanut Butter Brownie', description: 'Brownie finished with peanut butter.', price: 450, imageUrl: '/images/cake-portfolio-3.jpg' },
+  {
+    categorySlug: 'brownies-cookies',
+    name: 'Chocolate Chip Cookies',
+    description: 'Classic soft-center cookie.',
+    price: 180,
+    imageUrl: '/images/cake-portfolio-2.jpg'
+  },
+  { categorySlug: 'brownies-cookies', name: 'Double Chocolate Chip Cookies', description: 'Dark cocoa cookie with chocolate chips.', price: 220, imageUrl: '/images/cake-portfolio-2.jpg' },
+  { categorySlug: 'brownies-cookies', name: 'Cookie Choco Tub', description: 'Shareable chocolate cookie tub.', price: 500, imageUrl: '/images/cake-portfolio-2.jpg' }
 ];
 
 export const cakePortfolio: CakeSeed[] = [
@@ -173,33 +268,29 @@ export const cakePortfolio: CakeSeed[] = [
     title: 'Lotus Biscoff Celebration Cake',
     description: 'Three layers, biscoff crunch center, caramel drip, lotus shards.',
     priceFrom: 9500,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/food/pot-mussels.jpg',
-    accent: 'bg-[#f4d7b5]'
+    imageUrl: '/images/cake-portfolio-1.jpg',
+    accent: 'bg-brand-caramel/20'
   },
   {
     title: 'Pastel Birthday Garden Cake',
     description: 'Hand-piped florals with soft pink and sage tones for birthdays.',
     priceFrom: 12000,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/food/spices.jpg',
-    accent: 'bg-[#f7d4cf]'
+    imageUrl: '/images/cake-portfolio-2.jpg',
+    accent: 'bg-brand-rose/20'
   },
   {
     title: 'Chocolate Fudge Matilda Tower',
     description: 'Bold cocoa sponge with extra ganache for serious chocoholics.',
     priceFrom: 8900,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/food/dessert.jpg',
-    accent: 'bg-[#dcc1a2]'
+    imageUrl: '/images/cake-portfolio-3.jpg',
+    accent: 'bg-brand-cream'
   },
   {
     title: 'Wedding White Textured Cake',
     description: 'Elegant minimal texture work, pearl finish, fresh flower styling.',
     priceFrom: 18000,
-    imageUrl:
-      'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,c_fill,g_auto,w_1200,h_1200/samples/people/jazz.jpg',
-    accent: 'bg-[#efe5d8]'
+    imageUrl: '/images/cake-portfolio-4.jpg',
+    accent: 'bg-brand-warmWhite'
   }
 ];
 

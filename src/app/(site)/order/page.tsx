@@ -82,7 +82,7 @@ export default async function OrderPage() {
         {steps.map((step, index) => (
           <article 
             key={step.title} 
-            className="group relative overflow-hidden rounded-[32px] border border-brand-border/40 bg-white p-8 md:p-12 shadow-sm hover:shadow-floating hover:border-brand-border transition-all duration-500 animate-rise-in"
+            className="group relative overflow-hidden rounded-[32px] border border-brand-border/40 bg-brand-warmWhite p-8 md:p-12 shadow-sm hover:shadow-floating hover:border-brand-border transition-all duration-500 animate-rise-in"
             style={{ animationDelay: `${(index + 1) * 150}ms` }}
           >
             <div className="pointer-events-none absolute -right-8 top-1/2 -translate-y-1/2 font-display text-[160px] md:text-[200px] leading-none text-brand-cream group-hover:text-brand-caramel/10 transition-colors duration-700">
@@ -143,7 +143,7 @@ export default async function OrderPage() {
           </h3>
         </div>
 
-        <div className="bg-white rounded-[32px] p-6 md:p-10 border border-brand-border/40 shadow-sm">
+        <div className="bg-brand-warmWhite rounded-[32px] p-6 md:p-10 border border-brand-border/40 shadow-sm">
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq) => (
               <AccordionItem 
