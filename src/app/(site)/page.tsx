@@ -323,28 +323,30 @@ export default async function SiteHomePage() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center transform scale-105 animate-[ken-burns_20s_ease-out_forwards]"
+          className="object-cover object-center animate-[ken-burns_20s_ease-out_forwards]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/60 to-transparent" />
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown via-brand-deepBrown/40 to-transparent" />
+        <div className="absolute inset-0 bg-black/10" />
 
-        <div className="content-shell relative z-10 flex w-full flex-1 items-end pb-24 md:pb-32">
-          <div className="max-w-4xl space-y-8 animate-rise-in">
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2 px-5 backdrop-blur-md">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-caramel"></span>
-              </span>
-              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white/90">
-                {data.locationLabel}
-              </span>
+        <div className="content-shell relative z-10 flex w-full flex-1 items-end justify-start pb-24 md:pb-32">
+          <div className="max-w-2xl w-full space-y-8 animate-rise-in text-left">
+            <div>
+              <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2 px-5 backdrop-blur-md">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-caramel"></span>
+                </span>
+                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white/90">
+                  {data.locationLabel}
+                </span>
+              </div>
             </div>
             
             <h1 className="font-display text-5xl md:text-7xl lg:text-[88px] text-white tracking-tighter leading-[0.95]">
               {data.heroHeadline}
             </h1>
             
-            <p className="max-w-2xl text-lg md:text-xl font-light leading-relaxed text-white/80">
+            <p className="max-w-xl text-lg md:text-xl font-light leading-relaxed text-white/80">
               {data.heroSubheadline}
             </p>
 
@@ -361,9 +363,11 @@ export default async function SiteHomePage() {
               </Button>
             </div>
 
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2.5 px-5 backdrop-blur-md">
-              <span className="text-brand-caramel text-lg">★</span>
-              <span className="text-sm font-medium tracking-wide text-white">Rated 5 stars on Uber Eats</span>
+            <div>
+              <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2.5 px-5 backdrop-blur-md">
+                <span className="text-brand-caramel text-lg">★</span>
+                <span className="text-sm font-medium tracking-wide text-white">Rated 5 stars on Uber Eats</span>
+              </div>
             </div>
           </div>
         </div>
