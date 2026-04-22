@@ -29,10 +29,10 @@ export default async function ContactPage() {
         <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
           Get in Touch
         </h1>
-        <h2 className="font-display text-5xl md:text-6xl text-brand-deepBrown tracking-tighter leading-[1.1]">
+        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-brand-deepBrown tracking-tighter leading-[1.1] md:leading-[1.05]">
           Contact Flour Dude
         </h2>
-        <p className="text-lg md:text-xl font-light text-brand-textMuted leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl font-light text-brand-textMuted leading-relaxed">
           Whether you have a general inquiry or want to visit our studio in Galle, we&apos;d love to hear from you.
         </p>
       </section>

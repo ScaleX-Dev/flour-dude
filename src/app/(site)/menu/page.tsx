@@ -113,14 +113,14 @@ export default async function MenuPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-menu" schema={breadcrumbSchema} />
-      <section className="relative h-[480px] md:h-[540px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24">
+      <section className="relative h-[480px] md:h-[540px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
         <Image
           src={heroImages.waffle}
           alt="Close-up Flour Dude menu items"
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-40 scale-105 animate-[ken-burns_30s_ease-in-out_forwards]"
+          className="object-cover opacity-55 scale-105 animate-[ken-burns_30s_ease-in-out_forwards]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/50 to-transparent" />
 
@@ -129,10 +129,10 @@ export default async function MenuPage() {
             <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
               Daily Fresh Selection
             </h1>
-            <h2 className="font-display text-5xl md:text-7xl tracking-tighter text-white leading-tight">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl tracking-tighter text-white leading-tight">
               Our Menu.
             </h2>
-            <p className="text-lg font-light leading-relaxed text-white/80 max-w-xl">
+            <p className="text-base sm:text-lg font-light leading-relaxed text-white/80 max-w-xl">
               All-day breakfast, cakes and muffins, brownies and cookies, plus cafe-style drinks including hot coffee, cold coffee, matcha, iced teas, refreshers, frappes, and milkshakes.
             </p>
 

@@ -18,31 +18,27 @@ export const metadata = generateMetadata({
 
 const services = [
   {
-    emoji: '🎂',
     title: 'Wedding Cakes',
     body: 'Multi-tier, floral, custom design for your perfect day'
   },
   {
-    emoji: '🏢',
     title: 'Corporate Events',
     body: 'Branded cakes, dessert platters, office celebrations'
   },
   {
-    emoji: '🏨',
     title: 'Hotel Catering',
     body: 'Professional catering partnerships in Southern Province'
   },
   {
-    emoji: '🎈',
     title: 'Birthday Parties',
     body: 'Custom themed cakes for all ages, any size'
   }
 ];
 
 const highlights = [
-  { emoji: '⭐', title: '5.0 Rated', body: 'Verified 140+ reviews' },
-  { emoji: '🎨', title: 'Fully Custom', body: 'Designed to your brief' },
-  { emoji: '🚚', title: 'Galle Delivery', body: 'We come to you' }
+  { title: '5.0 Rated', body: 'Verified 140+ reviews' },
+  { title: 'Fully Custom', body: 'Designed to your brief' },
+  { title: 'Galle Delivery', body: 'We come to you' }
 ];
 
 const steps = ['Get in touch', 'We plan together', 'We deliver'];
@@ -56,7 +52,7 @@ export default function EventsPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-events" schema={breadcrumbSchema} />
-      <section className="relative h-[540px] md:h-[640px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-32">
+      <section className="relative h-[540px] md:h-[640px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
         <Image 
           src={heroImages.celebration} 
           alt="Flour Dude event catering setup" 
@@ -72,10 +68,10 @@ export default function EventsPage() {
             <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
               Events & B2B
             </h1>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[0.95]">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[1] md:leading-[0.95]">
               Events and B2B Catering.
             </h2>
-            <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
               From birthdays and private events to corporate launches and hotel partnerships, we design dessert and cake solutions that fit your brief and budget.
             </p>
             <div className="pt-4 flex flex-wrap items-center gap-4">
@@ -113,8 +109,8 @@ export default function EventsPage() {
                 style={{ animationDelay: `${index * 100}ms` }}
                 className="group p-8 rounded-[32px] border border-brand-border/40 bg-brand-warmWhite shadow-sm hover:shadow-floating hover:border-brand-border duration-500 transition-all"
               >
-                <div className="w-16 h-16 rounded-[20px] bg-brand-cream border border-brand-border/50 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-500">
-                  {service.emoji}
+                <div className="font-display text-sm text-brand-caramel font-semibold tracking-[0.2em]">
+                  0{index + 1}
                 </div>
                 <h4 className="mt-8 text-2xl font-display text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
                   {service.title}
@@ -136,7 +132,7 @@ export default function EventsPage() {
               style={{ animationDelay: `${index * 150}ms` }}
               className="flex flex-col items-center text-center p-8 rounded-[32px] bg-brand-cream/30 border border-brand-border/30 hover:bg-brand-cream transition-colors"
             >
-              <p className="text-4xl mb-6">{item.emoji}</p>
+              <div className="w-10 h-[2px] rounded-full bg-brand-caramel mb-8" />
               <h3 className="text-xl font-display text-brand-deepBrown mb-2">{item.title}</h3>
               <p className="text-brand-textMuted font-light">{item.body}</p>
             </article>

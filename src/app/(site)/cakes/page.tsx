@@ -27,7 +27,7 @@ export default async function CakesPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-cakes" schema={breadcrumbSchema} />
-      <section className="relative h-[480px] md:h-[540px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-32">
+      <section className="relative h-[480px] md:h-[540px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
         <Image
           src={heroImages.cake}
           alt="Flour Dude custom cake close-up"
@@ -39,15 +39,29 @@ export default async function CakesPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/50 to-transparent" />
 
         <div className="content-shell relative z-10 w-full animate-rise-in">
-          <div className="max-w-3xl space-y-6">
-            <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+          <div className="max-w-3xl space-y-6 pl-2 sm:pl-4 md:pl-8 lg:pl-10">
+            <p className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
               Custom Cake Portfolio
-            </h1>
-            <DisplayHeading className="text-white text-5xl md:text-7xl lg:text-[80px] leading-[0.95] tracking-tighter">
-              Crafted for your moment.
+            </p>
+            <DisplayHeading className="text-white text-4xl sm:text-5xl md:text-7xl lg:text-[80px] leading-[1] md:leading-[0.95] tracking-tighter">
+              Custom Cakes for Every Celebration
             </DisplayHeading>
-            <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
-              Birthdays, weddings, corporate events, and everything in between. We build breathtaking cakes that taste even better than they look.
+            <h2 className="text-lg sm:text-xl md:text-2xl font-medium tracking-tight text-white/95">
+              Birthdays, Weddings, and Special Events
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-xl">
+              Handcrafted with premium imported ingredients, our custom cakes are designed to look elegant and taste exceptional.
+            </p>
+            <p className="text-base md:text-lg text-white/90">
+              Have an idea or inspiration for a cake?{' '}
+              <a
+                href={buildWhatsAppLink(whatsappMessages.customCake)}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4 hover:text-brand-caramel transition-colors"
+              >
+                Share it with us on WhatsApp
+              </a>
             </p>
             <div className="pt-4">
               <a href={buildWhatsAppLink(whatsappMessages.customCake)} target="_blank" rel="noreferrer">

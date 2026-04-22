@@ -16,22 +16,18 @@ export const metadata = generateMetadata({
 
 const values = [
   {
-    emoji: '🌿',
     title: 'Quality Ingredients',
     body: 'Locally sourced where possible'
   },
   {
-    emoji: '☀️',
     title: 'Made Fresh Daily',
     body: 'Baked every morning, never day-old'
   },
   {
-    emoji: '🎨',
     title: 'Custom Designs',
     body: 'Every cake designed from scratch'
   },
   {
-    emoji: '❤️',
     title: 'Community First',
     body: 'Proudly serving Galle since day one'
   }
@@ -64,10 +60,10 @@ export default async function AboutPage() {
             <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
               Our Story
             </h1>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[0.95]">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[1] md:leading-[0.95]">
               About Flour Dude.
             </h2>
-            <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
               We are a Galle-born bakery cafe focused on all-day comfort food, handcrafted drinks, and customised cakes for life&apos;s biggest moments.
             </p>
           </div>
@@ -125,8 +121,8 @@ export default async function AboutPage() {
                 style={{ animationDelay: `${index * 100}ms` }}
                 className="group p-8 rounded-[24px] border border-brand-border/50 bg-brand-cream/30 hover:bg-brand-warmWhite hover:border-brand-border hover:shadow-floating transition-all duration-500"
               >
-                <div className="w-14 h-14 rounded-full bg-brand-warmWhite border border-brand-border/50 flex items-center justify-center shadow-sm text-2xl group-hover:scale-110 transition-transform duration-500">
-                  {value.emoji}
+                <div className="w-14 h-14 rounded-full bg-brand-warmWhite border border-brand-border/50 flex items-center justify-center shadow-sm font-display text-xl text-brand-caramel font-semibold group-hover:scale-110 transition-transform duration-500">
+                  0{index + 1}
                 </div>
                 <h4 className="mt-8 text-xl font-display text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
                   {value.title}
