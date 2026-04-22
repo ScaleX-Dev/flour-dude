@@ -1,12 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { BodyText, DisplayHeading, Eyebrow, MutedText, SectionHeading } from '@/components/ui/Typography';
-import { WhatsAppButton } from '@/components/common/WhatsAppButton';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { PromoCountdown } from '@/components/home/PromoCountdown';
 import { ScrollIndicator } from '@/components/home/ScrollIndicator';
-import { TestimonialsCarousel } from '@/components/home/TestimonialsCarousel';
 import { formatLKR, formatPriceDisplay } from '@/lib/formatting';
 import { generateMetadata } from '@/lib/metadata';
 import {
@@ -22,6 +18,7 @@ import {
   buildWhatsAppLink,
   cakePortfolio,
   faqs,
+  galleryPhotos,
   heroImages,
   menuItems,
   siteConfig,
@@ -32,8 +29,14 @@ import { WA } from '@/lib/whatsapp';
 
 export const revalidate = 60;
 
+const LANDING_H1 = "Galle's Most Loved Cafe & Custom Cake Studio";
+const LANDING_H2 =
+  "Proper coffee, fresh bakes, and celebration cakes made to order. Your own cozy corner to slow down and unwind - whether you're here for an hour or working all day.";
+const LANDING_RATING_LINE =
+  '5.0 on Uber Eats & Google Reviews | Loved by Southerners and visitors alike';
+
 export const metadata = generateMetadata({
-  title: "Galle's Most Celebrated Cakes & Cafe",
+  title: "Galle's Most Loved Cafe & Custom Cake Studio",
   description:
     'Custom cakes, waffles, wraps & coffee in Galle. ⭐ 5.0 on Uber Eats. Order via WhatsApp. Open daily 8:30 AM – 9 PM.',
   path: '/'
@@ -232,11 +235,8 @@ async function getHomePageData(): Promise<HomePageData> {
     }));
 
     return {
-      heroHeadline: String(hero?.headline ?? 'Custom Cakes That Look Like Art And Taste Even Better.'),
-      heroSubheadline: String(
-        hero?.sub_headline ??
-          'Flour Dude blends cafe comfort with celebration baking. Message us on WhatsApp and we will help you choose the perfect order.'
-      ),
+      heroHeadline: LANDING_H1,
+      heroSubheadline: LANDING_H2,
       heroPrimaryCtaText: String(hero?.cta_1_text ?? 'Start Your Cake Order'),
       heroPrimaryCtaHref: WA.customCake(),
       promo: activePromo
@@ -259,9 +259,8 @@ async function getHomePageData(): Promise<HomePageData> {
     };
   } catch {
     return {
-      heroHeadline: 'Custom Cakes That Look Like Art And Taste Even Better.',
-      heroSubheadline:
-        'Flour Dude blends cafe comfort with celebration baking. Message us on WhatsApp and we will help you choose the perfect order.',
+      heroHeadline: LANDING_H1,
+      heroSubheadline: LANDING_H2,
       heroPrimaryCtaText: 'Start Your Cake Order',
       heroPrimaryCtaHref: buildWhatsAppLink(whatsappMessages.customCake),
       promo: null,
@@ -316,7 +315,9 @@ export default async function SiteHomePage() {
   return (
     <>
       <SchemaMarkup id="schema-home-aggregate-rating" schema={aggregateRatingSchema} />
-      <section className="relative min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col pt-32">
+
+      {/* ───── HERO ───── */}
+      <section className="relative min-h-[92svh] sm:min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col">
         <Image
           src={heroImages.cake}
           alt="Signature Flour Dude celebration cake"
@@ -325,192 +326,326 @@ export default async function SiteHomePage() {
           sizes="100vw"
           className="object-cover object-center animate-[ken-burns_20s_ease-out_forwards]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown via-brand-deepBrown/40 to-transparent" />
-        <div className="absolute inset-0 bg-black/10" />
+        {/* Gradient: strong on left for text legibility, fades out right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown/95 via-brand-deepBrown/50 to-brand-deepBrown/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/60 via-transparent to-brand-deepBrown/30" />
 
-        <div className="content-shell relative z-10 flex w-full flex-1 items-end justify-start pb-24 md:pb-32">
-          <div className="max-w-2xl w-full space-y-8 animate-rise-in text-left">
-            <div>
-              <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2 px-5 backdrop-blur-md">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-caramel"></span>
-                </span>
-                <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white/90">
-                  {data.locationLabel}
-                </span>
-              </div>
+        <div className="content-shell relative z-10 flex w-full flex-1 items-end justify-start pb-20 md:pb-32 pt-[calc(var(--header-height)+2rem)]">
+          <div className="max-w-xl w-full space-y-6 animate-rise-in text-left pl-1 sm:pl-4 md:pl-6">
+            {/* Location pill */}
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 py-2 px-4 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-caramel opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-caramel" />
+              </span>
+              <span className="text-[11px] font-semibold tracking-[0.18em] uppercase text-white/80">
+                {data.locationLabel} · Open Daily
+              </span>
             </div>
-            
-            <h1 className="font-display text-5xl md:text-7xl lg:text-[88px] text-white tracking-tighter leading-[0.95]">
+
+            <h1 className="font-display text-[2.6rem] sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05]">
               {data.heroHeadline}
             </h1>
-            
-            <p className="max-w-xl text-lg md:text-xl font-light leading-relaxed text-white/80">
+
+            <p className="text-base sm:text-lg font-light leading-relaxed text-white/75 max-w-md">
               {data.heroSubheadline}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-4">
-              <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
-                <a href={data.heroPrimaryCtaHref} target="_blank" rel="noreferrer">
-                  {data.heroPrimaryCtaText}
-                </a>
-              </Button>
-              <Button asChild className="rounded-pill px-8 h-14 border border-white/30 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300 font-medium tracking-wide w-full sm:w-auto">
-                <Link href="/menu">
-                  Explore Menu
-                </Link>
-              </Button>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              <a
+                href={data.heroPrimaryCtaHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-pill px-7 h-13 min-h-[52px] bg-brand-caramel text-white font-medium tracking-wide text-sm hover:bg-brand-caramelLight transition-all duration-300 shadow-lg"
+              >
+                <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current shrink-0" aria-hidden="true">
+                  <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Zm-8.35 18.13h-.01a9.86 9.86 0 01-5.03-1.38l-.36-.21-3.81 1.1 1.11-3.71-.24-.38a9.83 9.83 0 01-1.5-5.2c0-5.44 4.42-9.86 9.86-9.86 2.63 0 5.1 1.03 6.97 2.9a9.77 9.77 0 012.88 6.96c0 5.43-4.43 9.85-9.87 9.85Z" />
+                </svg>
+                {data.heroPrimaryCtaText}
+              </a>
+              <Link
+                href="/menu"
+                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] border border-white/25 bg-white/5 text-white font-medium tracking-wide text-sm hover:bg-white hover:text-brand-deepBrown transition-all duration-300 backdrop-blur-sm"
+              >
+                Explore Menu
+              </Link>
             </div>
 
-            <div>
-              <div className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-brand-warmWhite/10 py-2.5 px-5 backdrop-blur-md">
-                <span className="text-brand-caramel text-lg">★</span>
-                <span className="text-sm font-medium tracking-wide text-white">Rated 5 stars on Uber Eats</span>
-              </div>
+            {/* Rating badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 py-2 px-4 backdrop-blur-md">
+              <span className="text-brand-caramel text-base leading-none">★★★★★</span>
+              <span className="text-[11px] font-medium tracking-wide text-white/70">
+                5.0 · 140+ verified reviews · Uber Eats
+              </span>
             </div>
           </div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block">
           <ScrollIndicator />
         </div>
       </section>
 
+      {/* ───── MARQUEE TICKER ───── */}
+      <div className="overflow-hidden bg-brand-deepBrown border-t border-white/8 py-3 select-none" aria-hidden="true">
+        <div className="animate-marquee flex gap-0 whitespace-nowrap">
+          {[0, 1].map((dupe) => (
+            <span key={dupe} className="flex shrink-0 items-center text-[10px] sm:text-[11px] font-semibold tracking-[0.22em] uppercase text-white/40">
+              {['Open Daily 8:30 AM – 9:00 PM', 'Custom Celebration Cakes', '5.0 ★ Uber Eats', 'Galle · Sri Lanka', 'WhatsApp to Order', 'Custom Cakes · Waffles · Coffee', 'B2B & Event Catering', '140+ Verified Reviews'].map((item, i) => (
+                <span key={i} className="flex items-center">
+                  <span className="px-6">{item}</span>
+                  <span className="text-brand-caramel/60">✦</span>
+                </span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ───── PROMO BANNER (conditional) ───── */}
       {data.promo ? (
-        <section className="bg-brand-sage text-brand-deepBrown border-y border-brand-border relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay"></div>
-          <div className="content-shell py-12 md:py-16">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-              <div className="flex-1 space-y-4 text-center lg:text-left">
-                <p className="font-sans text-xs font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                  Exclusive Offer
+        <section className="bg-brand-caramel/12 border-b border-brand-caramel/20 relative overflow-hidden">
+          <div className="content-shell py-10 md:py-14">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="space-y-2 text-center sm:text-left">
+                <p className="font-sans text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+                  Limited-Time Offer
                 </p>
-                <h2 className="font-display text-3xl md:text-4xl tracking-tight text-white">
+                <h2 className="font-display text-2xl md:text-3xl text-brand-deepBrown">
                   {data.promo.title}
                 </h2>
-                <p className="text-brand-deepBrown/80 font-light text-lg max-w-2xl mx-auto lg:mx-0">
-                  {data.promo.body}
-                </p>
+                <p className="text-brand-textMuted font-light max-w-lg">{data.promo.body}</p>
               </div>
-              
-              <div className="flex flex-col sm:flex-row items-center gap-6 shrink-0 bg-brand-warmWhite/30 p-6 rounded-3xl border border-brand-deepBrown/10 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
                 {data.promo.endsAt ? <PromoCountdown expiresAt={data.promo.endsAt} /> : null}
-                <div className="hidden sm:block w-[1px] h-12 bg-brand-warmWhite/20"></div>
-                <Button asChild className="rounded-pill px-8 h-12 bg-brand-deepBrown text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium whitespace-nowrap">
-                   <a href={WA.customCake()}>Claim on WhatsApp</a>
-                </Button>
+                <a
+                  href={WA.customCake()}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-pill px-7 h-12 bg-brand-caramel text-white hover:bg-brand-deepBrown transition-all font-medium text-sm whitespace-nowrap"
+                >
+                  Claim via WhatsApp
+                </a>
               </div>
             </div>
           </div>
         </section>
       ) : null}
 
-      <section className="section-space bg-brand-cream">
-        <div className="content-shell space-y-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-brand-border pb-8">
-            <div className="space-y-4 max-w-2xl">
-              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                All-Day Menu
-              </h2>
-              <h3 className="section-title mb-0">Breakfast, Bakes, and Cafe Drinks</h3>
-              <p className="text-brand-textMuted font-light text-lg leading-relaxed">
-                Cafe-style favorites inspired by the drinks and comfort lineup people love, made fresh daily in Galle.
-              </p>
+      {/* ───── FOOD PHOTOGRAPHY STRIP ───── */}
+      <section className="bg-brand-cream py-8 overflow-hidden" aria-label="Food photography">
+        <div
+          className="flex gap-3 overflow-x-auto no-scrollbar pb-2 snap-x snap-mandatory"
+          style={{ paddingLeft: 'max(1rem, calc((100vw - 1200px) / 2 + 1.5rem))' }}
+        >
+          {galleryPhotos.slice(0, 12).map((src, i) => (
+            <div
+              key={i}
+              className={`relative flex-shrink-0 overflow-hidden rounded-2xl snap-start ${
+                i % 4 === 0
+                  ? 'w-44 h-64 sm:w-52 sm:h-72'
+                  : i % 4 === 1
+                    ? 'w-52 h-64 sm:w-60 sm:h-72'
+                    : i % 4 === 2
+                      ? 'w-36 h-64 sm:w-44 sm:h-72'
+                      : 'w-48 h-64 sm:w-56 sm:h-72'
+              }`}
+            >
+              <Image
+                src={src}
+                alt={`Flour Dude food photography ${i + 1}`}
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+                sizes="240px"
+              />
             </div>
-            <Button asChild className="rounded-pill px-6 h-12 border border-brand-deepBrown/20 bg-transparent text-brand-deepBrown hover:bg-brand-deepBrown hover:text-white transition-all">
-              <Link href="/menu">View Full Menu</Link>
-            </Button>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {menuCategoryHighlights.map((category) => (
-              <article
-                key={category.title}
-                className="rounded-[24px] border border-brand-border/40 bg-brand-warmWhite p-6 shadow-sm"
-              >
-                <h4 className="font-display text-2xl text-brand-deepBrown">{category.title}</h4>
-                <p className="mt-3 font-light text-brand-textMuted leading-relaxed">{category.items}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {data.featuredMenu.map((item) => (
-              <article 
-                key={item.id} 
-                className="group relative flex flex-col justify-between rounded-card bg-brand-warmWhite p-8 border border-transparent hover:border-brand-border/80 shadow-sm hover:shadow-floating transition-all duration-500"
-              >
-                <div className="space-y-4">
-                  {item.badge ? (
-                    <span className="inline-flex items-center rounded-full bg-brand-caramel/10 px-3 py-1 text-xs font-semibold tracking-wide text-brand-caramel uppercase">
-                      {item.badge}
-                    </span>
-                  ) : null}
-                  <h4 className="font-display text-2xl text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
-                    {item.name}
-                  </h4>
-                  <p className="font-light text-brand-textMuted leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-                <div className="mt-10 pt-6 border-t border-brand-border/40 flex items-center justify-between">
-                  <p className="font-sans text-lg font-medium text-brand-deepBrown">
-                    {formatLKR(item.price ?? 0)}
-                  </p>
-                  <span className="w-8 h-8 rounded-full bg-brand-cream flex items-center justify-center text-brand-deepBrown group-hover:bg-brand-caramel group-hover:text-white transition-colors">
-                    →
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
+          ))}
+          {/* Right padding spacer */}
+          <div className="flex-shrink-0 w-4 sm:w-8" />
         </div>
       </section>
 
+      {/* ───── MENU HIGHLIGHTS ───── */}
+      <section className="section-space bg-brand-cream border-t border-brand-border/50">
+        <div className="content-shell space-y-14">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+                All-Day Menu
+              </p>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-brand-deepBrown tracking-tight leading-[1.05]">
+                Fresh from our kitchen, every day.
+              </h2>
+              <p className="text-brand-textMuted font-light text-base sm:text-lg leading-relaxed">
+                All-day breakfast, fresh bakes, cafe drinks, and handcrafted waffles — made with care in Galle.
+              </p>
+            </div>
+            <Link
+              href="/menu"
+              className="inline-flex items-center gap-2 rounded-pill px-6 h-11 border border-brand-deepBrown/20 text-brand-deepBrown text-sm font-medium hover:bg-brand-deepBrown hover:text-white transition-all shrink-0"
+            >
+              Full Menu →
+            </Link>
+          </div>
+
+          {/* Food photo feature cards */}
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                src: '/images/menu-feature-waffle.jpg',
+                label: 'Waffles & Sweets',
+                desc: 'Messy Waffle, French Toast & more',
+                from: 'From LKR 900'
+              },
+              {
+                src: '/images/menu-feature-cheesecake.jpg',
+                label: 'Cakes & Muffins',
+                desc: 'Matilda Choc Fudge, Cheesecake & more',
+                from: 'From LKR 550'
+              },
+              {
+                src: '/images/menu-feature-savory.jpg',
+                label: 'All-Day Savory',
+                desc: 'Wraps, Sandwiches, Quesadilla & more',
+                from: 'From LKR 900'
+              }
+            ].map((feature) => (
+              <Link
+                key={feature.label}
+                href="/menu"
+                className="group relative aspect-[4/3] overflow-hidden rounded-2xl block"
+              >
+                <Image
+                  src={feature.src}
+                  alt={feature.label}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/90 via-brand-deepBrown/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <p className="text-white font-display text-xl sm:text-2xl leading-tight">{feature.label}</p>
+                  <p className="text-white/60 text-xs mt-1">{feature.desc}</p>
+                  <p className="text-brand-caramel text-xs font-semibold tracking-wide uppercase mt-2">
+                    {feature.from}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Drinks row */}
+          <div className="rounded-2xl border border-brand-border/50 bg-brand-warmWhite p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+            <div className="flex-1 space-y-2">
+              <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-caramel">Drinks Menu</p>
+              <h3 className="font-display text-2xl sm:text-3xl text-brand-deepBrown">
+                Hot · Cold · Matcha · Frappes · Milkshakes
+              </h3>
+              <p className="text-brand-textMuted font-light text-sm sm:text-base">
+                A full cafe lineup — espresso drinks, iced teas, refreshers, and more. From LKR 400.
+              </p>
+            </div>
+            <Link
+              href="/menu"
+              className="inline-flex items-center justify-center rounded-pill px-6 h-11 bg-brand-deepBrown text-white text-sm font-medium hover:bg-brand-caramel transition-all shrink-0"
+            >
+              View Drinks →
+            </Link>
+          </div>
+
+          {/* Featured items from CMS */}
+          {data.featuredMenu.length > 0 && (
+            <div className="space-y-4">
+              <p className="font-sans text-[11px] font-semibold tracking-[0.2em] uppercase text-brand-textMuted">
+                Chef&apos;s picks
+              </p>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {data.featuredMenu.map((item) => (
+                  <article
+                    key={item.id}
+                    className="flex items-center gap-4 rounded-xl border border-brand-border/40 bg-brand-warmWhite p-4 hover:shadow-soft transition-all duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-brand-cream flex items-center justify-center text-2xl shrink-0">
+                      🍽
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-brand-deepBrown text-sm leading-snug truncate">{item.name}</p>
+                      <p className="text-brand-textMuted text-xs mt-0.5 line-clamp-1">{item.description}</p>
+                    </div>
+                    <p className="text-brand-caramel font-semibold text-sm shrink-0">
+                      {item.price ? formatLKR(item.price) : 'Ask'}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ───── CUSTOM CAKES (dark) ───── */}
       <section className="section-space relative overflow-hidden bg-brand-deepBrown text-white">
-        <div className="absolute inset-y-0 right-0 w-full md:w-[45%] opacity-20 md:opacity-100">
-           <Image
-              src={heroImages.celebration}
-              alt="Bespoke Cake Design"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown via-brand-deepBrown/80 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-full md:w-[48%]">
+          <Image
+            src={heroImages.celebration}
+            alt="Bespoke custom celebration cake"
+            fill
+            className="object-cover opacity-30 md:opacity-100"
+            sizes="50vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown via-brand-deepBrown/70 to-transparent md:via-brand-deepBrown/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/40 to-transparent" />
         </div>
 
         <div className="content-shell relative z-10">
-          <div className="max-w-2xl space-y-10">
-            <div className="space-y-6">
-              <p className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Custom Cakes
+          <div className="max-w-[520px] space-y-8">
+            <div className="space-y-4">
+              <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+                Custom Cake Studio
               </p>
-              <h2 className="font-display text-5xl md:text-6xl tracking-tight leading-[1.1] text-white">
-                Customised cakes for every celebration.
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.05]">
+                A cake made just for you.
               </h2>
-              <p className="text-lg font-light leading-relaxed text-white/80 max-w-xl">
-                Birthdays, anniversaries, bridal showers, weddings, graduations, office milestones, and more. We design around your theme and guide you to the right size, flavor, and style.
-              </p>
-              <p className="text-sm uppercase tracking-[0.18em] text-white/60">
-                Portfolio-led ordering flow: view designs, then enquire on WhatsApp.
+              <p className="text-base sm:text-lg font-light leading-relaxed text-white/70 max-w-md">
+                Birthdays, weddings, bridal showers, anniversaries, graduations — we design every cake from scratch around your vision.
               </p>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 pt-4">
-               <Button asChild className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium w-full text-base">
-                  <Link href="/cakes">View Portfolio</Link>
-               </Button>
-               <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium w-full text-base">
-                  <a href={WA.customCake()}>Enquire Now (WhatsApp)</a>
-               </Button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/cakes"
+                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] bg-brand-caramel text-white font-medium text-sm hover:bg-brand-caramelLight transition-all"
+              >
+                View Portfolio
+              </Link>
+              <a
+                href={WA.customCake()}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-pill px-7 min-h-[52px] border border-white/20 text-white font-medium text-sm hover:bg-white hover:text-brand-deepBrown transition-all"
+              >
+                <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current shrink-0" aria-hidden="true">
+                  <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
+                </svg>
+                Chat on WhatsApp
+              </a>
             </div>
 
-            <div className="grid gap-4 pt-4 sm:grid-cols-2">
-              {(customCakeTestimonials.length ? customCakeTestimonials : data.testimonialCards.slice(0, 2)).map((item) => (
-                <article key={`custom-${item.id}`} className="rounded-2xl border border-white/15 bg-brand-warmWhite/30 p-5 backdrop-blur-sm">
-                  <p className="text-sm text-brand-caramel">{'★'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-white/80">&quot;{item.quote}&quot;</p>
-                  <p className="mt-3 text-xs uppercase tracking-wider text-white/60">{item.customerName}</p>
+            {/* Mini testimonials */}
+            <div className="grid gap-3 sm:grid-cols-2 pt-2">
+              {(customCakeTestimonials.length
+                ? customCakeTestimonials
+                : data.testimonialCards.slice(0, 2)
+              ).map((item) => (
+                <article
+                  key={`custom-${item.id}`}
+                  className="rounded-2xl border border-white/10 bg-white/6 p-4 backdrop-blur-sm"
+                >
+                  <p className="text-brand-caramel text-xs">{'★'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/75 line-clamp-3">
+                    &quot;{item.quote}&quot;
+                  </p>
+                  <p className="mt-2 text-[10px] uppercase tracking-wider text-white/40">{item.customerName}</p>
                 </article>
               ))}
             </div>
@@ -518,124 +653,262 @@ export default async function SiteHomePage() {
         </div>
       </section>
 
-      <section className="section-space border-y border-brand-border bg-brand-warmWhite">
-        <div className="content-shell space-y-16">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-textMuted">
-              Curation
+      {/* ───── CAKE SHOWCASE GRID ───── */}
+      <section className="section-space bg-brand-warmWhite border-y border-brand-border">
+        <div className="content-shell space-y-12">
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-textMuted">
+              Portfolio
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight">
+              Crafted with intention.
             </h2>
-            <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight">
-              A Selection of Excellence
-            </h3>
+            <p className="text-brand-textMuted font-light">
+              A peek at our custom work — every cake designed and baked from scratch.
+            </p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 grid-cols-2 lg:grid-cols-4">
             {data.cakeShowcase.map((cake) => (
-              <Link 
-                href="/cakes" 
-                key={cake.id} 
-                className="group flex flex-col gap-5 rounded-2xl p-4 transition-all hover:bg-brand-cream"
+              <Link
+                href="/cakes"
+                key={cake.id}
+                className="group flex flex-col gap-3"
               >
-                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-brand-cream">
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-brand-cream">
                   <Image
                     src={cake.imageUrl}
                     alt={cake.title}
                     fill
-                    sizes="(max-width: 1024px) 50vw, 25vw"
+                    sizes="(max-width: 640px) 50vw, 25vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="inline-flex items-center gap-1 text-white text-xs font-medium">
+                      Order this cake →
+                    </span>
+                  </div>
                 </div>
-                <div className="space-y-2 px-2 text-center">
-                  <h4 className="font-sans text-lg tracking-wide text-brand-deepBrown">
+                <div className="space-y-0.5 px-1">
+                  <p className="font-sans text-sm font-medium text-brand-deepBrown leading-snug">
                     {cake.title}
-                  </h4>
-                  <p className="text-sm font-light text-brand-textMuted">
+                  </p>
+                  <p className="text-xs text-brand-textMuted">
                     {formatPriceDisplay(cake.priceFrom ?? null, true, cake.askForPricing ?? false)}
                   </p>
                 </div>
               </Link>
             ))}
           </div>
-          
-          <div className="text-center pt-8">
-             <a href={WA.customCake()} className="group inline-flex items-center gap-2 font-sans font-medium text-brand-deepBrown border-b border-brand-deepBrown pb-1 hover:text-brand-caramel hover:border-brand-caramel transition-colors">
-               Start A Custom Order <span className="group-hover:translate-x-1 transition-transform">→</span>
-             </a>
+
+          <div className="text-center pt-4">
+            <a
+              href={WA.customCake()}
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-2 font-sans text-sm font-medium text-brand-deepBrown border-b border-brand-deepBrown/40 pb-1 hover:text-brand-caramel hover:border-brand-caramel transition-colors"
+            >
+              Start a custom cake order
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </a>
           </div>
         </div>
       </section>
 
+      {/* ───── HOW TO ORDER ───── */}
+      <section className="section-space bg-brand-deepBrown text-white">
+        <div className="content-shell space-y-12">
+          <div className="text-center space-y-3 max-w-xl mx-auto">
+            <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+              Simple Process
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl text-white tracking-tight">
+              Order in 3 steps.
+            </h2>
+            <p className="text-white/60 font-light">
+              No app, no checkout. Just WhatsApp — fast, personal, and easy.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                step: '01',
+                title: 'Browse',
+                body: 'Explore our cake portfolio or daily menu to find what you love.'
+              },
+              {
+                step: '02',
+                title: 'Message Us',
+                body: "Send a WhatsApp with your order details. We'll confirm and guide you."
+              },
+              {
+                step: '03',
+                title: 'Pick Up or Delivery',
+                body: 'Collect at our Galle location, or we can arrange delivery for cakes.'
+              }
+            ].map((s) => (
+              <article
+                key={s.step}
+                className="relative rounded-2xl border border-white/10 bg-white/5 p-7 hover:bg-white/8 transition-colors"
+              >
+                <div className="absolute top-5 right-5 font-display text-5xl text-white/5 leading-none select-none">
+                  {s.step}
+                </div>
+                <div className="font-display text-sm text-brand-caramel/80 font-semibold tracking-[0.2em] mb-5">{s.step}</div>
+                <h3 className="font-display text-2xl text-white mb-2">{s.title}</h3>
+                <p className="text-white/55 font-light text-sm leading-relaxed">{s.body}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <a
+              href={WA.default()}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-pill px-8 min-h-[52px] bg-[#25D366] text-white font-medium hover:bg-[#1ebe5d] transition-all tracking-wide text-sm shadow-lg"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current shrink-0" aria-hidden="true">
+                <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
+              </svg>
+              Start Your Order on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ───── TESTIMONIALS ───── */}
       <section className="section-space bg-brand-cream">
-        <div className="content-shell space-y-16">
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 text-center md:text-left border-b border-brand-border pb-8">
-            <div className="space-y-4">
-              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Testimonials
+        <div className="content-shell space-y-12">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+            <div className="space-y-3">
+              <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+                Reviews
+              </p>
+              <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+                What our guests say.
               </h2>
-              <h3 className="section-title mb-0">What Our Guests Say</h3>
             </div>
-            <div className="inline-flex items-center gap-3 rounded-full bg-brand-warmWhite px-5 py-2.5 shadow-sm border border-brand-border/40">
-              <span className="text-brand-caramel text-xl">★</span>
-              <span className="font-medium text-brand-deepBrown tracking-wide">
-                {siteConfig.ratingLabel}
-              </span>
+            <div className="inline-flex items-center gap-2.5 rounded-full bg-brand-warmWhite px-4 py-2 shadow-sm border border-brand-border/50 shrink-0">
+              <span className="text-brand-caramel text-base leading-none">★★★★★</span>
+              <span className="font-medium text-brand-deepBrown text-sm">{siteConfig.ratingLabel}</span>
             </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {data.testimonialCards.slice(0, 3).map((item) => (
-              <article 
-                key={item.id} 
-                className="flex flex-col justify-between rounded-[24px] bg-brand-warmWhite p-8 border border-brand-border/50 shadow-sm"
+              <article
+                key={item.id}
+                className="flex flex-col justify-between rounded-2xl bg-brand-warmWhite p-6 border border-brand-border/40 shadow-sm hover:shadow-soft transition-all duration-300"
               >
                 <div>
-                  <div className="flex gap-1 mb-6 text-brand-caramel text-sm">
+                  <div className="text-brand-caramel text-sm mb-4">
                     {'★'.repeat(Math.max(1, Math.min(5, item.rating)))}
                   </div>
-                  <p className="font-sans text-lg font-light leading-relaxed text-brand-deepBrown">
-                    &quot;{item.quote}&quot;
+                  {/* Big quote mark */}
+                  <div className="font-display text-5xl text-brand-caramel/20 leading-none mb-2 select-none">&ldquo;</div>
+                  <p className="text-base font-light leading-relaxed text-brand-textBody">
+                    {item.quote}
                   </p>
                 </div>
-                <div className="mt-8 pt-6 border-t border-brand-border/50 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-brand-cream flex items-center justify-center font-display text-xl text-brand-caramel">
+                <div className="mt-6 pt-5 border-t border-brand-border/40 flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-brand-caramel/15 flex items-center justify-center font-display text-lg text-brand-caramel font-bold shrink-0">
                     {item.customerName.charAt(0)}
                   </div>
                   <div>
-                    <p className="font-sans text-sm font-medium text-brand-deepBrown">{item.customerName}</p>
-                    <p className="text-xs text-brand-textMuted uppercase tracking-wider mt-0.5">{item.occasion}</p>
+                    <p className="font-sans text-sm font-medium text-brand-deepBrown leading-snug">
+                      {item.customerName}
+                    </p>
+                    <p className="text-[11px] text-brand-textMuted uppercase tracking-wider mt-0.5">
+                      {item.occasion}
+                    </p>
                   </div>
                 </div>
               </article>
             ))}
           </div>
-
-          <TestimonialsCarousel items={data.testimonialCards} />
         </div>
       </section>
 
-      <section className="py-24 bg-brand-deepBrown text-white">
-        <div className="content-shell">
-          <div className="max-w-4xl mx-auto text-center space-y-10 bg-brand-warmWhite/30 border border-brand-deepBrown/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
-            <div className="space-y-4">
-              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Experience Flour Dude
+      {/* ───── B2B TEASER ───── */}
+      <section className="bg-brand-warmWhite border-y border-brand-border">
+        <div className="content-shell py-14 md:py-20">
+          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+            <div className="flex-1 space-y-4 text-center md:text-left">
+              <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-rose">
+                Events & B2B Catering
+              </p>
+              <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+                Planning a corporate event or wedding?
               </h2>
-              <h3 className="font-display text-4xl md:text-5xl text-white tracking-tight leading-tight">
-                Secure your booking today.
-              </h3>
-              <p className="text-brand-deepBrown/80 font-light text-lg max-w-2xl mx-auto pt-4">
-                Whether you need an immediate pick-me-up from our daily menu or want to plan the centerpiece cake for an upcoming wedding, our team is ready.
+              <p className="text-brand-textMuted font-light text-base sm:text-lg leading-relaxed max-w-lg mx-auto md:mx-0">
+                Hotels, corporates, wedding planners, and event organisers — we do custom dessert catering across Galle and Southern Province.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+              <Link
+                href="/events"
+                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] bg-brand-deepBrown text-white font-medium text-sm hover:bg-brand-caramel transition-all"
+              >
+                Explore Catering
+              </Link>
+              <a
+                href={WA.b2b()}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] border border-brand-deepBrown/20 text-brand-deepBrown font-medium text-sm hover:bg-brand-deepBrown hover:text-white transition-all"
+              >
+                Get a Quote
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───── FINAL WHATSAPP CTA ───── */}
+      <section className="section-space bg-brand-deepBrown">
+        <div className="content-shell">
+          <div className="max-w-3xl mx-auto text-center space-y-7">
+            <div className="space-y-4">
+              <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+                Ready to Order?
+              </p>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+                Let&apos;s make something delicious.
+              </h2>
+              <p className="text-white/60 font-light text-base sm:text-lg max-w-xl mx-auto">
+                Whether it&apos;s a custom birthday cake, a waffle on a lazy Sunday, or catering for your next event — we&apos;re just a message away.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Button asChild className="rounded-pill px-8 h-14 bg-brand-deepBrown text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
-                <a href={WA.customCake()}>Chat with us on WhatsApp</a>
-              </Button>
-              <Button asChild className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full sm:w-auto">
-                <Link href="/contact">View Location & Hours</Link>
-              </Button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+              <a
+                href={WA.customCake()}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2.5 rounded-pill px-8 min-h-[56px] w-full sm:w-auto bg-[#25D366] text-white font-medium hover:bg-[#1ebe5d] transition-all tracking-wide text-sm shadow-xl"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current shrink-0" aria-hidden="true">
+                  <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
+                </svg>
+                Order via WhatsApp
+              </a>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-pill px-8 min-h-[56px] w-full sm:w-auto border border-white/20 text-white font-medium text-sm hover:bg-white hover:text-brand-deepBrown transition-all"
+              >
+                Find Us in Galle
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-[11px] font-medium text-white/35 uppercase tracking-widest">
+              <span>Open Daily 8:30 AM – 9:00 PM</span>
+              <span className="text-brand-caramel/40">✦</span>
+              <span>Bandara Mawatha, Galle</span>
+              <span className="text-brand-caramel/40">✦</span>
+              <span>No Checkout Needed</span>
             </div>
           </div>
         </div>

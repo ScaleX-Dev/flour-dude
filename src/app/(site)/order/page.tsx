@@ -23,19 +23,16 @@ export const metadata = generateMetadata({
 
 const steps = [
   {
-    emoji: '💬',
     title: 'Message Us on WhatsApp',
     body: 'Tell us your cake idea, the date you need it, your budget, and how many people it needs to feed. Include any photos or inspiration you love.',
     cta: true
   },
   {
-    emoji: '🎨',
     title: 'We Design Your Cake',
     body: 'Our baker will design your cake and share a preview with you. We refine it until you are happy. You approve before we bake.',
     cta: false
   },
   {
-    emoji: '🚚',
     title: 'Fresh Delivery or Pickup',
     body: 'Your cake is baked fresh on the day. Choose pickup from our Galle location or delivery within the Galle area.',
     cta: false
@@ -62,7 +59,7 @@ export default async function OrderPage() {
   };
 
   return (
-    <div className="bg-brand-cream min-h-screen pt-32 pb-24">
+    <div className="bg-brand-cream min-h-screen pt-[calc(var(--header-height)+3rem)] pb-24">
       <SchemaMarkup id="schema-breadcrumb-order" schema={breadcrumbSchema} />
       {faqs.length ? <SchemaMarkup id="schema-faq-order" schema={faqSchema} /> : null}
 
@@ -70,10 +67,10 @@ export default async function OrderPage() {
         <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
           How It Works
         </h1>
-        <h2 className="font-display text-5xl md:text-6xl lg:text-[72px] text-brand-deepBrown tracking-tighter leading-[1.1]">
+        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[72px] text-brand-deepBrown tracking-tighter leading-[1.1] md:leading-[1.05]">
           Seamless Ordering
         </h2>
-        <p className="text-lg md:text-xl font-light text-brand-textMuted leading-relaxed max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl font-light text-brand-textMuted leading-relaxed max-w-2xl mx-auto">
           Three simple steps to bring your dream cake to life. From ideation to celebration, we make the process effortless.
         </p>
       </section>
@@ -90,8 +87,8 @@ export default async function OrderPage() {
             </div>
             
             <div className="relative z-10 max-w-2xl space-y-6">
-              <div className="w-16 h-16 rounded-[20px] bg-brand-cream border border-brand-border/50 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-500">
-                {step.emoji}
+              <div className="w-16 h-16 rounded-[20px] bg-brand-cream border border-brand-border/50 flex items-center justify-center font-display text-2xl text-brand-caramel font-semibold group-hover:scale-110 transition-transform duration-500">
+                0{index + 1}
               </div>
               <div className="space-y-4">
                 <h3 className="font-display text-3xl md:text-4xl text-brand-deepBrown tracking-tight">

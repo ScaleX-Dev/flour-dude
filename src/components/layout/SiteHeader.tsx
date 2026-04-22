@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
 import { cn } from '@/lib/utils';
@@ -19,10 +18,11 @@ const navLinks = [
   { href: '/cakes', label: 'Our Cakes' },
   { href: '/events', label: 'Events' },
   { href: '/about', label: 'About' },
-  { href: '/order', label: 'How to Order' }
+  { href: '/order', label: 'How to Order' },
+  { href: '/contact', label: 'Contact' }
 ];
 
-export function SiteHeader({ transparent = false }: SiteHeaderProps) {
+export function SiteHeader({ transparent }: SiteHeaderProps) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -36,7 +36,9 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isSolid = !transparent || isScrolled;
+  const routeWantsTransparent = pathname === '/';
+  const useTransparent = transparent ?? routeWantsTransparent;
+  const isSolid = !useTransparent || isScrolled;
   const whatsappHref = useMemo(
     () => buildWhatsAppLink(whatsappMessages.default),
     []
@@ -48,7 +50,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
         'fixed inset-x-0 top-0 z-50 h-[var(--header-height)] transition-all duration-500 ease-out',
         isSolid 
           ? 'bg-brand-cream/85 backdrop-blur-xl border-b border-brand-border shadow-soft' 
-          : 'bg-transparent border-transparent text-white'
+          : 'bg-gradient-to-b from-black/40 via-black/10 to-transparent border-transparent text-white'
       )}
     >
       <div className="content-shell relative flex h-full items-center justify-between">
@@ -98,16 +100,22 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <Button asChild className={cn(
-            "rounded-pill px-6 h-11 font-sans text-sm tracking-wide transition-all duration-300",
-            isSolid 
-              ? "bg-brand-deepBrown text-white hover:bg-brand-caramel hover:text-white" 
-              : "bg-brand-warmWhite text-brand-deepBrown hover:bg-brand-caramel hover:text-white"
-          )}>
-            <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-              Order Now
-            </a>
-          </Button>
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              'inline-flex items-center gap-2 rounded-pill px-5 h-10 font-sans text-[13px] font-medium tracking-wide transition-all duration-300',
+              isSolid
+                ? 'bg-brand-caramel text-white hover:bg-brand-deepBrown'
+                : 'bg-brand-caramel text-white hover:bg-brand-caramelLight'
+            )}
+          >
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 fill-current shrink-0" aria-hidden="true">
+              <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
+            </svg>
+            Order Now
+          </a>
         </div>
 
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -125,11 +133,11 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
           </SheetTrigger>
           <SheetContent 
             side="right" 
-            className="w-full max-w-[400px] border-none bg-brand-deepBrown p-0 text-brand-cream shadow-2xl"
+            className="w-[82vw] max-w-[340px] border-none bg-brand-deepBrown p-0 text-brand-cream shadow-2xl"
           >
             <SheetTitle className="sr-only">Main Navigation</SheetTitle>
-            <div className="flex h-full flex-col px-10 py-12">
-              <div className="mb-16">
+            <div className="flex h-full flex-col px-5 py-7 sm:px-8 sm:py-10">
+              <div className="mb-8 sm:mb-12">
                 <Image
                   src="/images/flour-dude-logo.png"
                   alt="Flour Dude Bakery and Cafe"
@@ -140,7 +148,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
                 <div className="w-12 h-[1px] bg-brand-caramel mt-6"></div>
               </div>
 
-              <nav className="grid gap-8">
+              <nav className="grid gap-6">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href;
 
@@ -150,7 +158,7 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
                       href={link.href}
                       onClick={() => setIsSheetOpen(false)}
                       className={cn(
-                        'font-display text-2xl tracking-wide transition-colors duration-300', 
+                        'whitespace-nowrap font-display text-[1.5rem] sm:text-[1.65rem] leading-tight tracking-wide transition-colors duration-300', 
                         isActive ? 'text-brand-caramel' : 'text-brand-cream/70 hover:text-brand-cream'
                       )}
                     >
@@ -160,15 +168,30 @@ export function SiteHeader({ transparent = false }: SiteHeaderProps) {
                 })}
               </nav>
 
-              <div className="mt-auto pt-10 border-t border-white/10">
-                <Button 
-                  asChild 
-                  className="w-full h-14 text-base rounded-pill bg-brand-caramel text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all duration-300"
+              <div className="mt-auto pt-8 space-y-4">
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full h-12 text-sm rounded-pill bg-[#25D366] text-white hover:bg-[#1ebe5d] transition-all duration-300 font-medium"
                 >
-                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-                    Order via WhatsApp
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current shrink-0" aria-hidden="true">
+                    <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
+                  </svg>
+                  Order via WhatsApp
+                </a>
+                <div className="border-t border-white/10 pt-4 space-y-2">
+                  <p className="text-[11px] font-semibold tracking-[0.15em] uppercase text-white/35">Open Daily</p>
+                  <p className="text-sm text-white/60 font-light">8:30 AM – 9:00 PM</p>
+                  <a
+                    href="https://instagram.com/flour_dude"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-brand-caramel transition-colors mt-1"
+                  >
+                    <span>@flour_dude</span>
                   </a>
-                </Button>
+                </div>
               </div>
             </div>
           </SheetContent>

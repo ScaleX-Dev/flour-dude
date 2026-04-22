@@ -18,17 +18,17 @@ const config: Config = {
       },
       colors: {
         brand: {
-          deepBrown: '#2a2725', // Deeper shade for high contrast text and strong grounds
-          charcoal: '#666666', // Brand color base dark gray
-          caramel: '#EABF71', // Brand color mustard/gold
-          caramelLight: '#f5d9a1',
-          cream: '#F3F3E9', // Brand off-white
-          warmWhite: '#FFFFFF',
-          sage: '#88B6B4', // Brand teal/mint
-          rose: '#E3ACA7', // Brand soft rose
-          textBody: '#403d39', // Dark highly legible body text
-          textMuted: '#8a8581', 
-          border: '#e6e4d9',
+          deepBrown: '#2C1A0E', // Rich warm dark brown — headers, dark sections
+          charcoal: '#666666',
+          caramel: '#C8813A', // True caramel-brown — primary CTAs, accents
+          caramelLight: '#E8A85A', // Hover & sub-accents
+          cream: '#FAF6EE', // Warm page background
+          warmWhite: '#FFFDF8', // Card surfaces
+          sage: '#7A8C6E', // Artisan sage green — secondary accents
+          rose: '#D4907A', // Warm rose — B2B sections
+          textBody: '#3A2A1E', // Warm body text
+          textMuted: '#7A6A5E', // Muted/secondary text
+          border: '#E8DDD0', // Warm border
         }
       },
       fontFamily: {

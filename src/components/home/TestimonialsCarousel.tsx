@@ -28,7 +28,7 @@ export function TestimonialsCarousel({ items }: TestimonialsCarouselProps) {
             <div className="mt-4 space-y-1">
               <p className="text-[13px] font-semibold text-brand-deepBrown">{item.customerName}</p>
               <p className="text-[12px] text-brand-textMuted">{item.occasion}</p>
-              <p className="text-sm text-brand-caramel">{'⭐'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
+              <p className="text-sm text-brand-caramel">{'★'.repeat(Math.max(1, Math.min(5, item.rating)))}</p>
             </div>
           </article>
         ))}

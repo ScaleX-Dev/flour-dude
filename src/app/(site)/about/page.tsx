@@ -16,22 +16,18 @@ export const metadata = generateMetadata({
 
 const values = [
   {
-    emoji: '🌿',
     title: 'Quality Ingredients',
     body: 'Locally sourced where possible'
   },
   {
-    emoji: '☀️',
     title: 'Made Fresh Daily',
     body: 'Baked every morning, never day-old'
   },
   {
-    emoji: '🎨',
     title: 'Custom Designs',
     body: 'Every cake designed from scratch'
   },
   {
-    emoji: '❤️',
     title: 'Community First',
     body: 'Proudly serving Galle since day one'
   }
@@ -39,7 +35,7 @@ const values = [
 
 export default async function AboutPage() {
   const settings = await getSiteSettingsData();
-  const founderImage = settings.founderPhotoUrl ?? heroImages.celebration;
+  const founderImage = settings.founderPhotoUrl ?? '/images/founder-photo.jpeg';
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' }
@@ -48,7 +44,7 @@ export default async function AboutPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-about" schema={breadcrumbSchema} />
-      <section className="relative h-[480px] md:h-[540px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-32">
+      <section className="relative h-[calc(480px+var(--header-height))] md:h-[calc(540px+var(--header-height))] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
         <Image 
           src={founderImage} 
           alt="Founder of Flour Dude" 
@@ -64,10 +60,10 @@ export default async function AboutPage() {
             <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
               Our Story
             </h1>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[0.95]">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[1] md:leading-[0.95]">
               About Flour Dude.
             </h2>
-            <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
               We are a Galle-born bakery cafe focused on all-day comfort food, handcrafted drinks, and customised cakes for life&apos;s biggest moments.
             </p>
           </div>
@@ -125,8 +121,8 @@ export default async function AboutPage() {
                 style={{ animationDelay: `${index * 100}ms` }}
                 className="group p-8 rounded-[24px] border border-brand-border/50 bg-brand-cream/30 hover:bg-brand-warmWhite hover:border-brand-border hover:shadow-floating transition-all duration-500"
               >
-                <div className="w-14 h-14 rounded-full bg-brand-warmWhite border border-brand-border/50 flex items-center justify-center shadow-sm text-2xl group-hover:scale-110 transition-transform duration-500">
-                  {value.emoji}
+                <div className="w-14 h-14 rounded-full bg-brand-warmWhite border border-brand-border/50 flex items-center justify-center shadow-sm font-display text-xl text-brand-caramel font-semibold group-hover:scale-110 transition-transform duration-500">
+                  0{index + 1}
                 </div>
                 <h4 className="mt-8 text-xl font-display text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
                   {value.title}
@@ -178,14 +174,21 @@ export default async function AboutPage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {settings.galleryImageUrls.slice(0, 6).map((imageUrl, index) => (
+            {[
+              { src: '/images/bts-team.jpeg', alt: 'Flour Dude team at an event', span: '' },
+              { src: '/images/bts-customers.jpeg', alt: 'Happy customers at Flour Dude', span: '' },
+              { src: '/images/founder-photo.jpeg', alt: 'The Flour Dude bakery stall', span: '' },
+              { src: '/images/DSC02999.jpeg', alt: 'Tiramisu eclair by Flour Dude', span: '' },
+              { src: '/images/DSC02861.jpeg', alt: 'Handcrafted pastry from Flour Dude', span: '' },
+              { src: '/images/437F038A-F539-4083-BF11-785239F2B958.JPG', alt: 'Live event at Flour Dude cafe', span: '' },
+            ].map((img, index) => (
               <article 
-                key={`${imageUrl}-${index}`} 
+                key={`${img.src}-${index}`} 
                 className="group relative aspect-square overflow-hidden rounded-[24px] bg-brand-cream"
               >
                 <Image
-                  src={imageUrl}
-                  alt={`Flour Dude gallery ${index + 1}`}
+                  src={img.src}
+                  alt={img.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
