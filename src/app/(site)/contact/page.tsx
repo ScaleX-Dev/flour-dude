@@ -22,7 +22,7 @@ export default async function ContactPage() {
   ]);
 
   return (
-    <div className="bg-brand-cream min-h-screen pt-32 pb-24">
+    <div className="bg-brand-cream min-h-screen pt-[calc(var(--header-height)+3rem)] pb-24">
       <SchemaMarkup id="schema-breadcrumb-contact" schema={breadcrumbSchema} />
       
       <section className="content-shell mb-16 text-center max-w-3xl mx-auto space-y-6 animate-rise-in">

@@ -3,7 +3,7 @@ import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
 
 export default function NotFound() {
   return (
-    <section className="min-h-[70vh] flex items-center bg-brand-cream">
+    <section className="min-h-[70vh] flex items-center bg-brand-cream pt-[var(--header-height)]">
       <div className="content-shell w-full">
         <div className="max-w-xl mx-auto text-center space-y-6 py-24">
           <p className="font-display text-[120px] leading-none text-brand-caramel/20 select-none">404</p>

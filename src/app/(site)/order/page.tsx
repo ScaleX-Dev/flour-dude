@@ -59,7 +59,7 @@ export default async function OrderPage() {
   };
 
   return (
-    <div className="bg-brand-cream min-h-screen pt-32 pb-24">
+    <div className="bg-brand-cream min-h-screen pt-[calc(var(--header-height)+3rem)] pb-24">
       <SchemaMarkup id="schema-breadcrumb-order" schema={breadcrumbSchema} />
       {faqs.length ? <SchemaMarkup id="schema-faq-order" schema={faqSchema} /> : null}
 

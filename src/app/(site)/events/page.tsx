@@ -52,7 +52,7 @@ export default function EventsPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-events" schema={breadcrumbSchema} />
-      <section className="relative h-[540px] md:h-[640px] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
+      <section className="relative h-[calc(540px+var(--header-height))] md:h-[calc(640px+var(--header-height))] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
         <Image 
           src={heroImages.celebration} 
           alt="Flour Dude event catering setup" 

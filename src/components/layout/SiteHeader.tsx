@@ -50,7 +50,7 @@ export function SiteHeader({ transparent }: SiteHeaderProps) {
         'fixed inset-x-0 top-0 z-50 h-[var(--header-height)] transition-all duration-500 ease-out',
         isSolid 
           ? 'bg-brand-cream/85 backdrop-blur-xl border-b border-brand-border shadow-soft' 
-          : 'bg-transparent border-transparent text-white'
+          : 'bg-gradient-to-b from-black/40 via-black/10 to-transparent border-transparent text-white'
       )}
     >
       <div className="content-shell relative flex h-full items-center justify-between">

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { PromoCountdown } from '@/components/home/PromoCountdown';
 import { ScrollIndicator } from '@/components/home/ScrollIndicator';
-import { TestimonialsCarousel } from '@/components/home/TestimonialsCarousel';
 import { formatLKR, formatPriceDisplay } from '@/lib/formatting';
 import { generateMetadata } from '@/lib/metadata';
 import {
@@ -331,8 +330,8 @@ export default async function SiteHomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown/95 via-brand-deepBrown/50 to-brand-deepBrown/10" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/60 via-transparent to-brand-deepBrown/30" />
 
-        <div className="content-shell relative z-10 flex w-full flex-1 items-end justify-start pb-20 md:pb-32 pt-[calc(var(--header-height)+1rem)]">
-          <div className="max-w-xl w-full space-y-6 animate-rise-in text-left">
+        <div className="content-shell relative z-10 flex w-full flex-1 items-end justify-start pb-20 md:pb-32 pt-[calc(var(--header-height)+2rem)]">
+          <div className="max-w-xl w-full space-y-6 animate-rise-in text-left pl-1 sm:pl-4 md:pl-6">
             {/* Location pill */}
             <div className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 py-2 px-4 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
@@ -830,9 +829,6 @@ export default async function SiteHomePage() {
               </article>
             ))}
           </div>
-
-          {/* Mobile carousel (shows all testimonials) */}
-          <TestimonialsCarousel items={data.testimonialCards} />
         </div>
       </section>
 

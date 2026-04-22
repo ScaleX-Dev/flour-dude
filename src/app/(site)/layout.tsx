@@ -24,7 +24,7 @@ export default function SiteRootLayout({ children }: { children: React.ReactNode
     <>
       <SchemaMarkup id="schema-local-business" schema={LOCAL_BUSINESS_SCHEMA} />
       <SiteHeader />
-      <main className="min-h-screen pt-[var(--header-height)]">{children}</main>
+      <main className="min-h-screen">{children}</main>
       <SiteFooter />
       <WhatsAppFAB />
     </>
