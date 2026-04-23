@@ -1,8 +1,6 @@
 import { AtSign, Clock3, MapPin } from 'lucide-react';
-import { GeneralInquiryForm } from '@/components/contact/GeneralInquiryForm';
 import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { Button } from '@/components/ui/button';
-import { SectionHeading, MutedText } from '@/components/ui/Typography';
 import { generateMetadata } from '@/lib/metadata';
 import { getSiteSettingsData } from '@/lib/payload';
 import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
@@ -37,7 +35,7 @@ export default async function ContactPage() {
         </p>
       </section>
 
-      <section className="content-shell grid gap-12 lg:grid-cols-[1fr_1.2fr] items-start">
+      <section className="content-shell grid gap-12 lg:grid-cols-2 items-start">
         <div className="space-y-8 animate-rise-in" style={{ animationDelay: '100ms' }}>
           <article className="space-y-8 rounded-[32px] border border-brand-border/40 bg-brand-warmWhite p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
             <div className="space-y-2">
@@ -115,14 +113,6 @@ export default async function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-          </article>
-
-          <article className="rounded-[32px] border border-brand-border/40 bg-brand-warmWhite p-8 md:p-12 shadow-sm hover:shadow-floating transition-all duration-500">
-            <div className="space-y-2 mb-8">
-              <h3 className="font-display text-3xl text-brand-deepBrown">Send an Inquiry</h3>
-              <p className="font-light text-brand-textMuted">Fill out the form below and we&apos;ll get back to you shortly.</p>
-            </div>
-            <GeneralInquiryForm />
           </article>
         </div>
       </section>

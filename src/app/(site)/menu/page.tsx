@@ -124,7 +124,7 @@ export default async function MenuPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/50 to-transparent" />
 
-        <div className="content-shell relative z-10 w-full animate-rise-in">
+        <div className="relative z-10 w-full animate-rise-in px-6 sm:px-10 md:px-16 lg:px-24">
           <div className="max-w-3xl space-y-6">
             <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
               Daily Fresh Selection

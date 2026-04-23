@@ -18,7 +18,6 @@ const navLinks = [
   { href: '/cakes', label: 'Our Cakes' },
   { href: '/events', label: 'Events' },
   { href: '/about', label: 'About' },
-  { href: '/order', label: 'How to Order' },
   { href: '/contact', label: 'Contact' }
 ];
 
@@ -117,6 +116,18 @@ export function SiteHeader({ transparent }: SiteHeaderProps) {
             Order Now
           </a>
         </div>
+
+        {/* Tagline — mobile only, non-homepage */}
+        {pathname !== '/' && (
+          <span className="md:hidden flex-1 text-center px-2">
+            <span className={cn(
+              'font-display italic text-[0.95rem] leading-none tracking-wide',
+              isSolid ? 'text-brand-caramel' : 'text-brand-caramel'
+            )}>
+              Love Coffee. Love Life.
+            </span>
+          </span>
+        )}
 
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>

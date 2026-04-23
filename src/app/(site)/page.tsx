@@ -330,8 +330,8 @@ export default async function SiteHomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown/95 via-brand-deepBrown/50 to-brand-deepBrown/10" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/60 via-transparent to-brand-deepBrown/30" />
 
-        <div className="content-shell relative z-10 flex w-full flex-1 items-end justify-start pb-20 md:pb-32 pt-[calc(var(--header-height)+2rem)]">
-          <div className="max-w-xl w-full space-y-6 animate-rise-in text-left pl-1 sm:pl-4 md:pl-6">
+        <div className="relative z-10 flex w-full flex-1 items-end justify-start pb-20 md:pb-32 pt-[calc(var(--header-height)+2rem)] px-6 sm:px-10 md:px-16 lg:px-24">
+          <div className="max-w-xl w-full space-y-6 animate-rise-in text-left">
             {/* Location pill */}
             <div className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/8 py-2 px-4 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
@@ -343,7 +343,7 @@ export default async function SiteHomePage() {
               </span>
             </div>
 
-            <h1 className="font-display text-[2.6rem] sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05]">
+            <h1 className="font-display text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05]">
               {data.heroHeadline}
             </h1>
 
@@ -351,7 +351,7 @@ export default async function SiteHomePage() {
               {data.heroSubheadline}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2">
               <a
                 href={data.heroPrimaryCtaHref}
                 target="_blank"
@@ -367,7 +367,7 @@ export default async function SiteHomePage() {
                 href="/menu"
                 className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] border border-white/25 bg-white/5 text-white font-medium tracking-wide text-sm hover:bg-white hover:text-brand-deepBrown transition-all duration-300 backdrop-blur-sm"
               >
-                Explore Menu
+                View Menu
               </Link>
             </div>
 
@@ -477,7 +477,7 @@ export default async function SiteHomePage() {
                 Fresh from our kitchen, every day.
               </h2>
               <p className="text-brand-textMuted font-light text-base sm:text-lg leading-relaxed">
-                All-day breakfast, fresh bakes, cafe drinks, and handcrafted waffles — made with care in Galle.
+                All-day breakfast, fresh bakes, proper coffee, and waffles. Everything made fresh, every day.
               </p>
             </div>
             <Link
@@ -542,7 +542,7 @@ export default async function SiteHomePage() {
                 Hot · Cold · Matcha · Frappes · Milkshakes
               </h3>
               <p className="text-brand-textMuted font-light text-sm sm:text-base">
-                A full cafe lineup — espresso drinks, iced teas, refreshers, and more. From LKR 400.
+                Espresso drinks, iced teas, refreshers, matcha, and milkshakes. Something for everyone.
               </p>
             </div>
             <Link
@@ -653,132 +653,6 @@ export default async function SiteHomePage() {
         </div>
       </section>
 
-      {/* ───── CAKE SHOWCASE GRID ───── */}
-      <section className="section-space bg-brand-warmWhite border-y border-brand-border">
-        <div className="content-shell space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-textMuted">
-              Portfolio
-            </p>
-            <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight">
-              Crafted with intention.
-            </h2>
-            <p className="text-brand-textMuted font-light">
-              A peek at our custom work — every cake designed and baked from scratch.
-            </p>
-          </div>
-
-          <div className="grid gap-5 grid-cols-2 lg:grid-cols-4">
-            {data.cakeShowcase.map((cake) => (
-              <Link
-                href="/cakes"
-                key={cake.id}
-                className="group flex flex-col gap-3"
-              >
-                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-brand-cream">
-                  <Image
-                    src={cake.imageUrl}
-                    alt={cake.title}
-                    fill
-                    sizes="(max-width: 640px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="inline-flex items-center gap-1 text-white text-xs font-medium">
-                      Order this cake →
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-0.5 px-1">
-                  <p className="font-sans text-sm font-medium text-brand-deepBrown leading-snug">
-                    {cake.title}
-                  </p>
-                  <p className="text-xs text-brand-textMuted">
-                    {formatPriceDisplay(cake.priceFrom ?? null, true, cake.askForPricing ?? false)}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="text-center pt-4">
-            <a
-              href={WA.customCake()}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 font-sans text-sm font-medium text-brand-deepBrown border-b border-brand-deepBrown/40 pb-1 hover:text-brand-caramel hover:border-brand-caramel transition-colors"
-            >
-              Start a custom cake order
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ───── HOW TO ORDER ───── */}
-      <section className="section-space bg-brand-deepBrown text-white">
-        <div className="content-shell space-y-12">
-          <div className="text-center space-y-3 max-w-xl mx-auto">
-            <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
-              Simple Process
-            </p>
-            <h2 className="font-display text-4xl sm:text-5xl text-white tracking-tight">
-              Order in 3 steps.
-            </h2>
-            <p className="text-white/60 font-light">
-              No app, no checkout. Just WhatsApp — fast, personal, and easy.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              {
-                step: '01',
-                title: 'Browse',
-                body: 'Explore our cake portfolio or daily menu to find what you love.'
-              },
-              {
-                step: '02',
-                title: 'Message Us',
-                body: "Send a WhatsApp with your order details. We'll confirm and guide you."
-              },
-              {
-                step: '03',
-                title: 'Pick Up or Delivery',
-                body: 'Collect at our Galle location, or we can arrange delivery for cakes.'
-              }
-            ].map((s) => (
-              <article
-                key={s.step}
-                className="relative rounded-2xl border border-white/10 bg-white/5 p-7 hover:bg-white/8 transition-colors"
-              >
-                <div className="absolute top-5 right-5 font-display text-5xl text-white/5 leading-none select-none">
-                  {s.step}
-                </div>
-                <div className="font-display text-sm text-brand-caramel/80 font-semibold tracking-[0.2em] mb-5">{s.step}</div>
-                <h3 className="font-display text-2xl text-white mb-2">{s.title}</h3>
-                <p className="text-white/55 font-light text-sm leading-relaxed">{s.body}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <a
-              href={WA.default()}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-pill px-8 min-h-[52px] bg-[#25D366] text-white font-medium hover:bg-[#1ebe5d] transition-all tracking-wide text-sm shadow-lg"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current shrink-0" aria-hidden="true">
-                <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
-              </svg>
-              Start Your Order on WhatsApp
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* ───── TESTIMONIALS ───── */}
       <section className="section-space bg-brand-cream">
         <div className="content-shell space-y-12">
@@ -832,41 +706,6 @@ export default async function SiteHomePage() {
         </div>
       </section>
 
-      {/* ───── B2B TEASER ───── */}
-      <section className="bg-brand-warmWhite border-y border-brand-border">
-        <div className="content-shell py-14 md:py-20">
-          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-            <div className="flex-1 space-y-4 text-center md:text-left">
-              <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-rose">
-                Events & B2B Catering
-              </p>
-              <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight leading-tight">
-                Planning a corporate event or wedding?
-              </h2>
-              <p className="text-brand-textMuted font-light text-base sm:text-lg leading-relaxed max-w-lg mx-auto md:mx-0">
-                Hotels, corporates, wedding planners, and event organisers — we do custom dessert catering across Galle and Southern Province.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
-              <Link
-                href="/events"
-                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] bg-brand-deepBrown text-white font-medium text-sm hover:bg-brand-caramel transition-all"
-              >
-                Explore Catering
-              </Link>
-              <a
-                href={WA.b2b()}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] border border-brand-deepBrown/20 text-brand-deepBrown font-medium text-sm hover:bg-brand-deepBrown hover:text-white transition-all"
-              >
-                Get a Quote
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ───── FINAL WHATSAPP CTA ───── */}
       <section className="section-space bg-brand-deepBrown">
         <div className="content-shell">
@@ -879,7 +718,7 @@ export default async function SiteHomePage() {
                 Let&apos;s make something delicious.
               </h2>
               <p className="text-white/60 font-light text-base sm:text-lg max-w-xl mx-auto">
-                Whether it&apos;s a custom birthday cake, a waffle on a lazy Sunday, or catering for your next event — we&apos;re just a message away.
+                Custom cakes. Fresh waffles. Cafe drinks. Events. Whatever you&apos;re in the mood for, message us on WhatsApp.
               </p>
             </div>
 

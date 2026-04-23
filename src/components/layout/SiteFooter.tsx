@@ -8,7 +8,6 @@ const quickLinks = [
   { href: '/cakes', label: 'Custom Cakes' },
   { href: '/events', label: 'Events & B2B' },
   { href: '/about', label: 'About Us' },
-  { href: '/order', label: 'How to Order' },
   { href: '/contact', label: 'Contact' }
 ];
 
@@ -71,66 +70,6 @@ export function SiteFooter() {
               >
                 Instagram
               </a>
-              <a
-                href="https://www.ubereats.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors w-fit"
-              >
-                Uber Eats
-              </a>
-              <a
-                href="https://pickme.lk/food"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition-colors w-fit"
-              >
-                PickMe Food
-              </a>
-            </div>
-          </div>
-
-          {/* Order column */}
-          <div className="lg:col-span-3 space-y-5">
-            <h3 className="text-[11px] font-semibold tracking-[0.18em] uppercase text-brand-caramel">
-              Order Now
-            </h3>
-            <div className="flex flex-col gap-3">
-              <a
-                href={waHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full rounded-pill h-11 bg-[#25D366] text-white text-sm font-medium hover:bg-[#1ebe5d] transition-all"
-              >
-                <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current shrink-0" aria-hidden="true">
-                  <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
-                </svg>
-                WhatsApp
-              </a>
-              <div className="grid grid-cols-2 gap-3">
-                <a
-                  href="https://www.ubereats.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full rounded-pill h-10 border border-white/15 text-white/70 text-xs font-medium hover:border-white/40 hover:text-white transition-all"
-                >
-                  Uber Eats
-                </a>
-                <a
-                  href="https://pickme.lk/food"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full rounded-pill h-10 border border-white/15 text-white/70 text-xs font-medium hover:border-white/40 hover:text-white transition-all"
-                >
-                  PickMe
-                </a>
-              </div>
-            </div>
-
-            <div className="text-xs text-white/35 font-light space-y-1 pt-2">
-              <p>Bandara Mawatha & Thalapitiya Road</p>
-              <p>Galle, Southern Province, Sri Lanka</p>
-              <p className="text-white/55 font-medium pt-1">Open Daily · 8:30 AM – 9:00 PM</p>
             </div>
           </div>
         </div>

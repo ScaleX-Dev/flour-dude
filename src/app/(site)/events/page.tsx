@@ -1,10 +1,5 @@
 import Image from 'next/image';
-import { MessageCircleMore } from 'lucide-react';
-import { EventInquiryForm } from '@/components/events/EventInquiryForm';
 import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
-import { Button } from '@/components/ui/button';
-import { DisplayHeading, Eyebrow, SectionHeading, MutedText } from '@/components/ui/Typography';
-import { formatLKR } from '@/lib/formatting';
 import { generateMetadata } from '@/lib/metadata';
 import { heroImages } from '@/lib/site';
 import { WA } from '@/lib/whatsapp';
@@ -26,22 +21,47 @@ const services = [
     body: 'Branded cakes, dessert platters, office celebrations'
   },
   {
-    title: 'Hotel Catering',
+    title: 'Hotel Partnerships',
     body: 'Professional catering partnerships in Southern Province'
   },
   {
-    title: 'Birthday Parties',
-    body: 'Custom themed cakes for all ages, any size'
+    title: 'Private Gatherings',
+    body: 'Custom menus tailored to your guest count and occasion'
   }
 ];
 
-const highlights = [
-  { title: '5.0 Rated', body: 'Verified 140+ reviews' },
-  { title: 'Fully Custom', body: 'Designed to your brief' },
-  { title: 'Galle Delivery', body: 'We come to you' }
+const eventGrid = [
+  {
+    src: '/images/bts-customers.jpeg',
+    caption: 'Corporate Launch — 50 Guests',
+    aspect: 'aspect-[4/5]'
+  },
+  {
+    src: '/images/cake-portfolio-1.jpg',
+    caption: 'Wedding Cakes',
+    aspect: 'aspect-[4/5]'
+  },
+  {
+    src: '/images/bts-team.jpeg',
+    caption: 'Corporate Platter Supply',
+    aspect: 'aspect-[4/5]'
+  },
+  {
+    src: '/images/cake-portfolio-3.jpg',
+    caption: 'Birthday Celebration — Custom Order',
+    aspect: 'aspect-[4/5]'
+  },
+  {
+    src: '/images/cake-portfolio-4.jpg',
+    caption: 'Private Gathering — Dessert Table',
+    aspect: 'aspect-[4/5]'
+  },
+  {
+    src: '/images/cake-portfolio-2.jpg',
+    caption: 'Anniversary Cake — Intimate Celebration',
+    aspect: 'aspect-[4/5]'
+  }
 ];
-
-const steps = ['Get in touch', 'We plan together', 'We deliver'];
 
 export default function EventsPage() {
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -52,134 +72,149 @@ export default function EventsPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-events" schema={breadcrumbSchema} />
-      <section className="relative h-[calc(540px+var(--header-height))] md:h-[calc(640px+var(--header-height))] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
-        <Image 
-          src={heroImages.celebration} 
-          alt="Flour Dude event catering setup" 
-          fill 
-          priority 
-          sizes="100vw" 
-          className="object-cover opacity-60 scale-105 animate-[ken-burns_30s_ease-out_forwards]" 
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/40 to-transparent" />
 
-        <div className="content-shell relative z-10 w-full animate-rise-in">
-          <div className="max-w-3xl space-y-6">
-            <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-              Events & B2B
-            </h1>
-            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[1] md:leading-[0.95]">
-              Events and B2B Catering.
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
-              From birthdays and private events to corporate launches and hotel partnerships, we design dessert and cake solutions that fit your brief and budget.
+      {/* ── HERO ── */}
+      <section className="relative min-h-[calc(520px+var(--header-height))] bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+3rem)]">
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={heroImages.events}
+            alt="Flour Dude event catering setup"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center opacity-60 scale-105 animate-[ken-burns_30s_ease-out_forwards]"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-deepBrown/90 via-brand-deepBrown/55 to-brand-deepBrown/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/70 via-transparent to-brand-deepBrown/30" />
+
+        <div className="relative z-10 w-full animate-rise-in px-6 sm:px-10 md:px-16 lg:px-24">
+          <div className="max-w-2xl space-y-5">
+            <p className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
+              Events &amp; B2B Catering
             </p>
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <a href="#event-inquiry-form">
-                <Button className="rounded-pill px-8 h-14 bg-brand-caramel text-white hover:bg-brand-caramel/90 transition-all font-medium tracking-wide">
-                  Request a Quote
-                </Button>
-              </a>
-              <a href={WA.b2b()} target="_blank" rel="noreferrer">
-                <Button className="rounded-pill px-8 h-14 border border-white/20 bg-brand-warmWhite/5 backdrop-blur-md text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide flex items-center gap-2">
-                  <MessageCircleMore className="h-5 w-5" />
-                  Chat on WhatsApp
-                </Button>
+            <h1 className="font-display text-[2.25rem] sm:text-5xl md:text-6xl lg:text-7xl text-white tracking-tight leading-[1.05]">
+              Celebrations Worth Catering
+            </h1>
+            <p className="text-base sm:text-lg font-light leading-relaxed text-white/75 max-w-xl">
+              Corporate events, restaurant partnerships, private gatherings. Custom cafe-menus tailored to your event and guest count.
+            </p>
+            <div className="flex flex-col sm:flex-row items-start gap-3 pt-2">
+              <a
+                href={WA.b2b()}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-pill px-7 min-h-[52px] bg-brand-caramel text-white font-medium text-sm hover:bg-brand-caramelLight transition-all duration-300 shadow-lg"
+              >
+                <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current shrink-0" aria-hidden="true">
+                  <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
+                </svg>
+                Get a Quote on WhatsApp
               </a>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ── SERVICES GRID ── */}
       <section className="section-space bg-brand-cream border-b border-brand-border">
-        <div className="content-shell space-y-16">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
-            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-              Our Services
+        <div className="content-shell space-y-14">
+          <div className="max-w-2xl space-y-4">
+            <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+              What We Offer
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+              Custom menus for every occasion
             </h2>
-            <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
-              Curated for Your Needs
-            </h3>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service, index) => (
-              <article 
-                key={service.title} 
-                style={{ animationDelay: `${index * 100}ms` }}
-                className="group p-8 rounded-[32px] border border-brand-border/40 bg-brand-warmWhite shadow-sm hover:shadow-floating hover:border-brand-border duration-500 transition-all"
+              <article
+                key={service.title}
+                className="p-7 rounded-2xl border border-brand-border/40 bg-brand-warmWhite hover:shadow-soft transition-all duration-300"
               >
-                <div className="font-display text-sm text-brand-caramel font-semibold tracking-[0.2em]">
+                <div className="font-display text-sm text-brand-caramel font-semibold tracking-[0.2em] mb-6">
                   0{index + 1}
                 </div>
-                <h4 className="mt-8 text-2xl font-display text-brand-deepBrown group-hover:text-brand-caramel transition-colors">
-                  {service.title}
-                </h4>
-                <p className="mt-3 text-brand-textMuted font-light leading-relaxed">
-                  {service.body}
-                </p>
+                <h3 className="font-display text-2xl text-brand-deepBrown mb-2">{service.title}</h3>
+                <p className="text-brand-textMuted font-light text-sm leading-relaxed">{service.body}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section-space bg-brand-warmWhite border-b border-brand-border">
-        <div className="content-shell grid gap-6 md:grid-cols-3">
-          {highlights.map((item, index) => (
-            <article 
-              key={item.title} 
-              style={{ animationDelay: `${index * 150}ms` }}
-              className="flex flex-col items-center text-center p-8 rounded-[32px] bg-brand-cream/30 border border-brand-border/30 hover:bg-brand-cream transition-colors"
-            >
-              <div className="w-10 h-[2px] rounded-full bg-brand-caramel mb-8" />
-              <h3 className="text-xl font-display text-brand-deepBrown mb-2">{item.title}</h3>
-              <p className="text-brand-textMuted font-light">{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-space bg-brand-deepBrown text-white">
-        <div className="content-shell space-y-16">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
-            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-              How It Works
+      {/* ── PHOTO GRID ── */}
+      <section className="section-space bg-brand-warmWhite">
+        <div className="content-shell space-y-12">
+          <div className="max-w-2xl space-y-4">
+            <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+              Past Events
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+              From intimate gatherings to group celebrations.
             </h2>
-            <h3 className="font-display text-4xl md:text-5xl text-white tracking-tight leading-tight">
-              A Seamless Process
-            </h3>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {steps.map((step, index) => (
-              <article 
-                key={step} 
-                className="relative rounded-[32px] border border-white/10 bg-brand-warmWhite/5 backdrop-blur-sm p-8 hover:bg-brand-warmWhite/10 transition-colors"
-              >
-                <div className="text-brand-caramel/20 font-display text-7xl absolute top-4 right-6 pointer-events-none">
-                  0{index + 1}
-                </div>
-                <p className="text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel mb-4">Phase {index + 1}</p>
-                <p className="text-2xl font-display text-white relative z-10">{step}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="event-inquiry-form" className="section-space bg-brand-cream py-24">
-        <div className="content-shell max-w-4xl mx-auto space-y-12">
-          <div className="text-center space-y-4">
-            <h2 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
-              Let&apos;s Talk About Your Event
-            </h2>
-            <p className="text-lg text-brand-textMuted font-light">
-              Fill out the form below. We aim to reply within 24 hours with a custom quote.
+            <p className="text-brand-textMuted font-light text-base sm:text-lg leading-relaxed max-w-xl">
+              See the events we&apos;ve brought to life.
             </p>
           </div>
-          <div className="bg-brand-warmWhite p-8 md:p-12 rounded-[32px] border border-brand-border/40 shadow-floating">
-            <EventInquiryForm />
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {eventGrid.map((item) => (
+              <div key={item.caption} className="group relative overflow-hidden rounded-2xl bg-brand-cream">
+                <div className={`relative w-full ${item.aspect}`}>
+                  <Image
+                    src={item.src}
+                    alt={item.caption}
+                    fill
+                    sizes="(max-width: 640px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown/80 via-brand-deepBrown/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="text-white text-sm font-medium leading-snug">{item.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHATSAPP CTA ── */}
+      <section className="section-space bg-brand-deepBrown text-white">
+        <div className="content-shell">
+          <div className="max-w-3xl mx-auto text-center space-y-7">
+            <div className="space-y-4">
+              <p className="font-sans text-[11px] font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+                Let&apos;s Plan Together
+              </p>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-tight leading-tight">
+                Tell us about your event.
+              </h2>
+              <p className="text-white/60 font-light text-base sm:text-lg max-w-xl mx-auto">
+                Message us on WhatsApp with your event date, guest count, and what you have in mind. We&apos;ll come back with a custom quote.
+              </p>
+            </div>
+            <a
+              href={WA.b2b()}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 rounded-pill px-8 min-h-[56px] bg-[#25D366] text-white font-medium hover:bg-[#1ebe5d] transition-all tracking-wide text-sm shadow-xl"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current shrink-0" aria-hidden="true">
+                <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
+              </svg>
+              Request a Quote on WhatsApp
+            </a>
+            <div className="flex flex-wrap items-center justify-center gap-6 pt-2 text-[11px] font-medium text-white/35 uppercase tracking-widest">
+              <span>Galle &amp; Southern Province</span>
+              <span className="text-brand-caramel/40">✦</span>
+              <span>Custom Menus</span>
+              <span className="text-brand-caramel/40">✦</span>
+              <span>Any Guest Count</span>
+            </div>
           </div>
         </div>
       </section>
