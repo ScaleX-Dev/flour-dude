@@ -20,6 +20,10 @@ interface BannerFormProps {
 export function BannerForm({ initialData }: BannerFormProps) {
   const router = useRouter();
   const isEdit = Boolean(initialData);
+  const now = new Date();
+  const localToday = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split('T')[0];
 
   const existingImageUrl =
     typeof initialData?.image === 'object' && initialData.image
@@ -45,6 +49,7 @@ export function BannerForm({ initialData }: BannerFormProps) {
   );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const shouldEnforceMinExpiry = !isEdit || !expiresAt || expiresAt >= localToday;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -206,14 +211,17 @@ export function BannerForm({ initialData }: BannerFormProps) {
         </div>
 
         {/* Active toggle */}
-        <label className="flex items-center justify-between gap-4 cursor-pointer">
+        <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-gray-700">Active</p>
             <p className="text-xs text-gray-400">Banner is visible to site visitors</p>
           </div>
-          <div
+          <button
+            type="button"
+            aria-pressed={active}
+            aria-label="Toggle banner active state"
             onClick={() => setActive((v) => !v)}
-            className={`w-12 h-7 rounded-full transition-colors flex items-center px-0.5 flex-shrink-0 ${
+            className={`w-12 h-7 rounded-full transition-colors flex items-center px-0.5 flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-caramel/40 ${
               active ? 'bg-green-500' : 'bg-gray-200'
             }`}
           >
@@ -222,8 +230,8 @@ export function BannerForm({ initialData }: BannerFormProps) {
                 active ? 'translate-x-5' : 'translate-x-0'
               }`}
             />
-          </div>
-        </label>
+          </button>
+        </div>
 
         {/* Expiry date */}
         <div className="space-y-1.5">
@@ -235,7 +243,7 @@ export function BannerForm({ initialData }: BannerFormProps) {
             type="date"
             value={expiresAt}
             onChange={(e) => setExpiresAt(e.target.value)}
-            min={new Date().toISOString().split('T')[0]}
+            min={shouldEnforceMinExpiry ? localToday : undefined}
             className="w-full sm:w-auto px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm outline-none focus:ring-2 focus:ring-brand-caramel/30 focus:border-brand-caramel transition-all"
           />
         </div>

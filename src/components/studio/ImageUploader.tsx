@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Upload, X, Loader2, ImagePlus } from 'lucide-react';
 import { uploadMedia, type UploadedMedia } from '@/lib/studio-api';
 
@@ -24,16 +24,32 @@ export function ImageUploader({
   required = false,
 }: ImageUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const objectPreviewUrlRef = useRef<string | null>(null);
   const [preview, setPreview] = useState<string | null>(existingUrl ?? null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    return () => {
+      if (objectPreviewUrlRef.current) {
+        URL.revokeObjectURL(objectPreviewUrlRef.current);
+        objectPreviewUrlRef.current = null;
+      }
+    };
+  }, []);
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    if (objectPreviewUrlRef.current) {
+      URL.revokeObjectURL(objectPreviewUrlRef.current);
+      objectPreviewUrlRef.current = null;
+    }
+
     // Local preview
     const objectUrl = URL.createObjectURL(file);
+    objectPreviewUrlRef.current = objectUrl;
     setPreview(objectUrl);
     setError('');
     setUploading(true);
@@ -44,14 +60,20 @@ export function ImageUploader({
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Upload failed. Please try again.');
       setPreview(existingUrl ?? null);
+      if (objectPreviewUrlRef.current) {
+        URL.revokeObjectURL(objectPreviewUrlRef.current);
+        objectPreviewUrlRef.current = null;
+      }
     } finally {
       setUploading(false);
-      // Revoke if it was the object URL we created
-      if (objectUrl !== existingUrl) URL.revokeObjectURL(objectUrl);
     }
   }
 
   function handleClear() {
+    if (objectPreviewUrlRef.current) {
+      URL.revokeObjectURL(objectPreviewUrlRef.current);
+      objectPreviewUrlRef.current = null;
+    }
     setPreview(null);
     setError('');
     if (inputRef.current) inputRef.current.value = '';

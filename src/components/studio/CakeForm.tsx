@@ -207,12 +207,16 @@ export function CakeForm({ initialData }: CakeFormProps) {
           </div>
 
           <div className="flex flex-col gap-3 pt-1">
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <button
+              type="button"
+              aria-pressed={showPrice}
+              onClick={() => setShowPrice((v) => !v)}
+              className="flex items-center gap-3 cursor-pointer group text-left"
+            >
               <div
                 className={`w-10 h-6 rounded-full transition-colors flex items-center px-0.5 ${
                   showPrice ? 'bg-brand-caramel' : 'bg-gray-200'
                 }`}
-                onClick={() => setShowPrice((v) => !v)}
               >
                 <div
                   className={`w-5 h-5 rounded-full bg-white shadow transition-transform ${
@@ -221,14 +225,18 @@ export function CakeForm({ initialData }: CakeFormProps) {
                 />
               </div>
               <span className="text-sm font-medium text-gray-700">Show price on site</span>
-            </label>
+            </button>
 
-            <label className="flex items-center gap-3 cursor-pointer">
+            <button
+              type="button"
+              aria-pressed={featured}
+              onClick={() => setFeatured((v) => !v)}
+              className="flex items-center gap-3 cursor-pointer text-left"
+            >
               <div
                 className={`w-10 h-6 rounded-full transition-colors flex items-center px-0.5 ${
                   featured ? 'bg-amber-500' : 'bg-gray-200'
                 }`}
-                onClick={() => setFeatured((v) => !v)}
               >
                 <div
                   className={`w-5 h-5 rounded-full bg-white shadow transition-transform ${
@@ -240,7 +248,7 @@ export function CakeForm({ initialData }: CakeFormProps) {
                 <Star size={14} className={featured ? 'text-amber-500' : 'text-gray-400'} />
                 <span className="text-sm font-medium text-gray-700">Featured cake</span>
               </div>
-            </label>
+            </button>
           </div>
         </div>
       </section>
