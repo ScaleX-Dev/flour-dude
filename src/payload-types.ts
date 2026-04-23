@@ -81,11 +81,13 @@ export interface FAQ {
 export interface Promotion {
   id: number;
   headline?: string;
+  sub_headline?: string | null;
   description?: string | null;
+  image?: number | Media | null;
   cta_text?: string | null;
   cta_url?: string | null;
   expires_at?: string | null;
-  banner_type?: 'homepage' | 'menu' | 'global' | null;
+  banner_type?: 'seasonal' | 'homepage' | 'menu' | 'global' | null;
   title: string;
   body?: string | null;
   startsAt?: string | null;

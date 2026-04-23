@@ -124,7 +124,7 @@ export function SiteHeader({ transparent }: SiteHeaderProps) {
               'font-display italic text-[0.95rem] leading-none tracking-wide',
               isSolid ? 'text-brand-caramel' : 'text-brand-caramel'
             )}>
-              Love Coffee. Love Life.
+              Love Coffee. Live Life.
             </span>
           </span>
         )}

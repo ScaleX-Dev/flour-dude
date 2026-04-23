@@ -181,9 +181,10 @@ export function CakeFilter({ cakes }: CakeFilterProps) {
       </section>
 
       <section className="section-space bg-brand-cream">
-        <div className="content-shell columns-2 gap-3 md:columns-3">
+        <div className="content-shell grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredCakes.map((cake, index) => (
-            <article key={cake.id} className="group relative mb-3 cursor-pointer break-inside-avoid overflow-hidden rounded-cake">
+            <article key={cake.id} className="group relative flex flex-col overflow-hidden rounded-lg border border-brand-caramel/10 transition-all duration-300 hover:border-brand-caramel/30 hover:shadow-lg">
+              {/* Image Container */}
               <div
                 role="button"
                 tabIndex={0}
@@ -194,47 +195,60 @@ export function CakeFilter({ cakes }: CakeFilterProps) {
                     setActiveSlideIndex(index);
                   }
                 }}
-                className="relative overflow-hidden"
+                className="relative overflow-hidden bg-brand-warmWhite"
               >
                 {cake.imageUrl ? (
                   <Image
                     src={cake.imageUrl}
                     alt={cake.name}
-                    width={800}
-                    height={1200}
+                    width={600}
+                    height={600}
                     priority={index < 4}
                     loading={index < 4 ? 'eager' : 'lazy'}
-                    className="h-auto w-full object-cover"
+                    className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
-                  <div className="h-[320px] w-full bg-brand-cream" />
+                  <div className="aspect-square w-full bg-brand-caramel/5" />
                 )}
 
-                <div className="pointer-events-none absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <div className="pointer-events-none absolute inset-x-4 bottom-4 opacity-0 transition-all duration-300 group-hover:opacity-100">
-                  <span className="inline-flex origin-bottom-left scale-95 rounded-pill bg-brand-caramel px-3 py-1.5 text-xs font-semibold text-white transition-transform duration-300 group-hover:scale-100">
-                    View details
+                {/* Hover Overlay */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-x-3 bottom-3 flex justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+                  <span className="inline-flex rounded-pill bg-brand-caramel px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+                    View Gallery
                   </span>
                 </div>
               </div>
 
-              <div className="space-y-2 bg-brand-warmWhite p-3">
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-[13px] font-semibold text-brand-deepBrown">{cake.name}</h3>
-                  <span className="rounded-pill bg-brand-caramel/10 px-2 py-0.5 text-[10px] text-brand-caramel">
-                    {occasionLabelMap[cake.occasion] ?? 'Celebration'}
-                  </span>
+              {/* Content Container - grows to fill space */}
+              <div className="flex flex-1 flex-col justify-between gap-3 bg-brand-warmWhite p-4 sm:p-5">
+                {/* Header with Title and Occasion Tag */}
+                <div className="space-y-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="font-display text-base font-bold leading-tight text-brand-deepBrown sm:text-lg">
+                      {cake.name}
+                    </h3>
+                  </div>
+                  <div className="inline-block">
+                    <span className="rounded-full bg-brand-caramel/15 px-3 py-1 text-xs font-semibold text-brand-caramel">
+                      {occasionLabelMap[cake.occasion] ?? 'Celebration'}
+                    </span>
+                  </div>
                 </div>
 
-                <p className="overflow-hidden text-[13px] text-brand-textMuted [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+                {/* Description */}
+                <p className="text-sm leading-relaxed text-brand-textMuted line-clamp-2">
                   {cake.description ?? 'Customizable design, flavor, and finish for your celebration.'}
                 </p>
 
-                <div className="flex items-center justify-between gap-2">
-                  <p className="font-display text-[13px] text-brand-caramel">
+                {/* Price and Button - stacked on mobile, side-by-side on larger screens */}
+                <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="font-display text-lg font-bold text-brand-caramel">
                     {formatPriceDisplay(cake.priceFrom ?? null, true, cake.askForPricing ?? false)}
                   </p>
-                  <CakeOrderButton cakeName={cake.name} />
+                  <div className="w-full sm:w-auto">
+                    <CakeOrderButton cakeName={cake.name} />
+                  </div>
                 </div>
               </div>
             </article>
