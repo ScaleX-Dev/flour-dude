@@ -5,14 +5,16 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // ── Payload admin redirect ────────────────────────────────────────────────
-  // Send /admin to the custom Studio UI
-  if (pathname === '/admin') {
-    return NextResponse.redirect(new URL('/studio', request.url));
-  }
+  // Send all /admin routes to the custom Studio UI
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    const targetPath =
+      pathname === '/admin' || pathname === '/admin/create-first-user' || pathname === '/admin/login'
+        ? '/studio/login'
+        : pathname.replace(/^\/admin/, '/studio');
 
-  if (pathname === '/admin/create-first-user') {
-    const loginUrl = new URL('/admin/login', request.url);
-    return NextResponse.redirect(loginUrl);
+    const redirectUrl = new URL(targetPath, request.url);
+    redirectUrl.search = request.nextUrl.search;
+    return NextResponse.redirect(redirectUrl);
   }
 
   // ── Studio auth guard ─────────────────────────────────────────────────────
@@ -33,5 +35,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin', '/admin/create-first-user', '/studio/:path*'],
+  matcher: ['/admin/:path*', '/studio/:path*'],
 };
