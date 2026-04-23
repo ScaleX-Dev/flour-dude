@@ -11,7 +11,7 @@ export const siteConfig = {
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '94XXXXXXXXX',
   instagramHandle: '@flour_dude',
   hours: 'Every day, 8:30 AM - 9:00 PM',
-  ratingLabel: '5.0 stars on Uber Eats (140+ verified reviews)',
+  ratingLabel: '5.0 on Uber Eats · 5.0 on Google · Loved by 200+ customers',
   locations: ['Bandara Mawatha, Galle', 'Thalapitiya Road, Galle']
 } as const;
 
@@ -48,20 +48,21 @@ export const heroImages = {
 
 // Gallery strip photos — used on homepage food photography section
 export const galleryPhotos = [
-  '/images/DSC02999.jpeg',
-  '/images/DSC02838.jpeg',
-  '/images/DSC02861.jpeg',
-  '/images/DSC02843.jpeg',
-  '/images/DSC02975.jpeg',
-  '/images/IMG_5228.JPG',
-  '/images/IMG_5416.JPG',
-  '/images/IMG_5515.JPG',
-  '/images/IMG_5790.JPG',
-  '/images/IMG_5817.JPG',
-  '/images/IMG_6485.JPG',
-  '/images/DSC03585 Large.jpeg',
-  '/images/DSC03638 Large.jpeg',
-  '/images/DSC03694 Large.jpeg',
+  '/images/DSC02999.jpeg',         // food
+  '/images/bts-customers.jpeg',    // people
+  '/images/DSC02838.jpeg',         // food
+  '/images/bts-team.jpeg',         // people
+  '/images/DSC02861.jpeg',         // food
+  '/images/founder-photo.jpeg',    // people
+  '/images/DSC02843.jpeg',         // food
+  '/images/bts-customers.jpeg',    // people
+  '/images/DSC02975.jpeg',         // food
+  '/images/bts-team.jpeg',         // people
+  '/images/IMG_5228.JPG',          // food
+  '/images/founder-photo.jpeg',    // people
+  '/images/DSC03585 Large.jpeg',   // food
+  '/images/bts-customers.jpeg',    // people
+  '/images/DSC03694 Large.jpeg',   // food
 ] as const;
 
 type MenuCategorySeed = Pick<MenuCategory, 'name' | 'description'> & {
