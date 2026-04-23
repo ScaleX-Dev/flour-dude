@@ -1,0 +1,5 @@
+import { StudioNav } from '@/components/studio/StudioNav';
+
+export default function StudioLayout({ children }: { children: React.ReactNode }) {
+  return <StudioNav>{children}</StudioNav>;
+}

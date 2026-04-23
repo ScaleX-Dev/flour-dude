@@ -13,7 +13,7 @@ type WhatsAppButtonProps = {
 };
 
 const sizeClasses: Record<WhatsAppButtonProps['size'], string> = {
-  sm: 'px-3 py-1.5 text-sm',
+  sm: 'px-4 py-2.5 text-sm font-semibold w-full sm:w-auto',
   md: 'px-4 py-2 text-sm',
   lg: 'px-6 py-3 text-base'
 };

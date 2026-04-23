@@ -320,7 +320,9 @@ const promotion: CollectionConfig = {
   },
   fields: [
     { name: 'headline', type: 'text', required: true },
+    { name: 'sub_headline', type: 'text', maxLength: 140 },
     { name: 'description', type: 'textarea' },
+    { name: 'image', type: 'upload', relationTo: 'media' },
     { name: 'cta_text', type: 'text' },
     { name: 'cta_url', type: 'text' },
     { name: 'active', type: 'checkbox', defaultValue: false },
@@ -330,6 +332,7 @@ const promotion: CollectionConfig = {
       type: 'select',
       required: true,
       options: [
+        { label: 'Seasonal Offer', value: 'seasonal' },
         { label: 'Homepage', value: 'homepage' },
         { label: 'Menu', value: 'menu' },
         { label: 'Global', value: 'global' }
