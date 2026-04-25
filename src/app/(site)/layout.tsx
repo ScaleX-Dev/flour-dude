@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
-import { WhatsAppFAB } from '@/components/layout/WhatsAppFab';
 import { LOCAL_BUSINESS_SCHEMA, SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { siteConfig } from '@/lib/site';
 
@@ -26,7 +25,6 @@ export default function SiteRootLayout({ children }: { children: React.ReactNode
       <SiteHeader />
       <main className="min-h-screen">{children}</main>
       <SiteFooter />
-      <WhatsAppFAB />
     </>
   );
 }

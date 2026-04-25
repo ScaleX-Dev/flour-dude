@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { WhatsAppFAB } from '@/components/layout/WhatsAppFab';
 import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { Button } from '@/components/ui/button';
 import { generateMetadata } from '@/lib/metadata';
@@ -24,6 +25,7 @@ export default async function AboutPage() {
   return (
     <>
       <SchemaMarkup id="schema-breadcrumb-about" schema={breadcrumbSchema} />
+      <WhatsAppFAB />
       <section className="relative h-[calc(480px+var(--header-height))] md:h-[calc(540px+var(--header-height))] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
         <Image 
           src="/images/IMG_5416.JPG" 

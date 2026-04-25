@@ -34,7 +34,7 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackWhatsAppClick(`common:${messageType}`)}
-      className={`inline-flex items-center justify-center rounded-button bg-brand-caramel px-6 py-3 text-sm font-semibold text-brand-warmWhite transition hover:bg-brand-caramelLight ${className}`}
+      className={`inline-flex items-center justify-center rounded-button bg-brand-caramel px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-brand-warmWhite transition hover:bg-brand-caramelLight ${className}`}
     >
       {label}
     </a>
