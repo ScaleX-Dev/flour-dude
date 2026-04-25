@@ -25,6 +25,7 @@ import {
   testimonials,
   whatsappMessages
 } from '@/lib/site';
+import { WhatsAppFAB } from '@/components/layout/WhatsAppFab';
 import { WA } from '@/lib/whatsapp';
 
 export const revalidate = 60;
@@ -315,6 +316,7 @@ export default async function SiteHomePage() {
   return (
     <>
       <SchemaMarkup id="schema-home-aggregate-rating" schema={aggregateRatingSchema} />
+      <WhatsAppFAB />
 
       {/* ───── HERO ───── */}
       <section className="relative min-h-[92svh] sm:min-h-[95vh] overflow-hidden bg-brand-deepBrown text-white flex flex-col">
@@ -356,7 +358,7 @@ export default async function SiteHomePage() {
                 href={data.heroPrimaryCtaHref}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-pill px-7 h-13 min-h-[52px] bg-brand-caramel text-white font-medium tracking-wide text-sm hover:bg-brand-caramelLight transition-all duration-300 shadow-lg"
+                className="inline-flex items-center justify-center gap-2 rounded-pill px-6 sm:px-7 min-h-[44px] sm:min-h-[52px] bg-brand-caramel text-white font-medium tracking-wide text-sm hover:bg-brand-caramelLight transition-all duration-300 shadow-lg"
               >
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current shrink-0" aria-hidden="true">
                   <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Zm-8.35 18.13h-.01a9.86 9.86 0 01-5.03-1.38l-.36-.21-3.81 1.1 1.11-3.71-.24-.38a9.83 9.83 0 01-1.5-5.2c0-5.44 4.42-9.86 9.86-9.86 2.63 0 5.1 1.03 6.97 2.9a9.77 9.77 0 012.88 6.96c0 5.43-4.43 9.85-9.87 9.85Z" />
@@ -365,7 +367,7 @@ export default async function SiteHomePage() {
               </a>
               <Link
                 href="/menu"
-                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] border border-white/25 bg-white/5 text-white font-medium tracking-wide text-sm hover:bg-white hover:text-brand-deepBrown transition-all duration-300 backdrop-blur-sm"
+                className="inline-flex items-center justify-center rounded-pill px-6 sm:px-7 min-h-[44px] sm:min-h-[52px] border border-white/25 bg-white/5 text-white font-medium tracking-wide text-sm hover:bg-white hover:text-brand-deepBrown transition-all duration-300 backdrop-blur-sm"
               >
                 View Menu
               </Link>
@@ -422,7 +424,7 @@ export default async function SiteHomePage() {
                   href={WA.customCake()}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-pill px-7 h-12 bg-brand-caramel text-white hover:bg-brand-deepBrown transition-all font-medium text-sm whitespace-nowrap"
+                  className="inline-flex items-center justify-center rounded-pill px-5 sm:px-7 h-10 sm:h-12 bg-brand-caramel text-white hover:bg-brand-deepBrown transition-all font-medium text-sm whitespace-nowrap"
                 >
                   Claim via WhatsApp
                 </a>
@@ -614,7 +616,7 @@ export default async function SiteHomePage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/cakes"
-                className="inline-flex items-center justify-center rounded-pill px-7 min-h-[52px] bg-brand-caramel text-white font-medium text-sm hover:bg-brand-caramelLight transition-all"
+                className="inline-flex items-center justify-center rounded-pill px-6 sm:px-7 min-h-[44px] sm:min-h-[52px] bg-brand-caramel text-white font-medium text-sm hover:bg-brand-caramelLight transition-all"
               >
                 View Portfolio
               </Link>
@@ -622,7 +624,7 @@ export default async function SiteHomePage() {
                 href={WA.customCake()}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-pill px-7 min-h-[52px] border border-white/20 text-white font-medium text-sm hover:bg-white hover:text-brand-deepBrown transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-pill px-6 sm:px-7 min-h-[44px] sm:min-h-[52px] border border-white/20 text-white font-medium text-sm hover:bg-white hover:text-brand-deepBrown transition-all"
               >
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current shrink-0" aria-hidden="true">
                   <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
@@ -727,7 +729,7 @@ export default async function SiteHomePage() {
                 href={WA.customCake()}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 rounded-pill px-8 min-h-[56px] w-full sm:w-auto bg-[#25D366] text-white font-medium hover:bg-[#1ebe5d] transition-all tracking-wide text-sm shadow-xl"
+                className="inline-flex items-center justify-center gap-2.5 rounded-pill px-7 sm:px-8 min-h-[44px] sm:min-h-[56px] w-full sm:w-auto bg-[#25D366] text-white font-medium hover:bg-[#1ebe5d] transition-all tracking-wide text-sm shadow-xl"
               >
                 <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current shrink-0" aria-hidden="true">
                   <path d="M20.52 3.48A11.75 11.75 0 0012.17 0C5.66 0 .34 5.32.34 11.83c0 2.09.55 4.13 1.58 5.93L0 24l6.42-1.86a11.81 11.81 0 005.74 1.47h.01c6.51 0 11.83-5.31 11.83-11.82 0-3.16-1.23-6.13-3.48-8.31Z" />
@@ -736,7 +738,7 @@ export default async function SiteHomePage() {
               </a>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-pill px-8 min-h-[56px] w-full sm:w-auto border border-white/20 text-white font-medium text-sm hover:bg-white hover:text-brand-deepBrown transition-all"
+                className="inline-flex items-center justify-center rounded-pill px-7 sm:px-8 min-h-[44px] sm:min-h-[56px] w-full sm:w-auto border border-white/20 text-white font-medium text-sm hover:bg-white hover:text-brand-deepBrown transition-all"
               >
                 Find Us in Galle
               </Link>

@@ -8,16 +8,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-brand-caramel text-white hover:bg-brand-caramel-light rounded-pill px-8 py-3',
-        outline: 'border-2 border-brand-caramel text-brand-caramel hover:bg-brand-caramel/10 rounded-pill px-8 py-3',
-        dark: 'bg-brand-deepBrown text-brand-cream hover:bg-brand-charcoal rounded-pill px-8 py-3',
-        whatsapp: 'bg-[var(--wa-green)] text-white hover:brightness-95 rounded-pill px-8 py-3',
-        ghost: 'bg-transparent text-brand-textBody hover:bg-brand-cream rounded-pill px-8 py-3'
+        primary: 'bg-brand-caramel text-white hover:bg-brand-caramel-light rounded-pill px-6 py-2.5 sm:px-8 sm:py-3',
+        outline: 'border-2 border-brand-caramel text-brand-caramel hover:bg-brand-caramel/10 rounded-pill px-6 py-2.5 sm:px-8 sm:py-3',
+        dark: 'bg-brand-deepBrown text-brand-cream hover:bg-brand-charcoal rounded-pill px-6 py-2.5 sm:px-8 sm:py-3',
+        whatsapp: 'bg-[var(--wa-green)] text-white hover:brightness-95 rounded-pill px-6 py-2.5 sm:px-8 sm:py-3',
+        ghost: 'bg-transparent text-brand-textBody hover:bg-brand-cream rounded-pill px-6 py-2.5 sm:px-8 sm:py-3'
       },
       size: {
         default: 'text-sm',
-        sm: 'px-6 py-2.5 text-xs',
-        lg: 'px-10 py-3.5 text-base',
+        sm: 'px-4 py-2 text-xs sm:px-6 sm:py-2.5',
+        lg: 'px-8 py-3 text-base sm:px-10 sm:py-3.5',
         icon: 'h-10 w-10 rounded-pill p-0',
         'icon-sm': 'h-8 w-8 rounded-pill p-0'
       }
