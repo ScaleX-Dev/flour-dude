@@ -100,18 +100,18 @@ export function DeliveryOrderButtons({
   compact?: boolean;
 }) {
   return (
-    <div className="flex w-full flex-wrap gap-3 sm:flex-nowrap">
+    <div className="flex flex-nowrap items-center gap-2.5 w-full">
       <a
         href={uberEatsUrl}
         target="_blank"
         rel="noreferrer"
         onClick={() => trackDeliveryClick('uber_eats')}
-        className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-brand-caramel px-3 sm:px-4 py-2.5 sm:py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
-          compact ? 'min-h-[40px] sm:min-h-[44px]' : 'min-h-[44px] sm:min-h-[48px]'
+        className={`inline-flex flex-1 items-center justify-center gap-1.5 rounded-pill bg-brand-caramel text-white font-medium whitespace-nowrap transition hover:brightness-105 ${
+          compact ? 'h-9 px-4 text-xs' : 'h-10 px-5 text-sm'
         }`}
       >
         <UberEatsLogo />
-        <span>Order on Uber Eats</span>
+        <span>Uber Eats</span>
       </a>
 
       <a
@@ -119,12 +119,12 @@ export function DeliveryOrderButtons({
         target="_blank"
         rel="noreferrer"
         onClick={() => trackDeliveryClick('pickme')}
-        className={`inline-flex flex-1 items-center justify-center gap-2 rounded-button bg-brand-deepBrown px-3 sm:px-4 py-2.5 sm:py-3 text-sm font-semibold text-white transition hover:brightness-105 ${
-          compact ? 'min-h-[40px] sm:min-h-[44px]' : 'min-h-[44px] sm:min-h-[48px]'
+        className={`inline-flex flex-1 items-center justify-center gap-1.5 rounded-pill bg-brand-deepBrown text-white font-medium whitespace-nowrap transition hover:brightness-105 ${
+          compact ? 'h-9 px-4 text-xs' : 'h-10 px-5 text-sm'
         }`}
       >
         <PickMeLogo />
-        <span>Order on PickMe Food</span>
+        <span>PickMe Food</span>
       </a>
     </div>
   );
