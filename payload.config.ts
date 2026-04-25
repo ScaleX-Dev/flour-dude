@@ -545,7 +545,8 @@ export default buildConfig({
   globals: [siteSettings],
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || ''
+      connectionString: process.env.DATABASE_URI || '',
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
     }
   }),
   editor: lexicalEditor(),
@@ -561,7 +562,11 @@ export default buildConfig({
     })
   ],
   secret: process.env.PAYLOAD_SECRET || 'replace-me',
-  serverURL: process.env.NEXT_PUBLIC_SITE_URL,
+  serverURL: process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : 'http://localhost:3000',
   typescript: {
     outputFile: path.resolve(dirname, 'src/payload-types.ts')
   }
