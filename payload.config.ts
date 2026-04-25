@@ -547,8 +547,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
       ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-      ...(process.env.NODE_ENV === 'production' && { statement_timeout: 10000 })
-    }
+    },
   }),
   editor: lexicalEditor(),
   plugins: [
