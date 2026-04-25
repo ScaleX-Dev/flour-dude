@@ -42,12 +42,17 @@ export interface PayloadUser {
   email: string;
 }
 
-export async function loginUser(email: string, password: string): Promise<PayloadUser> {
+export async function loginUser(emailOrUsername: string, password: string): Promise<PayloadUser> {
+  const isEmail = emailOrUsername.includes('@');
+  const body = isEmail
+    ? { email: emailOrUsername, password }
+    : { username: emailOrUsername, password };
+
   const data = await studioFetch<{ user: PayloadUser; token: string }>(
     '/users/login',
     {
       method: 'POST',
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(body),
     }
   );
   return data.user;

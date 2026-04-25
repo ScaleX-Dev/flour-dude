@@ -37,11 +37,26 @@ const slugHook = (sourceField: string): FieldHook => ({ data }) => {
 
 const users: CollectionConfig = {
   slug: 'users',
-  auth: true,
-  admin: {
-    useAsTitle: 'email'
+  auth: {
+    loginWithUsername: {
+      allowEmailLogin: true,
+      requireEmail: true,
+    },
   },
-  fields: []
+  admin: {
+    useAsTitle: 'username',
+  },
+  fields: [
+    {
+      name: 'username',
+      type: 'text',
+      required: true,
+      unique: true,
+      admin: {
+        description: 'Used to log in alongside email',
+      },
+    },
+  ],
 };
 
 const media: CollectionConfig = {

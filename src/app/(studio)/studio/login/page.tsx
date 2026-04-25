@@ -7,7 +7,7 @@ import { loginUser } from '@/lib/studio-api';
 
 export default function StudioLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState('');
@@ -19,10 +19,10 @@ export default function StudioLoginPage() {
     setLoading(true);
 
     try {
-      await loginUser(email.trim(), password);
+      await loginUser(identifier.trim(), password);
       router.push('/studio');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Invalid email or password.');
+      setError(err instanceof Error ? err.message : 'Invalid credentials.');
     } finally {
       setLoading(false);
     }
@@ -54,18 +54,18 @@ export default function StudioLoginPage() {
               </div>
             )}
 
-            {/* Email */}
+            {/* Email or Username */}
             <div className="space-y-1.5">
               <label className="block text-sm font-medium text-gray-700">
-                Email address
+                Email or Username
               </label>
               <input
-                type="email"
-                autoComplete="email"
+                type="text"
+                autoComplete="username"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                placeholder="you@example.com or your_username"
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 text-sm placeholder-gray-400 outline-none focus:ring-2 focus:ring-brand-caramel/30 focus:border-brand-caramel transition-all"
               />
             </div>
