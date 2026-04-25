@@ -546,7 +546,8 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
-      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+      ...(process.env.NODE_ENV === 'production' && { statement_timeout: 10000 })
     }
   }),
   editor: lexicalEditor(),
