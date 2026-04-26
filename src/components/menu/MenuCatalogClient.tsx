@@ -38,6 +38,7 @@ type MenuCatalogClientProps = {
   uberEatsUrl: string;
   pickMeUrl: string;
   heroCtaId?: string;
+  initialTab?: string;
 };
 
 type TabItem = {
@@ -135,7 +136,8 @@ export function MenuCatalogClient({
   items,
   uberEatsUrl,
   pickMeUrl,
-  heroCtaId = 'menu-hero-ctas'
+  heroCtaId = 'menu-hero-ctas',
+  initialTab
 }: MenuCatalogClientProps) {
   const normalizedCategories = useMemo(
     () =>
@@ -212,8 +214,26 @@ export function MenuCatalogClient({
     return [{ key: 'all', label: 'All Menu' }, ...cmsTabs];
   }, [sortedCategories]);
 
-  const [activeTab, setActiveTab] = useState<string>('all');
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (initialTab && initialTab !== 'all') {
+      return initialTab;
+    }
+    return 'all';
+  });
   const [showMobileBar, setShowMobileBar] = useState(false);
+
+  useEffect(() => {
+    if (!initialTab || initialTab === 'all') {
+      return;
+    }
+    const catalogEl = document.getElementById('menu-catalog-tabs');
+    if (!catalogEl) {
+      return;
+    }
+    const offset = 80;
+    const top = catalogEl.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, [initialTab]);
 
   useEffect(() => {
     const target = document.getElementById(heroCtaId);
@@ -249,7 +269,7 @@ export function MenuCatalogClient({
 
   return (
     <>
-      <div className="sticky top-[var(--header-height)] z-10 border-b border-brand-border bg-brand-cream/95 backdrop-blur-xl">
+      <div id="menu-catalog-tabs" className="sticky top-[var(--header-height)] z-10 border-b border-brand-border bg-brand-cream/95 backdrop-blur-xl">
         <div className="content-shell">
           <div className="no-scrollbar -mx-2 flex overflow-x-auto px-2 justify-start md:justify-center">
             {tabs.map((tab) => {
