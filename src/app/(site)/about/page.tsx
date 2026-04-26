@@ -4,8 +4,8 @@ import { WhatsAppFAB } from '@/components/layout/WhatsAppFab';
 import { SchemaMarkup, buildBreadcrumbSchema } from '@/components/seo/SchemaMarkup';
 import { Button } from '@/components/ui/button';
 import { generateMetadata } from '@/lib/metadata';
-import { getSiteSettingsData } from '@/lib/payload';
 import { buildWhatsAppLink, whatsappMessages } from '@/lib/site';
+import { WA } from '@/lib/whatsapp';
 
 export const metadata = generateMetadata({
   title: 'About Flour Dude — Our Story · Galle Bakery',
@@ -15,8 +15,6 @@ export const metadata = generateMetadata({
 });
 
 export default async function AboutPage() {
-  const settings = await getSiteSettingsData();
-  const founderImage = '/images/bts-team.jpeg';
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' }
@@ -26,127 +24,112 @@ export default async function AboutPage() {
     <>
       <SchemaMarkup id="schema-breadcrumb-about" schema={breadcrumbSchema} />
       <WhatsAppFAB />
-      <section className="relative h-[calc(480px+var(--header-height))] md:h-[calc(540px+var(--header-height))] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-24 pt-[calc(var(--header-height)+2.5rem)]">
-        <Image 
-          src="/images/IMG_5416.JPG" 
-          alt="The Flour Dude team" 
-          fill 
-          priority 
-          sizes="100vw" 
-          className="object-cover object-center opacity-55 scale-105 animate-[ken-burns_30s_ease-out_forwards]" 
+
+      {/* ───── HERO ───── */}
+      <section className="relative h-[calc(520px+var(--header-height))] md:h-[calc(600px+var(--header-height))] overflow-hidden bg-brand-deepBrown text-white flex flex-col justify-end pb-16 md:pb-28 pt-[calc(var(--header-height)+2.5rem)]">
+        <Image
+          src="/images/IMG_5416.JPG"
+          alt="Flour Dude founder in the kitchen"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-50 scale-105 animate-[ken-burns_30s_ease-out_forwards]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-deepBrown via-brand-deepBrown/55 to-transparent" />
 
         <div className="relative z-10 w-full animate-rise-in px-6 sm:px-10 md:px-16 lg:px-24">
-          <div className="max-w-3xl space-y-6">
-            <h1 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-              Our Story
+          <div className="max-w-3xl space-y-5">
+            <p className="font-sans text-xs font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+              Our Story · Galle, Sri Lanka
+            </p>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-[68px] lg:text-[76px] tracking-tighter text-white leading-[1.02]">
+              Built From a Home,<br className="hidden sm:block" /> Meant for you to stay.
             </h1>
-            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[80px] tracking-tighter text-white leading-[1] md:leading-[0.95]">
-              About Flour Dude.
+          </div>
+        </div>
+      </section>
+
+      {/* ───── STORY BODY ───── */}
+      <section className="bg-brand-cream border-b border-brand-border">
+        <div className="content-shell max-w-3xl mx-auto py-20 md:py-28 space-y-20">
+
+          {/* Opening */}
+          <div className="space-y-6">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-brand-deepBrown tracking-tight leading-tight">
+              We Changed a Home<br /> Into Ours.
             </h2>
-            <p className="text-base sm:text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl">
-              We are a Galle-born bakery cafe focused on all-day comfort food, handcrafted drinks, and customised cakes for life&apos;s biggest moments.
+            <p className="text-base sm:text-lg font-light text-brand-textMuted leading-relaxed">
+              The story of Flour Dude isn&apos;t really about baking. It&apos;s about a group of friends who needed somewhere to belong — and decided to build it themselves.
             </p>
           </div>
-        </div>
-      </section>
 
-      <section className="section-space border-b border-brand-border bg-brand-cream">
-        <div className="content-shell grid gap-16 lg:grid-cols-[1fr_1fr] items-center">
-          <article className="space-y-8 max-w-2xl">
-            <div className="space-y-4">
-              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                The Founder
-              </h2>
-              <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
-                {settings.founderName}
-              </h3>
-            </div>
-            <div className="space-y-6 text-lg font-light text-brand-textMuted leading-relaxed">
-              {settings.founderStory.map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
-              ))}
-            </div>
-          </article>
+          <hr className="border-brand-border/60" />
 
-          <article className="relative">
-            <div className="absolute -inset-4 bg-brand-caramel/10 rounded-[40px] transform rotate-3"></div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-brand-border/40 bg-brand-warmWhite shadow-floating">
-              <Image 
-                src={founderImage} 
-                alt="Founder portrait" 
-                fill 
-                sizes="(max-width: 1024px) 100vw, 45vw" 
-                className="object-cover" 
-              />
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="section-space bg-brand-warmWhite border-t border-brand-border">
-        <div className="content-shell space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-4">
-            <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-              Studio
-            </h2>
-            <h3 className="font-display text-4xl md:text-5xl text-brand-deepBrown tracking-tight leading-tight">
-              Behind The Scenes
+          {/* Section 1 */}
+          <div className="space-y-6">
+            <h3 className="font-display italic text-3xl sm:text-4xl text-brand-deepBrown leading-snug">
+              A cafe was always a kind of home.
             </h3>
+            <div className="space-y-5 text-base sm:text-[17px] font-light text-brand-textMuted leading-relaxed">
+              <p>
+                Long before Flour Dude had a name, it had a feeling. Good people. Good food. A table where no one was in a rush to leave. That was what a cafe meant — not a transaction, but a place that felt like yours.
+              </p>
+              <p>
+                So when it came to figuring out what to do with that feeling, baking made sense. Friends kept coming back. They&apos;d sit there and say, half-joking, <em>&ldquo;this should be a cafe.&rdquo;</em>
+              </p>
+            </div>
+
+            <blockquote className="border-l-2 border-brand-caramel pl-6 py-1">
+              <p className="font-light text-base sm:text-lg text-brand-deepBrown leading-relaxed">
+                So with the help of family and the people who&apos;d been there since the beginning — we changed a home into ours.
+              </p>
+            </blockquote>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { src: '/images/bts-team.jpeg', alt: 'Flour Dude team at an event', span: '' },
-              { src: '/images/bts-customers.jpeg', alt: 'Happy customers at Flour Dude', span: '' },
-              { src: '/images/founder-photo.jpeg', alt: 'The Flour Dude bakery stall', span: '' },
-              { src: '/images/DSC02999.jpeg', alt: 'Tiramisu eclair by Flour Dude', span: '' },
-              { src: '/images/DSC02861.jpeg', alt: 'Handcrafted pastry from Flour Dude', span: '' },
-              { src: '/images/437F038A-F539-4083-BF11-785239F2B958.JPG', alt: 'Live event at Flour Dude cafe', span: '' },
-            ].map((img, index) => (
-              <article 
-                key={`${img.src}-${index}`} 
-                className="group relative aspect-square overflow-hidden rounded-[24px] bg-brand-cream"
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-                <div className="absolute inset-0 transition-opacity duration-500 bg-brand-deepBrown/10 opacity-0 group-hover:opacity-100 mix-blend-multiply" />
-              </article>
-            ))}
+          <hr className="border-brand-border/60" />
+
+          {/* Section 2 */}
+          <div className="space-y-6">
+            <h3 className="font-display italic text-3xl sm:text-4xl text-brand-deepBrown leading-snug">
+              The small things are the whole thing.
+            </h3>
+            <div className="space-y-5 text-base sm:text-[17px] font-light text-brand-textMuted leading-relaxed">
+              <p>
+                From the beginning, the goal was never to open another bakery. It was to make food that was honest — the kind you&apos;d actually be proud to hand to someone.
+              </p>
+              <p>
+                That means caring about the texture of a sponge. The balance of sweetness in a ganache. Whether something tastes as good on the last bite as the first. When something is made with care, people can taste the difference.
+              </p>
+            </div>
           </div>
+
         </div>
       </section>
 
-      <section className="py-24 bg-brand-deepBrown text-white">
-        <div className="content-shell">
-          <div className="max-w-4xl mx-auto text-center space-y-10 bg-brand-warmWhite/5 border border-white/10 rounded-[32px] p-10 md:p-16 backdrop-blur-md">
-            <div className="space-y-4">
-              <h2 className="font-sans text-sm font-semibold tracking-[0.2em] uppercase text-brand-caramel">
-                Experience Flour Dude
-              </h2>
-              <h3 className="font-display text-4xl md:text-5xl text-white tracking-tight leading-tight">
-                Ready to order?
-              </h3>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <a href={buildWhatsAppLink(whatsappMessages.customCake)} target="_blank" rel="noreferrer" className="w-full sm:w-auto">
-                <Button className="rounded-pill px-8 h-14 bg-brand-warmWhite text-brand-deepBrown hover:bg-brand-caramel hover:text-white transition-all font-medium tracking-wide w-full">
-                  Order on WhatsApp
-                </Button>
-              </a>
-              <Link href="/cakes" className="w-full sm:w-auto">
-                <Button className="rounded-pill px-8 h-14 border border-white/20 bg-transparent text-white hover:bg-brand-warmWhite hover:text-brand-deepBrown transition-all font-medium tracking-wide w-full">
-                  See Our Cakes →
-                </Button>
-              </Link>
-            </div>
+      {/* ───── CLOSING CTA ───── */}
+      <section className="bg-brand-warmWhite border-t border-brand-border py-24 md:py-32">
+        <div className="content-shell max-w-3xl mx-auto space-y-8">
+          <h2 className="font-display italic text-4xl sm:text-5xl md:text-6xl text-brand-deepBrown tracking-tight leading-tight">
+            Come be part of it.
+          </h2>
+          <p className="text-base sm:text-lg font-light text-brand-textMuted leading-relaxed max-w-xl">
+            Walk in for coffee and something fresh. Or WhatsApp us about the cake that&apos;s going to make your next celebration unforgettable. Either way, we&apos;re glad you&apos;re here.
+          </p>
+          <div className="flex flex-col sm:flex-row items-start gap-4 pt-2">
+            <a
+              href={WA.customCake()}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button className="rounded-pill px-8 h-12 bg-brand-caramel text-white hover:bg-brand-deepBrown transition-all font-medium tracking-wide">
+                Order on WhatsApp
+              </Button>
+            </a>
+            <Link href="/cakes">
+              <Button variant="outline" className="rounded-pill px-8 h-12 border-brand-deepBrown/30 text-brand-deepBrown hover:bg-brand-deepBrown hover:text-white transition-all font-medium tracking-wide">
+                See Our Cakes →
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

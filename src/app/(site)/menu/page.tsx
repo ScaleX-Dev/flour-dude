@@ -103,7 +103,13 @@ async function getPageData() {
   };
 }
 
-export default async function MenuPage() {
+export default async function MenuPage({
+  searchParams
+}: {
+  searchParams?: Promise<{ tab?: string }>;
+}) {
+  const resolvedParams = await searchParams;
+  const initialTab = resolvedParams?.tab;
   const { categories, items, specialBanner, settings } = await getPageData();
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Home', path: '/' },
@@ -191,6 +197,7 @@ export default async function MenuPage() {
           uberEatsUrl={settings.uberEatsUrl}
           pickMeUrl={settings.pickMeUrl}
           heroCtaId="menu-hero-ctas"
+          initialTab={initialTab}
         />
       </div>
 

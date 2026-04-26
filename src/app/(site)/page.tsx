@@ -497,24 +497,27 @@ export default async function SiteHomePage() {
                 src: '/images/menu-feature-waffle.jpg',
                 label: 'Waffles & Sweets',
                 desc: 'Messy Waffle, French Toast & more',
-                from: 'From LKR 900'
+                from: 'From LKR 900',
+                tab: 'waffles-sweets'
               },
               {
                 src: '/images/menu-feature-cheesecake.jpg',
                 label: 'Cakes & Muffins',
                 desc: 'Matilda Choc Fudge, Cheesecake & more',
-                from: 'From LKR 550'
+                from: 'From LKR 550',
+                tab: 'cakes-muffins'
               },
               {
                 src: '/images/menu-feature-savory.jpg',
                 label: 'All-Day Savory',
                 desc: 'Wraps, Sandwiches, Quesadilla & more',
-                from: 'From LKR 900'
+                from: 'From LKR 900',
+                tab: 'savory'
               }
             ].map((feature) => (
               <Link
                 key={feature.label}
-                href="/menu"
+                href={`/menu?tab=${feature.tab}`}
                 className="group relative aspect-[4/3] overflow-hidden rounded-2xl block"
               >
                 <Image
