@@ -106,6 +106,45 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      {/* ───── PHOTO GRID ───── */}
+      <section className="bg-brand-warmWhite border-t border-brand-border py-20 md:py-28">
+        <div className="content-shell space-y-12">
+          <div className="space-y-3 max-w-2xl">
+            <p className="font-sans text-xs font-semibold tracking-[0.22em] uppercase text-brand-caramel">
+              Studio
+            </p>
+            <h2 className="font-display text-4xl sm:text-5xl text-brand-deepBrown tracking-tight leading-tight">
+              Behind The Scenes
+            </h2>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { src: '/images/bts-team.jpeg', alt: 'Flour Dude team at an event' },
+              { src: '/images/bts-customers.jpeg', alt: 'Happy customers at Flour Dude' },
+              { src: '/images/founder-photo.jpeg', alt: 'The Flour Dude bakery stall' },
+              { src: '/images/DSC02999.jpeg', alt: 'Tiramisu eclair by Flour Dude' },
+              { src: '/images/DSC02861.jpeg', alt: 'Handcrafted pastry from Flour Dude' },
+              { src: '/images/437F038A-F539-4083-BF11-785239F2B958.JPG', alt: 'Live event at Flour Dude cafe' },
+            ].map((img, index) => (
+              <article
+                key={`${img.src}-${index}`}
+                className="group relative aspect-square overflow-hidden rounded-[24px] bg-brand-cream"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+                <div className="absolute inset-0 transition-opacity duration-500 bg-brand-deepBrown/10 opacity-0 group-hover:opacity-100 mix-blend-multiply" />
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ───── CLOSING CTA ───── */}
       <section className="bg-brand-warmWhite border-t border-brand-border py-24 md:py-32">
         <div className="content-shell max-w-3xl mx-auto space-y-8">
